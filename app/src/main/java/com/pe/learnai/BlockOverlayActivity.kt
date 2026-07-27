@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -25,33 +26,34 @@ class BlockOverlayActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Prevent back navigation to the blocked app
-        onBackPressedDispatcher.addCallback(this) { /* block back press */ }
+        // Back goes home, not back into the blocked app
+        onBackPressedDispatcher.addCallback(this) { goHome() }
 
         setContent {
             AILearnEngTheme {
+                val context = LocalContext.current
+                val sessionDone by SessionManager.sessionCompleteFlow(context)
+                    .collectAsState(initial = false)
+
+                LaunchedEffect(sessionDone) {
+                    if (sessionDone) finish()
+                }
+
                 BlockOverlayScreen(
                     onPracticeClick = {
                         startActivity(Intent(this, PracticeActivity::class.java))
                     },
-                    onGoHomeClick = {
-                        startActivity(
-                            Intent(this, MainActivity::class.java).apply {
-                                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                            }
-                        )
-                        finish()
-                    }
+                    onGoHomeClick = { goHome() }
                 )
             }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (SessionManager.isSessionComplete(this)) {
-            finish()
-        }
+    private fun goHome() {
+        startActivity(Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_HOME)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        })
     }
 }
 
@@ -71,10 +73,7 @@ private fun BlockOverlayScreen(
             verticalArrangement = Arrangement.spacedBy(24.dp),
             modifier = Modifier.padding(32.dp)
         ) {
-            Text(
-                text = "🔒",
-                fontSize = 72.sp
-            )
+            Text(text = "🔒", fontSize = 72.sp)
 
             Text(
                 text = "App Blocked",
@@ -95,25 +94,18 @@ private fun BlockOverlayScreen(
 
             Button(
                 onClick = onPracticeClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF4CAF50)
-                )
+                modifier = Modifier.fillMaxWidth().height(56.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
             ) {
                 Text(
-                    text = "Practice English Now",
+                    text = "Do Today's Session",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold
                 )
             }
 
             TextButton(onClick = onGoHomeClick) {
-                Text(
-                    text = "Go to FocusGate",
-                    color = Color(0xFF7B8BB2)
-                )
+                Text(text = "Go Home", color = Color(0xFF7B8BB2))
             }
         }
     }
