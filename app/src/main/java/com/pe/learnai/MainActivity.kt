@@ -390,18 +390,19 @@ private fun HomeScreen() {
             }
         }
 
+        item {
+            GoalCard(
+                clips = clipsPerSession,
+                onDecrement = {
+                    scope.launch { SessionManager.setClipsPerSession(context, clipsPerSession - 1) }
+                },
+                onIncrement = {
+                    scope.launch { SessionManager.setClipsPerSession(context, clipsPerSession + 1) }
+                }
+            )
+        }
+
         if (!sessionComplete) {
-            item {
-                GoalCard(
-                    clips = clipsPerSession,
-                    onDecrement = {
-                        scope.launch { SessionManager.setClipsPerSession(context, clipsPerSession - 1) }
-                    },
-                    onIncrement = {
-                        scope.launch { SessionManager.setClipsPerSession(context, clipsPerSession + 1) }
-                    }
-                )
-            }
             item {
                 Button(
                     onClick = {
