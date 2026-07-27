@@ -352,12 +352,31 @@ private fun ExerciseContent(
                 modifier = Modifier.padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    clip.category.uppercase(),
-                    fontSize = 11.sp,
-                    letterSpacing = 1.5.sp,
-                    color = Color(0xFF7B8BB2)
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        clip.category.uppercase(),
+                        fontSize = 11.sp,
+                        letterSpacing = 1.5.sp,
+                        color = Color(0xFF7B8BB2)
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    val lvlColor = when (clip.level) {
+                        "A2" -> Color(0xFF66BB6A)
+                        "B1" -> Color(0xFFFFB74D)
+                        else -> Color(0xFFEF5350)
+                    }
+                    Box(
+                        modifier = Modifier
+                            .background(lvlColor.copy(alpha = 0.18f), RoundedCornerShape(4.dp))
+                            .padding(horizontal = 6.dp, vertical = 2.dp)
+                    ) {
+                        Text(clip.level, fontSize = 10.sp, color = lvlColor, fontWeight = FontWeight.SemiBold)
+                    }
+                }
                 Spacer(Modifier.height(12.dp))
                 // Show word-by-word highlight after result, plain text otherwise
                 AnimatedContent(

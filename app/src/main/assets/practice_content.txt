@@ -1,0 +1,377 @@
+# ============================================================
+# FocusGate — Practice Content
+# ============================================================
+# Cómo agregar frases:
+#   1. Ubica el bloque del tema (# TOPIC: ...) donde quieres agregar
+#   2. Agrega una línea con el formato:  Level | Category | Phrase text
+#   3. Levels: A2 (básico), B1 (intermedio), B2 (avanzado)
+#   4. Recompila e instala la app para que tome los cambios
+#
+# Cada tema tiene ~50 frases → ~50 días únicos por tema antes de repetir.
+# Si practicas 1 tema por día rotando los 6 temas → 6 × 50 = ~10 meses.
+# ============================================================
+
+# ╔══════════════════════════════════════════════════════════╗
+# TOPIC: HR_INTERVIEW | HR Interview | 💼 | Job interviews & career
+# ╚══════════════════════════════════════════════════════════╝
+
+# --- A2: Preguntas y respuestas básicas de entrevista ---
+A2 | Introduction     | Tell me a little bit about yourself and your background.
+A2 | Skills           | What programming languages do you work with?
+A2 | Experience       | Have you worked on mobile apps before?
+A2 | Experience       | How long have you been working as a developer?
+A2 | Remote           | Are you comfortable working remotely?
+A2 | Compensation     | What is your expected hourly rate or salary?
+A2 | Portfolio        | Can you share your portfolio or GitHub profile?
+A2 | Teams            | Have you worked with international teams before?
+A2 | Language         | Do you speak English well enough for daily communication?
+A2 | Preferences      | What kind of projects do you enjoy the most?
+A2 | Availability     | Are you available to work in this time zone?
+A2 | Closing          | Do you have any questions about the role or the team?
+A2 | Availability     | When would you be available to start working?
+A2 | Work style       | Do you prefer working alone or in a team?
+A2 | Skills           | What is your favorite mobile development framework?
+
+# --- B1: Preguntas de comportamiento e intermediate ---
+B1 | Experience       | Can you walk me through your most recent Android project in detail?
+B1 | Growth           | How do you stay up to date with changes in the Android ecosystem?
+B1 | Skills           | Describe your experience with Jetpack Compose and modern UI development.
+B1 | Work style       | How do you handle working under pressure or tight client deadlines?
+B1 | Problem-solving  | Can you describe a bug that was particularly difficult to solve?
+B1 | Organization     | How do you prioritize tasks when you have multiple deliverables?
+B1 | Adaptability     | Tell me about a time you had to learn a new technology quickly for a project.
+B1 | Quality          | How do you ensure the quality of your code before submitting for review?
+B1 | Best practices   | What is your approach to writing clean, maintainable code?
+B1 | Conflict         | Have you ever disagreed with a client or teammate? How did you handle it?
+B1 | Technical        | Can you tell me about your experience working with REST APIs?
+B1 | Communication    | How do you communicate progress and blockers to your client?
+B1 | Requirements     | What is your process when you receive unclear or changing requirements?
+B1 | Remote           | Have you managed your own schedule working async with remote teams?
+B1 | Feedback         | How do you handle feedback from a code review?
+B1 | Performance      | Describe a project where you significantly improved app performance.
+B1 | Estimation       | How do you approach estimating the effort required for a new feature?
+B1 | Achievement      | Tell me about a project you are particularly proud of and why.
+B1 | Tools            | What tools or methodologies do you use to manage your work?
+B1 | Agile            | How do you handle situations where the project scope changes mid-development?
+
+# --- B2: Preguntas avanzadas de arquitectura y liderazgo ---
+B2 | Strategy         | How do you balance technical excellence with business requirements and client expectations?
+B2 | Architecture     | Describe your experience designing scalable mobile architectures for production apps.
+B2 | Risk             | How do you approach identifying and mitigating technical risks in a project?
+B2 | Leadership       | Tell me about a time you influenced a major technical decision on your team.
+B2 | Standards        | How do you ensure your work aligns with accessibility and platform guidelines?
+B2 | DevOps           | Describe your experience setting up CI/CD pipelines for mobile applications.
+B2 | Decision-making  | How do you evaluate and choose between competing technical solutions?
+B2 | Testing          | What is your philosophy on testing — unit, integration, and UI tests?
+B2 | Client relations | How do you build trust and maintain long-term relationships with clients?
+B2 | Tech debt        | Describe how you handle technical debt in a client project.
+B2 | Communication    | How do you present technical concepts to non-technical stakeholders?
+B2 | Delivery         | Tell me about a time you delivered a complex feature under significant constraints.
+B2 | Freelance        | How do you ensure your freelance work consistently meets professional standards?
+B2 | Growth           | What is your strategy for building your reputation and attracting better clients?
+B2 | Negotiation      | How do you approach salary or rate negotiation with a prospective client?
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# TOPIC: DAILY_STANDUP | Daily Standup | 🖥️ | Agile team ceremonies
+# ╚══════════════════════════════════════════════════════════╝
+
+# --- A2: Updates simples del día ---
+A2 | Yesterday        | Yesterday I finished the login screen.
+A2 | Today            | Today I am working on the settings page.
+A2 | Blockers         | I am not blocked right now.
+A2 | Update           | I finished my task a bit early today.
+A2 | Progress         | I still need one more day for this feature.
+A2 | Review           | I reviewed two pull requests this morning.
+A2 | Deployment       | I deployed the fix to staging.
+A2 | Question         | I have a question about the design.
+A2 | Help             | I need help with this bug.
+A2 | Schedule         | I will be in a meeting this afternoon.
+A2 | Client           | I joined a client call this morning.
+A2 | Git              | I pushed my changes to the repository.
+
+# --- B1: Updates más completos con contexto ---
+B1 | Yesterday        | Yesterday I finished implementing the user authentication flow using JWT tokens.
+B1 | Today            | Today I am planning to complete the push notification module and write the unit tests.
+B1 | Blockers         | I am currently blocked waiting for API documentation from the backend team.
+B1 | Review           | I submitted the pull request and it is waiting for review from the team.
+B1 | Planning         | We might need to adjust the sprint goal based on the new client requirements.
+B1 | Estimation       | I will need about two more days to complete the end-to-end feature implementation.
+B1 | Technical        | The bug was caused by a null pointer exception in the data mapping layer.
+B1 | Coordination     | Can we schedule a quick sync after the standup to align on the technical design?
+B1 | Deployment       | I merged the feature branch and deployed it to the staging environment yesterday.
+B1 | Collaboration    | I am going to pair with a teammate today to resolve the blocking issue.
+B1 | API              | The API response is inconsistent — some fields are missing in certain responses.
+B1 | Testing          | I updated the unit tests to cover the edge cases we identified during QA.
+B1 | Refactoring      | I refactored the view model to improve the separation of concerns.
+B1 | Integration      | I integrated the third-party analytics SDK and tested it across multiple devices.
+B1 | Debug            | I am tracking a memory leak in the image loading component.
+B1 | Ticket           | I opened a Jira ticket for the regression we found during QA testing.
+B1 | Documentation    | I finished writing the technical documentation for the new authentication module.
+B1 | Environment      | The feature is working in development but failing on the staging environment.
+B1 | Schedule         | I will be less responsive on Slack this afternoon due to a client call.
+B1 | Performance      | I found a performance issue in the recycler view causing noticeable scroll lag.
+B1 | Build            | I updated the Gradle dependencies and fixed the build issue from last night.
+B1 | Planning         | I need to discuss the estimated effort for the next feature before committing.
+
+# --- B2: Updates técnicos avanzados ---
+B2 | Architecture     | We need to revisit the architectural approach before we continue with this module.
+B2 | Debug            | The recurring crash is related to a threading issue in the coroutine scope lifecycle.
+B2 | Proposal         | I am proposing we migrate the data layer from REST to GraphQL to reduce overfetching.
+B2 | CI               | The CI pipeline is failing intermittently — I suspect a race condition in the test suite.
+B2 | Security         | I have identified a potential security vulnerability in how we store tokens on device.
+B2 | Monitoring       | The feature flag is live in production and we are actively monitoring the analytics.
+B2 | Tech debt        | I recommend we allocate sprint capacity to address the accumulated technical debt.
+B2 | Backend          | The backend team needs to implement pagination before we can optimize the list view.
+B2 | Proposal         | I completed the proof of concept and it is ready for the team's architectural review.
+B2 | Quality          | We should define a clear error handling strategy before shipping this to production.
+B2 | Refactoring      | I refactored the DI configuration to improve testability across all modules.
+B2 | Performance      | The performance profiler reveals excessive object allocation happening on the main thread.
+B2 | DevOps           | I have been coordinating with the DevOps team to resolve the deployment pipeline failures.
+B2 | Planning         | We need to refine the acceptance criteria before starting development on this epic.
+B2 | Accessibility    | The accessibility audit revealed several critical issues we must address before launch.
+B2 | Caching          | I am proposing a caching layer to reduce redundant network calls and improve offline support.
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# TOPIC: DIRECTIONS | Directions | 🗺️ | Asking & giving directions
+# ╚══════════════════════════════════════════════════════════╝
+
+# --- A2: Frases básicas de orientación ---
+A2 | Asking           | Excuse me, how do I get to the city center?
+A2 | Giving           | Turn left at the traffic light.
+A2 | Giving           | Go straight for two blocks.
+A2 | Giving           | It is on the right side of the street.
+A2 | Landmark         | It is near the big supermarket.
+A2 | Transport        | Take the number five bus.
+A2 | Transport        | Get off at the next stop.
+A2 | Indoor           | The office is on the second floor.
+A2 | Asking           | Is there a metro station nearby?
+A2 | Distance         | How far is it from here?
+A2 | Asking           | Can I walk there or do I need a taxi?
+A2 | Apologizing      | Sorry, I am not from this area.
+A2 | Suggestion       | You should check Google Maps for that.
+A2 | Distance         | It is about ten minutes on foot.
+A2 | Giving           | The entrance is on the left.
+A2 | Giving           | Cross the street at the crosswalk.
+A2 | Landmark         | Go past the pharmacy on the corner.
+A2 | Indoor           | Take the elevator to the fourth floor.
+A2 | Location         | The parking lot is behind the building.
+A2 | Reassurance      | You cannot miss it — it is very large.
+
+# --- B1: Instrucciones más completas ---
+B1 | Asking           | Excuse me, could you tell me how to get to the nearest metro station from here?
+B1 | Giving           | Turn left at the traffic light and walk about two blocks north until you see the park.
+B1 | Transport        | You will want to take the number four bus and get off at the Central Avenue stop.
+B1 | Complex          | Go past the pharmacy, then take the second right after you pass the elementary school.
+B1 | Landmark         | It is right across the street from the main shopping mall — you really cannot miss it.
+B1 | Indoor           | The office is on the third floor — take the elevator on your right when you enter.
+B1 | Distance         | Keep going straight for about five minutes and the building will be on your left.
+B1 | Correction       | Make a U-turn here and the entrance to the parking lot will be on your right side.
+B1 | Clarification    | Would you mind walking me through the directions one more time? I got a bit confused.
+B1 | Asking           | Is the conference center within walking distance or should I take a taxi from here?
+B1 | Navigation       | I think we took a wrong turn — the map says the venue should be north of here.
+B1 | Indoor           | The check-in desk is located on the ground floor, past the reception area on the left.
+B1 | Security         | You have to go through the security checkpoint before you can access that wing.
+B1 | Transport        | The coffee shop we are meeting at is two stops away on the blue metro line.
+B1 | Asking           | Can you recommend the fastest route to the airport during morning rush hour?
+B1 | Scenic           | Walk along the riverfront for about five minutes and you will see the hotel on your right.
+B1 | Indoor           | The coworking space is in the basement — use the stairs at the back of the lobby.
+B1 | Traffic          | I usually take the back road to avoid the traffic on the main highway in the mornings.
+
+# --- B2: Direcciones avanzadas con matices ---
+B2 | Transport        | The most efficient route would be to take the express train and transfer at the central hub.
+B2 | Alternative      | Given the current road closures, I would recommend taking the alternate route via the ring road.
+B2 | Navigation       | The venue is a bit tricky to navigate — I will drop a pin on WhatsApp so you can follow it.
+B2 | Airport          | If you get confused at the interchange, follow the signs for the international terminal.
+B2 | Entrance         | The building has two entrances — make sure you use the south entrance on Bolivar Avenue.
+B2 | Traffic          | There is significant construction on the main road, so allow at least thirty extra minutes.
+B2 | Meeting          | I will meet you at the arrivals gate — it is easier to navigate from there together.
+B2 | GPS              | The GPS tends to send people the wrong way here — ignore it and follow the road signs.
+B2 | Highway          | Once you exit the highway, take the first roundabout exit and continue for about a kilometer.
+B2 | Obscure          | The landmark you are looking for is not visible from street level — it is on a pedestrian bridge.
+B2 | Suggestion       | For your first visit, I would strongly suggest downloading the offline map for this area.
+B2 | Reassurance      | If you miss the exit, do not worry — there is another entry point about two kilometers ahead.
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# TOPIC: MOBILE_DEV | Mobile Dev | 📱 | App development talk
+# ╚══════════════════════════════════════════════════════════╝
+
+# --- A2: Frases básicas del trabajo diario ---
+A2 | UI               | I am building this feature using Jetpack Compose.
+A2 | Bug              | There is a bug on Android 12 that I need to fix.
+A2 | Review           | Can you review my pull request?
+A2 | Architecture     | I am working with the MVVM architecture pattern.
+A2 | API              | The API is returning an error right now.
+A2 | Testing          | I need to write unit tests for this class.
+A2 | Networking       | I am using Retrofit to call the backend API.
+A2 | Bug              | The app crashes when the user rotates the screen.
+A2 | UX               | I added a loading spinner while the data is fetching.
+A2 | UI               | The layout looks different on small screen devices.
+A2 | Edge case        | I need to handle the case when there is no internet.
+A2 | Build            | The build is failing — I am checking the error logs.
+
+# --- B1: Comunicación técnica más elaborada ---
+B1 | Architecture     | I am building the new feature using Jetpack Compose with a clean MVVM architecture.
+B1 | Auth             | The API is returning a four oh three error — I need to refresh the authentication token.
+B1 | Testing          | We should write unit tests for this use case before merging it into the main branch.
+B1 | Bug              | The app is crashing on Android 12 due to background service execution restrictions.
+B1 | Performance      | I optimized the list rendering and reduced scroll lag by approximately sixty percent.
+B1 | Review           | Can you review my pull request? I added inline comments explaining the tricky parts.
+B1 | Edge case        | We need to handle the case where the user has no internet connection gracefully.
+B1 | Refactoring      | I am going to refactor this class to properly follow the single responsibility principle.
+B1 | Coroutines       | The Kotlin Flow is not emitting values because the coroutine scope was cancelled early.
+B1 | UX               | We should add a loading skeleton instead of a spinner to improve perceived performance.
+B1 | Background       | I am using WorkManager to schedule the background sync so it survives process restarts.
+B1 | Memory           | The ViewModel is leaking because it holds a reference to the Activity context directly.
+B1 | Code quality     | I will add a custom Lint rule to prevent this pattern from being reintroduced later.
+B1 | Database         | The database schema migration broke the existing tests — I am fixing the test setup now.
+B1 | Architecture     | I extracted the business logic into a use case class to make it easier to unit test.
+B1 | Compose          | The Compose recomposition is happening too frequently — I need to optimize the state.
+B1 | Networking       | I am adding a retry mechanism with exponential backoff for the network requests.
+B1 | SDK              | We should target the latest stable SDK to take advantage of the new permission model.
+B1 | DI               | I am using Hilt for dependency injection — it makes unit testing much simpler.
+B1 | ProGuard         | The ProGuard rules are stripping a class we need — I will add a keep rule for it.
+B1 | CI               | I set up the CI pipeline to run the full test suite on every pull request automatically.
+B1 | Compatibility    | The dark mode colors look incorrect on Samsung devices — I am currently investigating.
+
+# --- B2: Discusiones técnicas avanzadas ---
+B2 | Architecture     | We need to reconsider the architecture decision — the current approach will not scale well.
+B2 | Threading        | The persistent crash is a threading violation caused by accessing UI state off the main thread.
+B2 | Proposal         | I am proposing we migrate the data layer to use a repository pattern with local caching.
+B2 | CI               | The CI pipeline is failing intermittently due to a flaky end-to-end test on the emulator.
+B2 | Security         | I have identified a security issue in how we store sensitive user data in SharedPreferences.
+B2 | Monitoring       | The feature flag rollout is live — we are monitoring crash-free session rates on Firebase.
+B2 | Tech debt        | We should prioritize clearing the technical debt before adding more features this sprint.
+B2 | Modularization   | I recommend introducing a modular architecture to reduce build times and improve isolation.
+B2 | Proposal         | The proof of concept confirms the approach is feasible — I will write the technical specification.
+B2 | Error handling   | We need a consistent error handling strategy across all layers of the application.
+B2 | DI               | I refactored the DI graph to resolve the circular dependency and improve testability.
+B2 | Performance      | The profiler shows we are doing too much work on the main thread during list scroll.
+B2 | Accessibility    | The accessibility scanner revealed we are missing content descriptions on several icons.
+B2 | Offline          | I am proposing a local Room database cache to enable full offline support for the app.
+B2 | API contract     | We need to define a clear API contract with the backend before starting client development.
+B2 | Accessibility    | The custom view is not respecting the system font size setting — I need to handle that.
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# TOPIC: DAILY_LIFE | Daily Life | ☀️ | Everyday situations
+# ╚══════════════════════════════════════════════════════════╝
+
+# --- A2: Situaciones cotidianas simples ---
+A2 | Services         | What time does the pharmacy close?
+A2 | Food             | Can I have a coffee, please?
+A2 | Shopping         | How much does this cost?
+A2 | Banking          | Where is the nearest ATM?
+A2 | Schedule         | I need to cancel my appointment.
+A2 | Help             | Can you help me with this?
+A2 | Navigation       | I am looking for the main entrance.
+A2 | Services         | Is there free Wi-Fi here?
+A2 | Shopping         | Can I get a receipt, please?
+A2 | Food             | I would like to order food for delivery.
+A2 | Payment          | Do you accept credit cards?
+A2 | Shopping         | I need to buy some groceries.
+A2 | Services         | Can I speak to the manager?
+A2 | Food             | My order is wrong — can you fix it?
+A2 | Services         | What are your business hours?
+A2 | Reservation      | I need to make a reservation.
+A2 | Navigation       | Is there parking nearby?
+A2 | Request          | Could you lower the volume, please?
+A2 | Services         | I need to find a pharmacy near here.
+A2 | Services         | What is the Wi-Fi password?
+A2 | Food             | Can I have the check, please?
+A2 | Social           | Is this seat taken?
+
+# --- B1: Situaciones de vida real más complejas ---
+B1 | Food             | Could you recommend a good restaurant near the office for a casual team lunch?
+B1 | Ordering         | I will have a large oat milk latte with an extra shot of espresso, please.
+B1 | Services         | Do you know what time the pharmacy on the corner closes on weekdays?
+B1 | Schedule         | I need to reschedule our meeting — something urgent came up this afternoon.
+B1 | Commute          | The traffic was really bad this morning so I ended up taking the subway instead.
+B1 | Office           | Could you keep it down a bit? I am currently on an important video call with a client.
+B1 | Kindness         | I am grabbing a quick lunch — do you want me to bring you anything back?
+B1 | Social           | Let us catch up over coffee sometime this week if you have a free slot.
+B1 | Schedule         | I have a dentist appointment at noon so I will be back by early afternoon.
+B1 | Favor            | Could you sign for the package? I will be in meetings until around three o'clock.
+B1 | Food             | Is this restaurant good for a business lunch or more of a casual dining spot?
+B1 | Services         | I am thinking of renewing my gym membership — do you know if they still have good rates?
+B1 | Work             | I need to find a quiet coworking space for the afternoon — any recommendations?
+B1 | Work             | The power went out in my building this morning and I had to work from a café.
+B1 | Services         | Do you know a reliable phone repair shop around here? My screen is cracked.
+B1 | Emergency        | I accidentally locked myself out — who do I call for help?
+B1 | Services         | Can you recommend a good translation service for official documents?
+B1 | Banking          | I am trying to open a bank account here — what documents do I need?
+
+# --- B2: Situaciones de vida adulta más sofisticadas ---
+B2 | Services         | I am considering switching phone plans — which carrier has the best data coverage here?
+B2 | Legal            | The apartment lease agreement has some clauses I would like to review before signing.
+B2 | Services         | I have been dealing with a persistent issue with my internet service provider.
+B2 | Admin            | I need to set up a formal meeting with my building administrator to discuss the repairs.
+B2 | Review           | The service here is consistently excellent — I always recommend this place to visitors.
+B2 | Finance          | I am looking into health insurance options for freelancers — the market is quite complex.
+B2 | Finance          | I need to formally dispute a charge that appeared on my credit card statement last month.
+B2 | Legal            | My landlord is not responding to repair requests — I am considering my legal options.
+B2 | Career           | I am planning to relocate to a different city for a remote job — any advice on the process?
+B2 | Admin            | I have been navigating the visa application process, which has been quite bureaucratic.
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# TOPIC: SMALL_TALK | Small Talk | 💬 | Casual conversations
+# ╚══════════════════════════════════════════════════════════╝
+
+# --- A2: Conversación casual básica ---
+A2 | Weekend          | How was your weekend?
+A2 | Social           | Did you do anything fun lately?
+A2 | Personal         | How is the family?
+A2 | Work             | What are you working on these days?
+A2 | Remote           | Do you like working from home?
+A2 | Team             | Are you going to the team lunch?
+A2 | Hobbies          | What kind of music do you like?
+A2 | Entertainment    | Have you seen any good movies recently?
+A2 | Tech             | Do you like your new phone?
+A2 | Commute          | How long is your commute to the office?
+A2 | Food             | Do you cook at home or eat out mostly?
+A2 | Personal         | Are you a morning person or a night person?
+A2 | Office           | Have you tried the new coffee shop nearby?
+A2 | Work             | How long have you been at the company?
+A2 | Work style       | Do you prefer working in the morning or afternoon?
+A2 | Entertainment    | Are you watching anything on Netflix right now?
+A2 | Hobbies          | What do you do to relax after work?
+A2 | Personal         | Do you have any pets at home?
+A2 | Hobbies          | Do you play any sports or exercise regularly?
+A2 | Travel           | Are you planning a vacation this year?
+A2 | Personal         | What is your favorite season of the year?
+A2 | Career           | Have you ever worked or lived abroad?
+
+# --- B1: Conversación casual más fluida y natural ---
+B1 | Weekend          | How was your weekend? Did you do anything fun or get out of the city at all?
+B1 | Entertainment    | Have you been following that series everyone at the office has been talking about?
+B1 | Weather          | The weather has been so unpredictable this week — I cannot seem to dress right for it.
+B1 | Team             | Are you going to the team lunch on Friday? I heard it is at a really good place downtown.
+B1 | Time             | I cannot believe the year is going by so fast — the holidays will be here before we know it.
+B1 | Career           | How long have you been working in the software industry? Have you always been in mobile?
+B1 | Office           | I am still getting used to the new office setup — it is quite different from what we had before.
+B1 | Office           | Have you tried the new coffee machine in the break room? It is surprisingly good.
+B1 | Sports           | Are you watching the tournament? Last night's match was absolutely wild from start to finish.
+B1 | Personal         | I just got back from a vacation and I really needed that break — I feel fully recharged.
+B1 | Hobbies          | What do you usually do after work to unwind? I have been trying to get into running lately.
+B1 | Local            | Have you heard about the new park they just opened near the riverside? It looks incredible.
+B1 | Hobbies          | I have been trying to learn some new recipes on weekends — it has been hit or miss.
+B1 | Remote           | How do you usually stay focused when you are working from home? I find it really hard.
+B1 | Learning         | Do you have any recommendations for a good English learning podcast or YouTube channel?
+B1 | Career           | Have you ever considered working abroad or taking a remote job with an overseas company?
+B1 | Events           | I am thinking about attending a tech conference this year — have you been to any good ones?
+B1 | Productivity     | What tools do you use to manage your time when you have lots of tasks and clients?
+
+# --- B2: Conversación reflexiva y profesional ---
+B2 | Industry         | I find it fascinating how the tech industry has evolved so rapidly over the last decade.
+B2 | Career           | Have you given any thought to where you see your career heading over the next few years?
+B2 | Balance          | I have been reflecting on the importance of work-life balance now that I work remotely.
+B2 | AI               | What is your take on the whole AI coding assistant trend? Are you using any tools?
+B2 | Skills           | I think one of the most underrated skills in our industry is clear written communication.
+B2 | Culture          | It is interesting how different the work culture is between local and international companies.
+B2 | Career           | Do you feel that technical certifications actually matter for career growth in our field?
+B2 | Observation      | I have noticed that the best engineers I have worked with all have exceptional communication skills.
+B2 | Networking       | What strategies have you found effective for building a strong professional network online?
+B2 | Freelance        | I have been considering launching a personal brand to attract better freelance opportunities.

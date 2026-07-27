@@ -4,10 +4,12 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import com.pe.learnai.data.PracticeContent
 
 class FocusGateApp : Application() {
     override fun onCreate() {
         super.onCreate()
+        PracticeContent.initialize(this)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
