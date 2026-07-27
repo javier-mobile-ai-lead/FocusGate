@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pe.learnai.ui.theme.AILearnEngTheme
+import kotlinx.coroutines.launch
 
 class BlockOverlayActivity : ComponentActivity() {
 
@@ -62,6 +63,37 @@ private fun BlockOverlayScreen(
     onPracticeClick: () -> Unit,
     onGoHomeClick: () -> Unit
 ) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var showEmergencyDialog by remember { mutableStateOf(false) }
+
+    if (showEmergencyDialog) {
+        AlertDialog(
+            onDismissRequest = { showEmergencyDialog = false },
+            containerColor = Color(0xFF1A1A2E),
+            title = { Text("Emergency unlock", color = Color.White) },
+            text = {
+                Text(
+                    "This will unlock all blocked apps for today without completing a session.\n\nAre you sure?",
+                    color = Color(0xFFAAAAAA)
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    scope.launch { SessionManager.markComplete(context) }
+                    showEmergencyDialog = false
+                }) {
+                    Text("Unlock anyway", color = Color(0xFFEF9A9A))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showEmergencyDialog = false }) {
+                    Text("Cancel", color = Color(0xFF7B8BB2))
+                }
+            }
+        )
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -70,7 +102,7 @@ private fun BlockOverlayScreen(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(24.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp),
             modifier = Modifier.padding(32.dp)
         ) {
             Text(text = "🔒", fontSize = 72.sp)
@@ -90,7 +122,7 @@ private fun BlockOverlayScreen(
                 lineHeight = 24.sp
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
             Button(
                 onClick = onPracticeClick,
@@ -106,6 +138,16 @@ private fun BlockOverlayScreen(
 
             TextButton(onClick = onGoHomeClick) {
                 Text(text = "Go Home", color = Color(0xFF7B8BB2))
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TextButton(onClick = { showEmergencyDialog = true }) {
+                Text(
+                    text = "Emergency unlock",
+                    color = Color(0xFF3A3A55),
+                    fontSize = 12.sp
+                )
             }
         }
     }

@@ -15,6 +15,7 @@ class AppBlockerService : AccessibilityService() {
     private var sessionDone = false
 
     override fun onServiceConnected() {
+        isRunning = true
         scope.launch {
             SessionManager.sessionCompleteFlow(this@AppBlockerService).collect {
                 sessionDone = it
@@ -38,7 +39,13 @@ class AppBlockerService : AccessibilityService() {
     override fun onInterrupt() {}
 
     override fun onDestroy() {
+        isRunning = false
         scope.cancel()
         super.onDestroy()
+    }
+
+    companion object {
+        var isRunning = false
+            private set
     }
 }
