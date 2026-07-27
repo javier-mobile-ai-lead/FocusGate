@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FocusGate</string>
+    <string name="accessibility_service_label">FocusGate App Blocker</string>
+    <string name="accessibility_service_description">FocusGate monitors which app is in the foreground and blocks access to distracting apps until you complete your daily English practice session.</string>
+</resources>
