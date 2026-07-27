@@ -38,6 +38,13 @@
             android:label="Edit Blocked Apps"
             android:theme="@style/Theme.AILearnEng" />
 
+        <!-- Learning hub with curated external resources -->
+        <activity
+            android:name=".LearningHubActivity"
+            android:exported="false"
+            android:label="Learning Hub"
+            android:theme="@style/Theme.AILearnEng" />
+
         <!-- Topic selection before practice -->
         <activity
             android:name=".TopicSelectionActivity"

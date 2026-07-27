@@ -176,18 +176,30 @@ private fun HomeScreen() {
 
         // ── Header ────────────────────────────────────────────────────
         item {
-            Column {
-                Text(
-                    "🔒 FocusGate",
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
-                Text(
-                    "Master English to unlock your apps",
-                    fontSize = 14.sp,
-                    color = Color(0xFF7B8BB2)
-                )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Top
+            ) {
+                Column {
+                    Text(
+                        "🔒 FocusGate",
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Text(
+                        "Master English to unlock your apps",
+                        fontSize = 14.sp,
+                        color = Color(0xFF7B8BB2)
+                    )
+                }
+                TextButton(
+                    onClick = { context.startActivity(Intent(context, LearningHubActivity::class.java)) },
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Text("📚 Hub", fontSize = 13.sp, color = Color(0xFF4CAF50))
+                }
             }
         }
 
