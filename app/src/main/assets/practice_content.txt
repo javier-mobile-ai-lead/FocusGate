@@ -1,442 +1,403 @@
-# ============================================================
-# FocusGate — Practice Content
-# ============================================================
-# FORMAT: Level | Category | Prompt (what the app says) | Response (model answer)
-#
-# - Prompt: la pregunta o situación que la app dice en voz alta
-# - Response: la respuesta modelo que tú deberías dar
-# - Si solo hay 3 campos (sin Response): modo repetición clásico
-#
-# Cómo agregar frases:
-#   B1 | Category | What did you work on yesterday? | Yesterday I finished the login screen.
-#
-# Levels: A2 (básico) · B1 (intermedio) · B2 (avanzado)
-# ============================================================
+# CONV: FOUNDATIONS | Introducing yourself to a new colleague
+APP: Hi! I am Sarah. I just joined the team last week. Nice to meet you.
+YOU: Nice to meet you too Sarah. I am Javier. I work as an Android developer here.
+APP: Oh great! How long have you been with the company?
+YOU: I have been here for two years. I mostly work on the mobile team.
+APP: That is cool. I am on the backend team. Maybe we will work together on some projects.
+YOU: Yes I hope so. If you need anything just ask me. I am happy to help.
 
+# CONV: FOUNDATIONS | Asking for help at work
+APP: Excuse me, do you have a moment? I need some help with something.
+YOU: Sure, what do you need? I have about ten minutes before my next meeting.
+APP: I cannot figure out how to connect to the company VPN from home. Do you know how?
+YOU: Yes I can help you. First you need to download the VPN app from the company portal.
+APP: OK I found the app. What do I do next?
+YOU: Open the app and enter your company email and password. Then click connect. It is easy.
+APP: It worked! Thank you so much. You saved me a lot of time.
+YOU: No problem at all. Let me know if you need anything else.
 
-# ╔══════════════════════════════════════════════════════════╗
-# TOPIC: FOUNDATIONS | Foundations | 🗣️ | Conversational essentials
-# ╚══════════════════════════════════════════════════════════╝
-# Practica esto primero — aplica en cualquier conversación o entrevista.
+# CONV: FOUNDATIONS | Making plans for lunch
+APP: Hey Javier, are you busy for lunch today?
+YOU: No I am free. Do you want to go somewhere together?
+APP: Yes! There is a new Mexican restaurant two blocks away. Do you like Mexican food?
+YOU: I love Mexican food. What time do you want to go?
+APP: How about noon? The restaurant gets very busy after twelve thirty.
+YOU: Noon works for me. Should we invite anyone else from the team?
+APP: Good idea. I will ask Maria and David if they want to join us.
+YOU: Perfect. Let us meet at the elevator at noon then.
 
-# --- A2: Reacciones universales básicas ---
-A2 | Clarification    | You did not hear what someone said in a meeting. React naturally. | Could you repeat that, please?
-A2 | Clarification    | Someone explained something but you did not understand. | I did not understand. Can you say it again?
-A2 | Clarification    | Someone used a word you do not know. Ask politely. | What does that mean exactly?
-A2 | Clarification    | The person is speaking too fast for you. | Can you speak more slowly, please?
-A2 | Clarification    | You missed the last part of a sentence. | Sorry, I did not catch that last part.
-A2 | Clarification    | You need more detail about something said. | Could you be more specific about that?
-A2 | Clarification    | You understood the words but not the meaning. | Can you explain that again in a different way?
-A2 | Agreement        | Your teammate says something you totally agree with. | I agree with you completely.
-A2 | Agreement        | Someone proposes an idea and you think it is correct. | Yes, I think so too.
-A2 | Agreement        | Your manager proposes a solution to a problem. | That is a good idea.
-A2 | Agreement        | Someone summarizes what you said accurately. | Yes, exactly. That is what I mean.
-A2 | Agreement        | A colleague suggests a plan that works for you. | That sounds good to me.
-A2 | Thinking         | Someone asks you a question and you need a moment. | Let me think for a second.
-A2 | Thinking         | Someone asks your opinion on something you are unsure about. | I am not sure about that right now.
-A2 | Thinking         | You want to ask a question in a meeting. | I have a question about that.
-A2 | Understanding    | Someone explained something and you got it. | I understand what you mean.
-A2 | Understanding    | Someone is explaining something and you are lost. | I am not following you. Can you help me?
-A2 | Politeness       | Someone spent time explaining something to you. | Thank you for explaining that to me.
+# CONV: FOUNDATIONS | Calling tech support
+APP: Thank you for calling IT support. My name is Alex. How can I help you today?
+YOU: Hello Alex. My computer is running very slowly and I cannot open my emails.
+APP: I am sorry to hear that. How long has this problem been happening?
+YOU: It started this morning. Everything was fine yesterday.
+APP: OK let me check your account. Can you give me your employee ID number?
+YOU: Yes it is J dash four five seven eight nine.
+APP: Thank you. I will restart your email service remotely. Please wait one moment.
+YOU: Thank you. I will wait.
+APP: Done. Can you try opening your email again now?
+YOU: Yes it is working now. Thank you so much for the fast help.
 
-# --- B1: Frases conversacionales intermedias ---
-B1 | Thinking         | An interviewer asks you a complex question. Take a moment before answering. | That is a great question — let me think about it for a moment.
-B1 | Clarification    | A client said something in a meeting you want to confirm. | Could you repeat that? I want to make sure I understand correctly.
-B1 | Clarification    | Someone described a plan and you want to verify your understanding. | So if I understand correctly, you are saying that we need to start from scratch.
-B1 | Clarification    | Someone says something abstract and you need a concrete example. | Could you give me a specific example of what you mean?
-B1 | Clarification    | Someone uses technical jargon you are not sure about. | Could you clarify what you mean by that term?
-B1 | Clarification    | A speaker moved too fast and you lost the thread of the conversation. | Sorry, I lost you there — could you go back to the part about the timeline?
-B1 | Clarification    | Before answering a tricky question, you want to make sure you aligned. | Before I answer, I want to make sure I understand the question fully.
-B1 | Clarification    | You want to check your answer is actually on target. | Let me make sure I am answering your question correctly.
-B1 | Opinion          | You are asked about your approach to solving a problem. | In my experience, the best approach is usually to focus on the basics first.
-B1 | Opinion          | You are asked for your view on a technical decision. | I am not entirely sure, but I believe that the key factor here is preparation.
-B1 | Opinion          | Someone asks what drives your success at work. | To be honest, I think the most important thing is consistency over time.
-B1 | Opinion          | Someone asks about your biggest professional challenge. | I would say the main challenge here is staying motivated long term.
-B1 | Opinion          | Someone asks what you find most interesting about a topic. | What I find most interesting about this is how quickly things change in the industry.
-B1 | Agreement        | Your teammate makes a strong point in a team meeting. | I completely agree with what you just said about that.
-B1 | Agreement        | Someone explains their reasoning and it clicks for you. | That makes a lot of sense — I can see where you are coming from.
-B1 | Agreement        | Someone offers a fresh perspective you had not considered before. | That is an interesting perspective — I had not thought of it that way before.
-B1 | Agreement        | You both seem aligned after a back-and-forth discussion. | I think we are on the same page here, which is great.
-B1 | Disagreement     | You want to push back on something without being rude. | I see your point, but I tend to think that there is another way to look at it.
-B1 | Rephrasing       | You realize your previous statement was unclear or misleading. | Let me rephrase that to make sure I am being clear about what I mean.
-B1 | Rephrasing       | You want to redirect the conversation back to the main point. | What I mean is that we should probably focus on the most important things first.
+# CONV: FOUNDATIONS | Asking about work schedule
+APP: Hi, do you know what time the team meeting is today?
+YOU: Yes it is at three in the afternoon. It should last about one hour.
+APP: And where is it? In the main conference room?
+YOU: No it is online today. I will send you the meeting link right now.
+APP: Thanks. Also, what time does the office close on Fridays?
+YOU: The office closes at five but many people leave at four on Fridays.
+APP: Good to know. Do we have to come in on Saturday this week?
+YOU: No Saturdays are always free. We only work Monday to Friday.
 
-# --- B2: Gestión conversacional avanzada ---
-B2 | Nuance           | An interviewer asks a layered, complex question that requires thought. | That is a nuanced question — there are a few different ways to look at it.
-B2 | Nuance           | You want to separate two related but distinct concepts in your answer. | I think we need to distinguish between two different aspects of this question.
-B2 | Nuance           | You mostly agree but want to add an important condition to your agreement. | I am inclined to agree, though I would add the caveat that context matters a lot here.
-B2 | Nuance           | You need more information before you can commit to an answer. | Before I commit to a position on that, I would want to understand more about the details.
-B2 | Clarity          | You want to make sure you are addressing the real question being asked. | I want to make sure I am addressing the core of what you are actually asking me.
-B2 | Clarity          | You said something complicated and want to restate it more clearly. | To put it differently, what I am trying to convey is that the approach needs to evolve.
-B2 | Clarity          | You want to frame your answer within the broader context of the situation. | If I understand the broader context correctly, then the key issue is alignment between teams.
-B2 | Thinking         | You need time to formulate a thoughtful, well-structured answer. | Let me think out loud for a moment — I want to give you a well-considered answer.
-B2 | Engagement       | Something the interviewer said resonated with your own experience. | That resonates with me — particularly the point you made about long-term growth.
-B2 | Engagement       | You appreciate a challenging question being raised in the conversation. | I appreciate you raising that — it is something I have been reflecting on as well.
-B2 | Engagement       | You want to highlight the most significant aspect of the situation. | What strikes me as most significant about this situation is the opportunity it presents.
-B2 | Pushback         | You want to respectfully disagree with a point someone just made. | I would push back slightly on that — my experience suggests a different outcome.
+# CONV: HR_INTERVIEW | First round at a US tech startup
+APP: Hi Javier, thanks for joining today. Could you tell me a bit about yourself?
+YOU: Sure. I am an Android developer with three years of experience building mobile apps using Kotlin and Jetpack Compose.
+APP: Great background. What type of projects have you worked on?
+YOU: I have built apps for banking and e-commerce. Most of them have more than fifty thousand active users.
+APP: What would you say is your biggest professional strength?
+YOU: My biggest strength is solving complex technical problems efficiently. I am also comfortable working in international remote teams.
+APP: And how is your English? You seem very comfortable communicating.
+YOU: I have been studying English for two years and I use it daily in my job. I want to keep improving.
+APP: That is great to hear. We will be in touch. Thank you for your time today Javier.
+YOU: Thank you very much. I look forward to hearing from you.
 
+# CONV: HR_INTERVIEW | Discussing experience with remote work
+APP: Javier, have you worked remotely before?
+YOU: Yes I have been working fully remote for the past two years.
+APP: How do you stay productive when you work from home?
+YOU: I have a dedicated home office with a good setup. I follow a strict schedule and take short breaks every two hours.
+APP: How do you communicate with your team when you have a question or a problem?
+YOU: I use Slack for quick questions and video calls for more complex discussions. I always write clear messages to avoid confusion.
+APP: What is the hardest part of remote work for you?
+YOU: Sometimes I miss the energy of an office. But I solve this by staying in regular contact with my teammates.
+APP: That shows good self-awareness. We appreciate candidates who think about team culture.
+YOU: Thank you. I believe good communication is the key to successful remote work.
 
-# ╔══════════════════════════════════════════════════════════╗
-# TOPIC: HR_INTERVIEW | HR Interview | 💼 | Job interviews & career
-# ╚══════════════════════════════════════════════════════════╝
+# CONV: HR_INTERVIEW | Talking about your biggest weakness
+APP: Javier, what would you say is your biggest weakness?
+YOU: Sometimes I spend too much time trying to make my code perfect. I want everything to be just right.
+APP: How do you manage that tendency in a fast-paced environment?
+YOU: I have learned to set time limits for tasks. If something is good enough to ship, I ship it and improve it later.
+APP: How do you handle feedback when someone says your work is not good enough?
+YOU: I listen carefully and try to understand the other person's point of view. I see feedback as an opportunity to grow.
+APP: Can you give me an example of a time when you received difficult feedback?
+YOU: Yes. My last manager told me my documentation was too technical. So I rewrote it in simpler language and got much better responses.
+APP: Great example. Thank you for being honest about your growth areas.
+YOU: Of course. I think knowing your weaknesses is the first step to improving them.
 
-# --- A2 ---
-A2 | Introduction     | To start, could you introduce yourself? | My name is Javier. I am an Android developer with three years of experience building mobile apps.
-A2 | Skills           | What programming languages do you use? | I mainly work with Kotlin and Java for Android development.
-A2 | Experience       | Have you worked on mobile apps before? | Yes, I have built several Android apps from scratch, including e-commerce and productivity tools.
-A2 | Experience       | How long have you been a developer? | I have been working as a developer for about three years now.
-A2 | Remote           | Are you comfortable working remotely? | Yes, I am very comfortable working remotely. I have a dedicated workspace and a reliable internet connection.
-A2 | Compensation     | What is your expected hourly rate? | My expected rate is around thirty dollars per hour, depending on the project scope.
-A2 | Portfolio        | Can you share your GitHub profile? | Of course. I will send you the link after our call. It has my main projects and open source contributions.
-A2 | Teams            | Have you worked with international clients before? | Yes, I have collaborated with clients from the United States and Europe through fully remote work.
-A2 | Language         | How is your English for daily communication? | I am comfortable with English for meetings, emails, and technical discussions.
-A2 | Preferences      | What kind of projects do you enjoy the most? | I enjoy building Android apps that solve real problems, especially productivity and fintech apps.
-A2 | Availability     | Can you work in our time zone? | Yes, I can adjust my schedule to overlap with your team's main working hours.
-A2 | Closing          | Do you have any questions for us? | Yes, I would love to know more about the team structure and how you manage communication across time zones.
-A2 | Availability     | When can you start? | I can start within two weeks once we finalize the details of the agreement.
-A2 | Work style       | Do you prefer working alone or in a team? | I enjoy both. I work well independently but I also value collaboration when solving complex problems.
-A2 | Skills           | What is your favorite mobile tech stack? | I love working with Kotlin, Jetpack Compose, and the MVVM architecture pattern on Android.
+# CONV: HR_INTERVIEW | Explaining why you want to change jobs
+APP: Why are you looking to leave your current position?
+YOU: I have learned a lot at my current company but I feel ready for a bigger challenge.
+APP: What kind of challenge are you looking for specifically?
+YOU: I want to work on products used by millions of people internationally. I also want to collaborate with engineers from different countries.
+APP: Do you have experience working with teams in different time zones?
+YOU: Yes I have worked with clients from the US and Europe. I am comfortable adjusting my schedule for overlap hours.
+APP: What do you know about our company?
+YOU: I know you build productivity tools for remote teams. Your Android app has excellent reviews and a very clean user interface.
+APP: Thank you. Is there anything you want to ask us?
+YOU: Yes. What does the onboarding process look like for new developers?
 
-# --- B1 ---
-B1 | Experience       | Walk me through your most recent project. | My most recent project was a fintech app for a client. I built the payment module using Kotlin and integrated a third-party payment SDK. The app handles over five thousand daily transactions.
-B1 | Growth           | How do you stay current with Android development? | I follow the official Android documentation, watch Google I/O talks, and regularly read technical blogs like Droidcon and Android Weekly.
-B1 | Skills           | Tell me about your experience with Jetpack Compose. | I have been using Jetpack Compose for two years. I migrated a legacy XML-based UI to Compose and improved the team's development speed by about forty percent.
-B1 | Work style       | How do you handle pressure and tight deadlines? | I break the work into small daily goals, communicate progress proactively, and prioritize the most critical features first. I have never missed a client deadline.
-B1 | Problem-solving  | Describe a difficult bug you solved. | I once spent two days tracking a memory leak in a background service. I used Android Profiler to identify it and fixed it by properly cleaning up coroutine scopes on lifecycle events.
-B1 | Organization     | How do you prioritize tasks on a project? | I use a simple priority matrix — urgent versus important. I also align with the client at the start of each week to make sure I am working on what matters most.
-B1 | Adaptability     | Tell me about learning a new technology quickly for a project. | When a client needed Firebase Realtime Database integration, I had two days to learn it. I focused on the official documentation and built a proof of concept before implementing it in production.
-B1 | Quality          | How do you ensure code quality before delivery? | I write unit tests for all business logic, use code review tools, and follow clean code principles. I also run static analysis with Lint before every merge to catch issues early.
-B1 | Best practices   | What is your approach to writing clean, maintainable code? | I name variables and functions so they clearly describe their purpose. I keep functions short, avoid duplication, and write code that my future self would understand six months later.
-B1 | Conflict         | Have you ever disagreed with a client? How did you handle it? | Yes, once a client wanted to skip testing to ship faster. I explained the risk clearly and proposed shipping the core feature tested while continuing QA in parallel. They agreed.
-B1 | Technical        | Tell me about your experience with REST APIs. | I have integrated dozens of REST APIs using Retrofit and OkHttp. I handle authentication, error parsing, and edge cases like timeouts and empty responses carefully.
-B1 | Communication    | How do you keep your clients updated on progress? | I send daily progress updates via Slack or email, flag blockers immediately, and schedule weekly video calls to review the work and align on next steps.
-B1 | Requirements     | What do you do when requirements are unclear or changing? | I ask clarifying questions before starting, document my understanding in writing, and confirm with the client before investing significant time in any direction.
-B1 | Remote           | How do you manage async communication with remote teams? | I use tools like Slack and Notion, set clear expectations about response times, and keep detailed notes so nothing falls through the cracks across time zones.
-B1 | Feedback         | How do you handle feedback from a code review? | I treat it as a learning opportunity. I read each comment carefully, ask questions when something is unclear, and understand the reasoning before making changes.
-B1 | Performance      | Tell me about a time you improved app performance significantly. | I profiled a slow list view and discovered we were doing expensive database queries on the main thread. I moved them to a background coroutine and the scroll became completely smooth.
-B1 | Estimation       | How do you estimate the effort for a new feature? | I break the feature into sub-tasks, estimate each one, add a fifteen percent buffer for unknowns, and share a range with the client rather than a fixed number.
-B1 | Achievement      | Tell me about a project you are particularly proud of. | I built a habit-tracking app from scratch in six weeks. It reached four point eight stars on the Play Store and gained two thousand users in the first month without any paid marketing.
-B1 | Tools            | What tools do you use to manage your freelance work? | I use Jira for task tracking, Notion for documentation, Slack for communication, and GitHub for version control and code review.
-B1 | Agile            | How do you handle scope changes that happen mid-project? | I document the new requirements, estimate the additional effort, and communicate the impact on timeline and cost to the client before starting any new work.
+# CONV: HR_INTERVIEW | Negotiating salary
+APP: We would like to offer you the position Javier. Our initial offer is five thousand dollars per month.
+YOU: Thank you very much. I am very excited about this opportunity. Could we discuss the compensation a bit?
+APP: Of course. What did you have in mind?
+YOU: Based on my experience and the market rate, I was thinking about fifty five hundred per month.
+APP: That is a bit above our budget. We could go to fifty two hundred. Would that work?
+YOU: I appreciate that. Could you also include a hardware budget for my home office setup?
+APP: Yes we provide a one-time budget of one thousand dollars for equipment. Does that help?
+YOU: That is very helpful. I accept the offer. I am excited to join the team.
+APP: Excellent. We will send you the contract by email tomorrow. Welcome aboard Javier.
+YOU: Thank you so much. I look forward to working with everyone.
 
-# --- B2 ---
-B2 | Strategy         | How do you balance technical excellence with business requirements? | I believe technical quality is a business need. Poor code creates bugs that cost more to fix later. I advocate for the right level of quality based on the project's risk and timelines.
-B2 | Architecture     | Describe your experience with scalable mobile architectures. | I have designed modular architectures using MVVM and Clean Architecture for apps with over fifty thousand users. I focus on separating concerns so the app can grow without major rewrites.
-B2 | Risk             | How do you identify and mitigate technical risks in a project? | At the start I list the highest-risk components — usually third-party integrations and new technologies — and build small prototypes to validate them before committing to full implementation.
-B2 | Leadership       | Tell me about influencing a major technical decision on your team. | I convinced the team to adopt Kotlin Coroutines over RxJava by writing a comparison document showing how coroutines reduced boilerplate by forty percent and were easier to test and maintain.
-B2 | Standards        | How do you ensure your work aligns with accessibility guidelines? | I follow Material Design guidelines, add content descriptions to all interactive elements, test with TalkBack, and verify the app respects the user's font size and contrast preferences.
-B2 | DevOps           | Describe your experience setting up CI/CD pipelines for mobile. | I have configured GitHub Actions pipelines that run unit tests, Lint checks, and automated builds on every pull request. Releases to the Play Store are automated when a tag is pushed to main.
-B2 | Decision-making  | How do you choose between competing technical solutions? | I evaluate options against team familiarity, long-term maintainability, and performance requirements. I document the tradeoffs and choose the solution that scores best overall.
-B2 | Testing          | What is your philosophy on automated testing? | I focus unit tests on business logic, integration tests on data flows, and UI tests only on critical user journeys. Meaningful coverage of high-risk paths is the goal, not one hundred percent.
-B2 | Client relations | How do you build long-term client relationships? | I communicate proactively, deliver consistently, and sometimes point out risks even when not asked. Clients rehire me because they trust my judgment, not just my code.
-B2 | Tech debt        | How do you handle technical debt in a client project? | I track it explicitly in the backlog, estimate its cost, and negotiate dedicated time each sprint. I avoid letting it accumulate silently because it eventually slows down every feature.
-B2 | Communication    | How do you explain technical concepts to non-technical stakeholders? | I use analogies and avoid jargon. I compare caching to keeping your most-used tools on your desk instead of going to the storage room every time. I focus on business impact, not implementation details.
-B2 | Delivery         | Tell me about delivering a complex feature under significant constraints. | I built a payment integration in three days because of a hard partner deadline. I focused on the happy path first, shipped it, then added error handling and edge cases in the following sprint.
-B2 | Freelance        | How do you maintain professional standards as a freelancer? | I treat every project as if it were a permanent job. I write documentation, test thoroughly, and hand over clean code. Any developer should be able to continue my work without calling me.
-B2 | Growth           | What is your strategy for building your reputation on Upwork? | I invest in detailed case studies with metrics, specialize in Android for fintech and productivity, and ask satisfied clients for reviews. Quality work generates referrals better than any marketing.
-B2 | Negotiation      | How do you approach rate negotiation with a prospective client? | I anchor with a rate based on the value I deliver, not my cost of living. I research market rates, prepare examples of past ROI, and treat negotiation as a conversation rather than a confrontation.
+# CONV: DAILY_STANDUP | Standard morning standup
+APP: Good morning team. Let us start the standup. Javier, can you go first?
+YOU: Good morning. Yesterday I finished the login screen UI and pushed it to the feature branch.
+APP: Great. And what are you working on today?
+YOU: Today I am going to start integrating the authentication API. I expect to have a draft ready by end of day.
+APP: Any blockers or risks we should know about?
+YOU: No blockers right now. But I might need help tomorrow to review the API documentation.
+APP: Noted. I will make sure someone is available. Good work Javier.
+YOU: Thanks. I will update the ticket status in Jira when I start the API work.
 
+# CONV: DAILY_STANDUP | Reporting a blocker
+APP: Javier, what is your update for today?
+YOU: Yesterday I tried to integrate the payment API but I hit a blocker. The staging environment is returning four hundred errors.
+APP: Have you been able to identify the root cause?
+YOU: Not yet. I checked the API documentation and my implementation looks correct. I think it might be a server configuration issue.
+APP: OK. Do you need help from anyone on the team?
+YOU: Yes. Could someone from the backend team check the staging server logs? That would help me a lot.
+APP: I will ask Carlos to look at that right after standup. Anything else?
+YOU: No that is my only blocker. Once the environment is fixed I can finish the integration today.
 
-# ╔══════════════════════════════════════════════════════════╗
-# TOPIC: DAILY_STANDUP | Daily Standup | 🖥️ | Agile team ceremonies
-# ╚══════════════════════════════════════════════════════════╝
+# CONV: DAILY_STANDUP | Sprint planning meeting
+APP: OK team, let us plan the next sprint. Javier, how many story points do you think you can handle?
+YOU: Based on last sprint, I can comfortably take about twenty points. But it depends on the complexity of the tickets.
+APP: Fair enough. I am assigning you the push notifications feature. It is estimated at thirteen points. Does that work?
+YOU: Yes that works. Is there any design ready for the notifications screen?
+APP: Yes Maria finished the designs yesterday. I will share them in Slack after the meeting.
+YOU: Great. I will also need the backend API specification before I can start.
+APP: I will ask the backend team to send that today. Can you start with a smaller bug fix in the meantime?
+YOU: Sure. Just assign me something in Jira and I will pick it up this afternoon.
 
-# --- A2 ---
-A2 | Yesterday        | Scrum master asks: "What did you work on yesterday?" | Yesterday I finished the login screen design.
-A2 | Today            | Scrum master asks: "What will you work on today?" | Today I am working on the settings page.
-A2 | Blockers         | Scrum master asks: "Are you blocked by anything?" | No, I am not blocked right now.
-A2 | Update           | The lead asks for your status on the feature. | I finished my task a bit early today.
-A2 | Progress         | Lead asks: "How much longer do you need?" | I still need one more day to finish this.
-A2 | Review           | Lead asks: "Have you reviewed the pull requests?" | Yes, I reviewed two pull requests this morning.
-A2 | Deployment       | Lead asks: "Did the fix go to staging?" | Yes, I deployed the fix to staging yesterday afternoon.
-A2 | Question         | You have something unclear from the last sprint planning. | I have a question about the login design we discussed yesterday.
-A2 | Help             | Lead asks if anyone can pick up a bug. | I can pick it up. I will need some context on where the bug happens.
-A2 | Schedule         | Lead asks if you will be available all day. | I will be in a meeting this afternoon but I am free all morning.
-A2 | Client           | Scrum master asks if there are any client updates. | I joined a client call this morning and gave them a progress update.
-A2 | Git              | Lead asks if you pushed your changes. | Yes, I pushed my changes to the repository this morning.
+# CONV: DAILY_STANDUP | Retrospective discussion
+APP: Let us start the retrospective. What went well this sprint Javier?
+YOU: I think the team communicated really well this sprint. The daily standups helped us catch problems early.
+APP: Good point. What about things that did not go well?
+YOU: Honestly the code review process was a bit slow. Some pull requests waited more than two days for feedback.
+APP: That is valid feedback. How do you think we can improve that?
+YOU: Maybe we can agree that everyone reviews at least two pull requests per day. That way nothing waits too long.
+APP: I like that idea. We will add that to our team agreement.
+YOU: I also think we should document the most common review comments so people can check before submitting code.
+APP: Excellent idea Javier. Can you write that document this week?
+YOU: Sure I will have a draft ready by Wednesday.
 
-# --- B1 ---
-B1 | Yesterday        | Scrum master asks: "What did you accomplish yesterday?" | Yesterday I finished implementing the user authentication flow using JWT tokens.
-B1 | Today            | Scrum master asks: "What is your plan for today?" | Today I am planning to complete the push notification module and write the unit tests.
-B1 | Blockers         | Scrum master asks: "Are there any blockers?" | Yes, I am currently blocked waiting for API documentation from the backend team.
-B1 | Review           | Lead asks about the status of your pull request. | I submitted the pull request and it is waiting for review from at least two team members.
-B1 | Planning         | Lead asks if the sprint goal is still realistic. | We might need to adjust the sprint goal based on the new client requirements we received yesterday.
-B1 | Estimation       | Lead asks how long until you finish the feature. | I will need about two more days to complete the end-to-end feature implementation and testing.
-B1 | Technical        | Lead asks what caused yesterday's bug. | The bug was caused by a null pointer exception in the data mapping layer when the API returns an empty list.
-B1 | Coordination     | You want to schedule a follow-up discussion after standup. | Can we schedule a quick sync after standup to align on the technical design for the new module?
-B1 | Deployment       | Lead asks where the feature branch is and if it is deployed. | I merged the feature branch and deployed it to the staging environment yesterday afternoon.
-B1 | Collaboration    | Lead asks who can help resolve the blocking issue. | I am going to pair with a teammate today to resolve the blocking issue on the onboarding screen.
-B1 | API              | Lead asks what is wrong with the API responses. | The API response is inconsistent — some fields are missing when the user has no purchase history.
-B1 | Testing          | Lead asks if the tests are updated after the QA session. | I updated the unit tests to cover the three edge cases we identified during the QA session yesterday.
-B1 | Refactoring      | Lead asks why you refactored the view model. | I refactored it to improve separation of concerns and make the business logic easier to unit test independently.
-B1 | Integration      | Lead asks if the SDK is fully integrated. | Yes, I integrated the third-party analytics SDK and tested it across five different Android devices and OS versions.
-B1 | Debug            | Lead asks if you found the source of the memory leak. | I am still tracking the memory leak in the image loading component. I expect to have a fix by end of day.
-B1 | Ticket           | Lead asks if there is a ticket for the regression found during QA. | Yes, I opened a Jira ticket for the regression. I also added steps to reproduce and the expected behavior.
-B1 | Documentation    | Lead asks if the technical documentation is ready. | I finished writing the technical documentation for the new authentication module this morning.
-B1 | Environment      | Lead asks why the feature fails in staging. | The feature is working in development but failing on staging. I think it is a configuration issue with the environment variables.
-B1 | Schedule         | Lead asks if you will be on Slack all day. | I will be less responsive this afternoon due to a client call that runs from two to four.
-B1 | Performance      | Lead asks what caused the scroll lag reported by QA. | I found a performance issue in the recycler view — we were loading full-size images without any compression or resizing.
-B1 | Build            | Lead asks what was wrong with last night's build. | I updated the Gradle dependencies and fixed a version conflict that was causing the build to fail silently.
-B1 | Planning         | Lead asks you to commit to a delivery date for the next feature. | I need to discuss the estimated effort before I commit to a specific date — can we add ten minutes after standup?
+# CONV: DAILY_STANDUP | Asking for code review
+APP: Hey Javier, do you have time to review my pull request today?
+YOU: Sure I can take a look this afternoon. Can you send me the link?
+APP: Yes I will send it in Slack right now. It is the feature for offline data sync.
+YOU: How big is the PR? I want to know how much time to set aside.
+APP: It is about three hundred lines of code. Mostly ViewModel and Repository changes.
+YOU: OK that should take me about forty five minutes. I will review it before our four o'clock meeting.
+APP: Please pay special attention to the error handling logic.
+YOU: Will do. I will leave comments directly in GitHub and tag you when I am done.
+APP: Great thanks. I really appreciate it.
+YOU: No problem. Good code reviews make the whole team stronger.
 
-# --- B2 ---
-B2 | Architecture     | Lead says the current approach is not working well. What do you propose? | We need to revisit the architectural approach before we continue. The current design will not scale to the user numbers we are targeting this quarter.
-B2 | Debug            | Lead asks what is causing the recurring crash in production. | The recurring crash is a threading violation — we are accessing UI state from a background coroutine outside the main thread dispatcher.
-B2 | Proposal         | Lead asks your opinion on the current API design for mobile. | I am proposing we migrate the data layer from REST to GraphQL. It would eliminate overfetching and reduce the number of round trips for mobile clients significantly.
-B2 | CI               | Lead asks why the CI pipeline keeps failing randomly. | The pipeline is failing intermittently due to a race condition in the integration test suite. It only manifests when two tests run in parallel under load.
-B2 | Security         | Lead asks what the security review flagged in your module. | I identified a vulnerability — we are storing the refresh token in plain SharedPreferences, which is not encrypted on Android versions below six.
-B2 | Monitoring       | Product asks how the feature flag rollout is performing. | The flag is live for ten percent of users. Crash-free session rate and performance metrics are within normal range. I recommend expanding to fifty percent tomorrow.
-B2 | Tech debt        | Lead asks how much technical debt exists in the networking layer. | There are three major issues — inconsistent error handling, no retry logic, and tight coupling to Retrofit. I estimate four sprint points to refactor it properly.
-B2 | Backend          | Lead asks if you can optimize the list screen performance now. | Not effectively without server-side changes. Once the backend team adds cursor-based pagination I can implement a paged adapter that will dramatically reduce load time.
-B2 | Proposal         | Lead asks you to walk through the proof of concept you completed. | The proof of concept demonstrates we can use WebSockets for real-time updates without a full server-side push notification setup. Latency is under fifty milliseconds in our tests.
-B2 | Quality          | Lead asks how we should handle errors consistently across the app. | I propose we define a sealed class hierarchy for domain errors and a standard error mapper at each data layer boundary. Every module would then translate its errors into the same domain model.
-B2 | Refactoring      | Teammate asks why you touched the dependency injection graph. | There was a circular dependency between the auth repository and the network module causing a runtime crash. I introduced an interface to break the cycle and also improved testability.
-B2 | Performance      | Lead asks what the performance profiler revealed about the list scroll. | The profiler shows we are rebuilding the UI model on every recomposition, creating thousands of short-lived objects during scroll. I will move the transformation to a StateFlow with stateIn.
-B2 | DevOps           | Lead asks for an update on the CI reliability issues this week. | Two end-to-end tests were flaking on the emulator due to animation timeouts. I disabled animations in the test environment and added a retry policy. The pipeline has been stable since yesterday.
-B2 | Planning         | Lead asks if the team can start development on the new epic. | We need to refine the acceptance criteria first. The current specification is too vague to estimate reliably. Could we block fifteen minutes with the product owner before the sprint starts?
-B2 | Accessibility    | Lead asks if the app is ready for launch after the audit. | The accessibility audit found several critical issues — missing focus indicators and low contrast ratios. I need to fix those before we can responsibly ship to production.
-B2 | Caching          | Lead asks how we can reduce the redundant API calls in the app. | I am proposing a caching layer with configurable TTL values. The UI would observe a single Flow that reflects both cached and fresh data, and we would get basic offline support as a bonus.
+# CONV: DIRECTIONS | Finding the nearest coffee shop
+APP: Excuse me, do you know where I can find a good coffee shop near here?
+YOU: Yes there is a great one called Blue Cup just two blocks from here. Turn right at the traffic light.
+APP: Two blocks to the right. Is it on the left side or the right side of the street?
+YOU: It is on the left side next to a pharmacy. You will see a blue sign above the door.
+APP: Is it open right now? I think it is already past five.
+YOU: Yes they close at seven. You have plenty of time.
+APP: Perfect. Thank you so much for your help.
+YOU: You are welcome. Enjoy your coffee!
 
+# CONV: DIRECTIONS | Getting to the airport
+APP: Sorry to bother you. How do I get to the international airport from downtown?
+YOU: The easiest way is to take the metro. Take line two from Central Station to Airport Terminal.
+APP: How long does it take by metro?
+YOU: About thirty five minutes without traffic. The metro is faster than a taxi at this time of day.
+APP: And how much is the ticket?
+YOU: It costs about three dollars. You can pay with cash or card at the machine in the station.
+APP: Great. Where is the closest metro station from here?
+YOU: Just walk straight for one block and you will see the station entrance on your right.
+APP: Perfect. Thank you very much.
+YOU: Good luck and have a safe flight!
 
-# ╔══════════════════════════════════════════════════════════╗
-# TOPIC: DIRECTIONS | Directions | 🗺️ | Asking & giving directions
-# ╚══════════════════════════════════════════════════════════╝
+# CONV: DIRECTIONS | Finding a hotel
+APP: Hi excuse me. I am looking for the Grand Hotel. Do you know where it is?
+YOU: Yes I know that hotel. It is about ten minutes away by foot from here.
+APP: Can you give me directions please? I am not very familiar with this area.
+YOU: Of course. Walk down this street until you reach the park. Then turn left.
+APP: OK turn left at the park. And then?
+YOU: After turning left walk about three blocks. The Grand Hotel will be on your right. It is a tall white building.
+APP: Is there a landmark I can use to make sure I am going the right way?
+YOU: Yes after the park you will pass a big supermarket called FreshMart. If you see that you are going the right way.
+APP: That is very helpful. Thank you for your patience.
+YOU: No problem at all. Enjoy your stay!
 
-# --- A2 ---
-A2 | Asking           | A tourist stops you and asks how to get to the city center. | Go straight and turn left at the traffic light.
-A2 | Asking           | Someone asks which way the nearest subway station is. | The subway station is two blocks north. Turn right at the corner.
-A2 | Distance         | A tourist asks if the hotel is far from where you are. | No, it is about ten minutes on foot. Go straight and you will see it on the left.
-A2 | Indoor           | A visitor asks which floor the meeting room is on. | It is on the third floor. Take the elevator on your right when you enter.
-A2 | Giving           | A driver asks where to turn. | Turn left at the next traffic light. The entrance is right there on your right.
-A2 | Parking          | A visitor asks if there is parking nearby. | Yes, the parking lot is behind the building, on Garcia Street.
-A2 | Transport        | A client asks how to get to your office. | Take bus number five and get off at Central Avenue. We are right across the street.
-A2 | Distance         | A tourist asks if the museum is within walking distance. | Yes, it is about fifteen minutes on foot. Go straight and turn right at the pharmacy.
-A2 | Indoor           | A colleague cannot find the coffee shop in the building. | It is on the ground floor, past the reception area on your left.
-A2 | Entrance         | A visitor is looking for the main entrance to your building. | The main entrance is on the south side of the building, on Bolivar Avenue.
-A2 | Navigation       | A lost tourist asks which direction downtown is. | Downtown is north from here. Go straight for three blocks and you will see the main square.
-A2 | Suggestion       | A tourist asks if they should walk or take a taxi. | Walking is fine. It is only about ten minutes from here.
-A2 | Services         | A visitor asks if there is an ATM nearby. | Yes, there is one inside the supermarket at the next corner.
-A2 | Indoor           | A colleague asks how to get to the parking lot from inside. | Exit through the back door and the parking lot is right there on your left.
-A2 | Landmark         | A tourist is looking for the pharmacy. | Go past the traffic light and the pharmacy is on the right side of the street.
-A2 | Indoor           | A client asks where exactly the coworking space is in the building. | It is in the basement. Use the stairs at the back of the lobby.
-A2 | Walking          | A visitor asks if they can walk to the station from where you are. | Yes, it is about eight minutes on foot. Cross the street and go straight.
-A2 | Indoor           | Someone asks which way the elevator is. | The elevator is at the end of the hallway on your right.
-A2 | Indoor           | A visitor asks if there is a meeting room on this floor. | Yes, there are two rooms at the end of the corridor on the left.
-A2 | Entrance         | A tourist cannot find the entrance and asks for help. | The entrance is on the side street. Walk around the building to your left.
+# CONV: DIRECTIONS | Asking about public transport
+APP: Excuse me, does the number seven bus stop near here?
+YOU: Yes the bus stop is just half a block away on the corner of Main Street and Second Avenue.
+APP: Do you know how often the bus comes?
+YOU: Every fifteen minutes during the day. But after eight in the evening it comes every thirty minutes.
+APP: And does bus seven go to the university?
+YOU: Yes it stops right in front of the main university entrance. It is about eight stops from here.
+APP: How long does the ride take?
+YOU: About twenty minutes. But it can be longer if there is traffic downtown.
+APP: Thank you that is exactly what I needed.
+YOU: You are welcome. Have a good trip!
 
-# --- B1 ---
-B1 | Metro            | A tourist asks how to get to the nearest metro station. | Turn left at the traffic light, walk two blocks north, and you will see the station entrance across from the park.
-B1 | Bus              | A driver asks which bus to take to Central Avenue. | Take the number four bus from this stop and get off at Central Avenue. It is about a fifteen-minute ride.
-B1 | Landmark         | A tourist asks for directions to the shopping mall. | Go past the pharmacy on the corner, take the second right, and the mall entrance will be on your left.
-B1 | Conference       | A visitor cannot find the conference center. | It is right across from the main shopping mall. You cannot miss it — there is a big sign out front.
-B1 | Indoor           | A colleague cannot find the check-in desk in the building. | The check-in desk is on the ground floor, past the main reception area, at the end of the corridor on the left.
-B1 | Security         | A visitor asks if they need to go through security. | Yes, you need to pass through the security checkpoint on the left before you can access the executive wing.
-B1 | Metro            | A friend asks where the coffee shop you mentioned is. | It is two stops away on the blue metro line. Get off at Miraflores station and it is right there on the corner.
-B1 | Airport          | A client asks for the fastest route to the airport. | Take the expressway to avoid city traffic. From here it is about forty minutes — add thirty if it is rush hour.
-B1 | Walking          | A visitor asks if they can walk along the river to reach the hotel. | Yes, walk along the riverfront for about five minutes and the hotel will be on your right, just past the bridge.
-B1 | Event            | A colleague is running late and asks exactly where the event is. | The event is in building B, third floor. Enter through the main lobby and take the elevators on the right side.
-B1 | Navigation       | A tourist thinks they went the wrong way and asks for help. | You did take a wrong turn. Go back two blocks and then turn left. The venue will be directly ahead of you.
-B1 | Traffic          | A friend asks about the best route given construction this week. | There is significant construction on the main road. I would take the ring road instead — it adds five minutes but avoids all the delays.
-B1 | Meeting          | A client asks where to meet you when they arrive. | Let's meet at the arrivals gate on the first floor. It is easy to find and a good reference point for both of us.
-B1 | GPS              | A visitor says their GPS is giving them strange directions. | The GPS tends to be wrong in this area. Ignore it and follow the signs for the historic center instead.
-B1 | Highway          | A driver asks how to navigate the highway exit. | Once you exit the highway, take the first roundabout exit and continue straight for about one kilometer.
-B1 | Hidden           | A client cannot see your building from the street. | The building is set back from the road. Look for the pedestrian bridge and turn right — the entrance is visible from there.
-B1 | Offline map      | A first-time visitor asks if they need an offline map. | Definitely. The mobile coverage in this area is unreliable, so an offline map is very useful for navigation.
-B1 | Missed exit      | A driver asks what to do if they miss the exit. | Do not worry. There is another entry point about two kilometers ahead. Just follow the signs for the city center.
+# CONV: DIRECTIONS | Navigating a mall
+APP: Excuse me, I am looking for the food court in this mall. Can you help me?
+YOU: Sure. You are on the third floor right now. The food court is on the second floor.
+APP: Can I take the elevator or are there escalators?
+YOU: Both. The elevator is behind you near the main entrance. The escalators are on the left side.
+APP: And which direction when I get to the second floor?
+YOU: When you get off the escalator turn right. You will see the food court straight ahead.
+APP: Is there a Chinese restaurant in the food court?
+YOU: Yes there is one called Golden Dragon. It is the first restaurant on the left when you enter.
+APP: Great. Thank you so much for your help.
+YOU: No problem. Enjoy your meal!
 
-# --- B2 ---
-B2 | Airport transfer | A client asks for the most efficient way from the airport to your office. | The most efficient route is the express airport train to the central hub, then transfer to the blue line. It takes about forty-five minutes and avoids traffic entirely.
-B2 | Road closures    | A colleague asks what to do given this week's road closures. | I would recommend taking the alternate route via the ring road. It adds about ten minutes but is far more reliable than the main avenue right now.
-B2 | Navigation help  | A friend says the venue is hard to find on the map. | The venue is tricky to navigate from a map. Let me drop a pin on WhatsApp so you can follow the walking directions directly — it is much clearer that way.
-B2 | Airport arrival  | A client just landed and asks where to go. | Follow the signs for domestic arrivals and exit through Gate B. I will be waiting at the coffee stand just past the exit.
-B2 | Wrong entrance   | A visitor used the wrong entrance and is now confused. | There are two entrances leading to different sections. The south entrance on Bolivar Avenue is for visitors — use that one and you will reach the reception directly.
-B2 | Rush hour        | A guest asks how much time to allow when driving during rush hour. | There is significant construction on the main road, so allow at least thirty extra minutes if you are driving during morning rush hour.
-B2 | Meeting point    | A client arriving early asks where to wait for you. | Head to the arrivals gate on the first floor and wait by the coffee stand on the left. It is easy to find and a convenient reference point.
-B2 | GPS failure      | A visitor says the GPS sent them to a field and they are lost. | The GPS signal is unreliable here due to the tall buildings. Ignore it completely and follow the physical road signs for the financial district.
-B2 | Wrong exit       | A driver missed the correct highway exit and asks what to do. | Continue to the next interchange, take any exit, and follow the signs back to the city center. There is a service road running parallel to the highway you can use.
-B2 | Hidden building  | A client cannot find your building address anywhere on the street. | Our building has no visible street signage. It is accessed through a courtyard behind the main street. Walk through the arch between numbers fourteen and sixteen.
-B2 | Offline map tip  | A visitor is going to the old town and asks for navigation advice. | Absolutely download an offline map. Mobile coverage is inconsistent in the old town, and the streets are narrow and confusing. I would get both Google Maps and Maps dot me just in case.
-B2 | Full parking     | A colleague asks what to do if the main parking lot is full. | There is a multi-level garage two blocks east on Lima Street. It is a five-minute walk and usually has availability even during busy periods.
+# CONV: MOBILE_DEV | Discussing a new feature
+APP: Javier, we need to add push notifications for order updates. Do you have experience with that?
+YOU: Yes I have implemented push notifications using Firebase Cloud Messaging before. It should not be too complex.
+APP: How long do you think it will take to implement?
+YOU: For basic notifications about four days. If we want rich notifications with images and actions maybe six days.
+APP: Let us start with basic notifications. What do you need from the backend?
+YOU: I need the backend to send the correct payload format. I will write a specification document and share it today.
+APP: Perfect. Should we also handle notifications when the app is in the background?
+YOU: Yes that is essential. Firebase handles background notifications automatically. We just need to configure the manifest correctly.
+APP: Sounds good. Let us schedule a quick call tomorrow to align on the implementation details.
+YOU: Works for me. I will prepare some technical diagrams to share during the call.
 
+# CONV: MOBILE_DEV | Reporting a crash bug
+APP: Javier, users are reporting a crash in the checkout flow. Can you look at it urgently?
+YOU: Of course. Do you have the crash report from Firebase Crashlytics?
+APP: Yes I will send it to you now. It says null pointer exception in the payment fragment.
+YOU: OK I see it. The crash happens when users tap the pay button without a saved payment method.
+APP: Why did we not catch this in testing?
+YOU: Our test cases assumed users always have a saved card. We need to add a test for empty payment methods.
+APP: How quickly can you fix this?
+YOU: The fix is simple. I just need to add a null check before accessing the payment data. I can push a fix in one hour.
+APP: Please do it as fast as possible. We have many complaints from users right now.
+YOU: Already on it. I will notify you when the fix is ready for QA testing.
 
-# ╔══════════════════════════════════════════════════════════╗
-# TOPIC: MOBILE_DEV | Mobile Dev | 📱 | App development talk
-# ╚══════════════════════════════════════════════════════════╝
+# CONV: MOBILE_DEV | Talking about app architecture
+APP: Javier, the new developer is asking about our app architecture. Can you explain it?
+YOU: Sure. We use the MVVM pattern with Clean Architecture. This separates the UI logic from the business logic.
+APP: Can you explain what MVVM means in simple terms?
+YOU: MVVM stands for Model View ViewModel. The Model handles data, the ViewModel processes it, and the View just displays what the ViewModel tells it.
+APP: And how does Clean Architecture fit into that?
+YOU: Clean Architecture adds layers. We have the presentation layer, the domain layer with business rules, and the data layer for APIs and the database.
+APP: Why did the team choose this architecture?
+YOU: It makes the code easier to test and maintain. Each layer only knows about the layer below it. This reduces dependencies.
+APP: How long did it take to set up this architecture?
+YOU: The initial setup took about a week. But it has saved us a lot of time when we need to make changes or add features.
 
-# --- A2 ---
-A2 | UI               | Teammate asks what you are working on today. | I am building the home screen using Jetpack Compose.
-A2 | Bug              | Lead asks you to look into the Android 12 crash. | Yes, I am looking into it. I think it is related to the background service restriction on Android 12.
-A2 | Review           | Lead asks if your pull request is ready for review. | Yes, it is ready. I added inline comments to explain the tricky parts.
-A2 | Architecture     | A new teammate asks what architecture you are using. | I am using MVVM with a repository pattern and Hilt for dependency injection.
-A2 | API              | Lead asks why the API is not working in the latest build. | It is returning a four oh three error. I need to refresh the authentication token before retrying.
-A2 | Testing          | Lead asks if the new classes have unit tests. | Not yet. I am planning to write unit tests for them today before I submit the pull request.
-A2 | Networking       | Teammate asks what library you are using for API calls. | I am using Retrofit with an OkHttp interceptor for adding authentication headers automatically.
-A2 | Bug              | Client reports the app keeps crashing. | I can see the crash report in Firebase. It happens when the user rotates the screen. I will fix it today.
-A2 | UX               | Designer asks why there is a spinner on the screen. | It shows while the data is loading from the server. I will replace it with a skeleton screen instead.
-A2 | UI               | Designer asks why the layout looks different on small screens. | The layout breaks on screens smaller than five inches. I need to adjust the padding and font sizes for those devices.
-A2 | Edge case        | Lead asks what happens when the user has no internet connection. | Currently it shows an error. I need to add a proper offline state with a message and a retry button.
-A2 | Build            | Lead asks why the build is failing in CI. | There is a dependency version conflict in the Gradle configuration. I am fixing it now.
+# CONV: MOBILE_DEV | API integration discussion
+APP: Javier, we are switching from REST to GraphQL for the new version. Have you worked with GraphQL before?
+YOU: I have tried it in a personal project but I have not used it in a professional Android app yet.
+APP: No worries. The main difference is that with GraphQL you request exactly the data you need instead of getting everything from a REST endpoint.
+YOU: That sounds great for mobile. We can reduce the amount of data we download which is good for users with slow connections.
+APP: Exactly. We will use Apollo Client for Android. It generates type-safe code from the GraphQL schema.
+YOU: Do we need to learn a new query language?
+APP: Yes GraphQL has its own query syntax. But it is simple and I can pair with you on the first integration.
+YOU: I would appreciate that. When do we start?
+APP: Let us plan for next Monday. I will share the documentation before the weekend.
+YOU: Perfect. I will read it over the weekend to come prepared.
 
-# --- B1 ---
-B1 | Architecture     | A lead asks you to explain the architecture of the feature you just built. | I built it using Jetpack Compose for the UI, a ViewModel for state management, and a separate UseCase class to keep the business logic decoupled from the data layer.
-B1 | Auth             | Teammate asks why the API keeps returning a four oh three error. | The authentication token expired. I added an OkHttp interceptor that automatically refreshes the token and retries the failed request without the user noticing.
-B1 | Testing          | Lead asks if tests should be added before the pull request is merged. | Absolutely. I will write unit tests for the use case and mock the repository using a fake implementation before I submit the pull request.
-B1 | Bug              | Client reports crashes on Android 12 for some users. | Android 12 introduced background service execution restrictions. I replaced the background service with WorkManager, which is the recommended approach for deferred background work.
-B1 | Performance      | Teammate asks what caused the scroll lag reported by QA. | We were loading and scaling full-resolution images on the main thread. I moved the image loading to Coil on a background thread and the scroll is now completely smooth.
-B1 | Review           | Lead says they left detailed comments on your pull request. | Thank you for the thorough review. I agree with most of the feedback and have already addressed the architecture comments. I have one question about the error handling suggestion.
-B1 | Offline          | Lead asks how the app handles the case when there is no internet. | I am using a Room database as a local cache. When there is no internet, the app serves the cached data and shows a non-intrusive banner to inform the user they are offline.
-B1 | Refactoring      | Teammate asks why you split that large class into three separate ones. | It was doing too many things — data fetching, business logic, and UI formatting all in one place. I split it following the single responsibility principle to make each part independently testable.
-B1 | Coroutines       | Teammate asks why the Flow is not emitting any values. | The coroutine scope that collects the Flow was cancelled when the ViewModel was cleared. I moved the collection to the UI layer using collectAsStateWithLifecycle to tie it to the screen lifecycle.
-B1 | Compose          | Lead asks what is causing the list to recompose too often. | The recycler is recomposing unnecessarily. I optimized it by passing a stable key to each item in the LazyColumn so Compose can track changes efficiently and skip unchanged items.
-B1 | Background       | Teammate asks why you chose WorkManager over a background service. | WorkManager survives process death and respects battery optimization settings. It is the recommended solution for reliable deferred background work on modern Android.
-B1 | Memory           | Teammate points out that the ViewModel might be leaking memory. | You are right. It holds a reference to the Activity context. I will refactor it to use the Application context or inject the dependency through the constructor instead.
-B1 | Lint             | Lead asks how to prevent this anti-pattern from being introduced again. | I will write a custom Lint rule that flags any ViewModel holding a View or Activity reference. It will fail the build if the rule is violated, so the team will catch it immediately.
-B1 | Database         | Teammate says the schema migration broke the existing tests. | The schema change added a NOT NULL column without a default value, which broke the in-memory test database. I am adding a migration helper and updating the test database setup.
-B1 | Architecture     | Lead asks where the business logic lives now after the refactor. | I extracted it into a UseCase class that takes the repository as a constructor dependency. It is now fully unit testable without any Android framework dependencies.
-B1 | Compose          | Lead asks why the screen recomposes on every frame during scroll. | The parent composable holds mutable state that changes on every frame. I wrapped it in a remember block and derived the stable state once to minimize unnecessary recompositions.
-B1 | Networking       | Teammate asks what happens when a network request fails. | I added exponential backoff using the Retry utility from the Coroutines library. After three failed attempts it shows a clear error state with a retry button that the user can tap.
-B1 | SDK              | Lead asks if the app targets the latest stable SDK version. | Yes, I updated the compileSdk and targetSdk to the latest stable release and tested all the new permission flows on a physical device running the latest OS.
-B1 | DI               | Teammate asks why you chose Hilt over manual dependency injection. | Hilt integrates with the Android lifecycle and generates the boilerplate automatically. It also makes testing easier because we can replace any dependency with a test double using the testing module.
-B1 | ProGuard         | Lead says ProGuard is stripping a class needed at runtime. | I found the missing class. I added a keep rule in the ProGuard configuration to prevent it from being obfuscated or removed during the release build.
-B1 | CI               | Lead asks if the CI pipeline is set up for the new repository. | Yes, I configured a GitHub Actions workflow that runs unit tests, Lint, and a debug build on every pull request. It also generates a test coverage report so we can track regressions.
-B1 | Compatibility    | Teammate says dark mode looks wrong on Samsung devices. | Samsung uses a custom color system that overrides some Material Design tokens. I added device-specific overrides in the theme file to ensure consistent dark mode colors across manufacturers.
+# CONV: MOBILE_DEV | App store submission
+APP: Javier, are we ready to submit the new version to the Play Store?
+YOU: Almost. I finished the release build yesterday. I just need to update the screenshots and the description.
+APP: The marketing team sent the new screenshots this morning. I will forward them to you.
+YOU: Great. I also need to write the changelog for this version. What were the main changes?
+APP: The main features are the new dark mode, the faster search, and the bug fix for the camera.
+YOU: Got it. I will write a clear changelog in English. Do we need to submit in any other languages?
+APP: Yes we need Spanish too since most of our users are in Latin America.
+YOU: I can write the Spanish changelog. Should I also update the full app description in Spanish?
+APP: Please do. When do you think we can submit?
+YOU: If I get the screenshots now I can submit by three o'clock today.
 
-# --- B2 ---
-B2 | Architecture     | Lead says the current architecture will not scale as the app grows. | I recommend migrating to a modular architecture where each feature is an independent Gradle module. This reduces build times, enforces clear boundaries, and lets teams work in parallel without conflicts.
-B2 | Threading        | Lead asks what is causing the persistent crashes on the main thread. | The crashes are threading violations caused by updating UI state from a background coroutine without switching to the main dispatcher. I will audit every coroutine and enforce withContext for all state updates.
-B2 | API design       | Lead asks your opinion on whether to keep REST or move to something else. | For mobile clients, GraphQL would be a better fit. It eliminates overfetching, reduces round trips, and lets the client request exactly the fields it needs. I can build a proof of concept this sprint.
-B2 | CI               | Lead asks why the integration tests keep failing randomly in CI. | The flaky tests have timing assumptions baked in with Thread.sleep calls. I will replace them with idling resources or fake time injection to make the tests fully deterministic and reliable.
-B2 | Security         | Lead asks what the security audit flagged in your module. | We are storing the access token in plain SharedPreferences, which is unencrypted on Android below version six. I will migrate to EncryptedSharedPreferences or the Android Keystore system to meet the security requirement.
-B2 | Monitoring       | Product asks how the feature flag is performing in production. | The flag is live for fifteen percent of users. Crash-free session rate and all performance metrics are within normal range. I recommend expanding to fifty percent tomorrow if the numbers hold through tonight.
-B2 | Tech debt        | Lead asks how much effort it would take to clean up the networking layer. | There are three major issues — inconsistent error handling, no retry logic, and tight coupling to Retrofit. I estimate four sprint points to refactor it properly, which would also unblock three pending features.
-B2 | Pagination       | Lead asks if the list screen performance can be improved now. | Not effectively without a server-side change. Once the backend team implements cursor-based pagination, I can add a paged adapter that will dramatically reduce load time and memory usage simultaneously.
-B2 | Proof of concept | Lead asks you to walk through the proof of concept you just completed. | The proof of concept shows we can use WebSockets for real-time updates without a full push notification backend. Latency is under fifty milliseconds in our tests. I documented the architecture and tradeoffs in Confluence.
-B2 | Error handling   | Lead asks how to make error handling consistent across the entire app. | I propose defining a sealed class hierarchy for domain errors and a standard mapper at each data layer boundary. Every module would translate its errors into the same domain model, giving the UI a single consistent way to display them.
-B2 | DI               | Teammate asks why you made changes to the dependency injection graph. | There was a circular dependency between the auth repository and the network module causing a runtime crash. I introduced an interface to break the cycle and also improved the testability of both modules.
-B2 | Performance      | Lead asks what the profiler revealed about the list scroll performance. | We are rebuilding the UI model on every recomposition, creating thousands of short-lived objects during scroll. I will move the transformation to a StateFlow with stateIn so it only runs when the source data actually changes.
-B2 | DevOps           | Lead asks for an update on the CI reliability problems this week. | Two end-to-end tests were flaking on the emulator due to animation timeout issues. I disabled animations in the test environment and added a retry policy. The pipeline has been fully stable since yesterday morning.
-B2 | Planning         | Lead asks if the team can start development on the new epic now. | We need to refine the acceptance criteria first. The current specification is too vague to estimate reliably. Can we block fifteen minutes with the product owner before the sprint kickoff to fill in the gaps?
-B2 | Accessibility    | Accessibility tester asks if the app is ready for launch after the audit. | The audit found several critical issues — missing content descriptions and low contrast ratios on key screens. I need to fix those eight items before we can responsibly ship. I expect to finish by Thursday.
-B2 | Caching          | Lead asks how to reduce the redundant API calls happening throughout the app. | I am proposing a caching layer using the Repository pattern with Room as the local source of truth. The UI observes a single Flow reflecting both cached and fresh data, and we get basic offline support as a bonus.
+# CONV: DAILY_LIFE | At the supermarket
+APP: Excuse me, do you know where the dairy products are in this store?
+YOU: Yes they are in the back of the store on the left side, near the bread section.
+APP: Thank you. I am also looking for almond milk. Do you carry that here?
+YOU: Yes we do. Almond milk is in the same aisle as regular milk. Look for the green carton.
+APP: Perfect. One more question, do you have a loyalty card I can sign up for?
+YOU: Yes we do. You can sign up at the customer service desk near the main entrance. It is free.
+APP: Great. Does the card give discounts right away?
+YOU: Yes from the very first purchase. You also get double points on Tuesdays.
+APP: That is very useful. Thank you for all your help.
+YOU: You are welcome. Have a good shopping experience!
 
+# CONV: DAILY_LIFE | At the doctor's office
+APP: Good morning. I have an appointment with Doctor Rivera at ten o'clock.
+YOU: Good morning. Can I have your full name and date of birth please?
+APP: My name is Sarah Johnson and I was born on March fifteen nineteen ninety.
+YOU: Thank you. Can I see your insurance card please?
+APP: Of course. Here you go. Is everything in order?
+YOU: Yes everything looks good. Please take a seat. The doctor will be with you in about ten minutes.
+APP: Thank you. I also wanted to ask, I have been having headaches for a week. Should I mention that to the doctor?
+YOU: Yes definitely mention it. That is exactly the kind of information the doctor needs to know.
+APP: OK I will. Thank you for being so helpful.
+YOU: No problem. Feel better soon!
 
-# ╔══════════════════════════════════════════════════════════╗
-# TOPIC: DAILY_LIFE | Daily Life | ☀️ | Everyday situations
-# ╚══════════════════════════════════════════════════════════╝
+# CONV: DAILY_LIFE | Opening a bank account
+APP: Good afternoon. I would like to open a checking account please.
+YOU: Of course. I can help you with that. Do you have a valid ID and proof of address?
+APP: Yes I have my passport and a utility bill from last month.
+YOU: Perfect. And are you employed or self-employed?
+APP: I am a freelance software developer. I work with international clients.
+YOU: In that case you may want our international transfers feature. It has lower fees for sending money abroad.
+APP: That sounds useful. Does the account have any monthly fees?
+YOU: There are no fees if you maintain a minimum balance of five hundred dollars.
+APP: That works for me. How long does it take to open the account?
+YOU: Usually about twenty minutes if all your documents are in order. Let us start the process now.
 
-# --- A2 ---
-A2 | Services         | A pharmacy assistant asks how they can help you. | What time do you close today?
-A2 | Food             | A barista asks what you would like to order. | Can I have a coffee, please?
-A2 | Shopping         | A cashier asks how you will pay. | I will pay with my credit card, please.
-A2 | Shopping         | A shop assistant approaches and asks if you need help. | Yes, I am looking for a phone charger. Do you have any?
-A2 | Time             | A stranger on the street asks what time it is. | It is three fifteen in the afternoon.
-A2 | Medical          | A receptionist asks how they can help you at the clinic. | I have an appointment at two o'clock with Doctor Martinez.
-A2 | Food             | A colleague offers to get something from the café. | Yes, please. A black coffee with no sugar. Thank you.
-A2 | Shopping         | A cashier tells you the total amount. | Here you go. Can I have a receipt, please?
-A2 | Food             | A waiter comes to check if everything is fine with your order. | Actually, I ordered the salad but I received the soup instead.
-A2 | Schedule         | A receptionist asks when you are available for an appointment. | I can come in any morning this week. What slots do you have available?
-A2 | Medical          | A pharmacy assistant asks if you have a prescription. | No, I just need some ibuprofen for a headache. Is that available without one?
-A2 | Delivery         | A delivery person rings and says they have a package for you. | Thank you. Could you leave it at the door? I am currently on a video call.
-A2 | Noise            | A neighbor complains that your music is too loud. | I am so sorry. I will turn it down right away.
-A2 | Shopping         | A shop assistant asks if you need help with clothing sizes. | Yes. I am not sure about my size here. Can I try this on?
-A2 | Food             | A barista asks for your order at a coffee shop. | I will have a large oat milk latte with one extra shot, please.
-A2 | Hotel            | A hotel receptionist asks if you have a reservation. | Yes, under the name Javier Enriquez. I booked a room for two nights.
-A2 | Transport        | A taxi driver asks where you want to go. | To the airport, please. I need to be there by six o'clock.
-A2 | Social           | A colleague invites you to the team lunch. | Yes, I will be there. What time and where is it?
-A2 | Banking          | A bank teller asks how they can help you today. | I would like to open a checking account. What documents do I need to bring?
-A2 | Security         | A security guard asks to see your identification. | Of course. Here is my passport.
-A2 | Food             | You want to pay and need the check. | Could we have the check when you get a chance, please?
-A2 | Accommodation    | A landlord asks if you have read the lease agreement. | Yes, I have. I have a question about the deposit clause on page three.
+# CONV: DAILY_LIFE | Renting an apartment
+APP: Hi, I am calling about the one-bedroom apartment you have listed online. Is it still available?
+YOU: Yes it is still available. It is a great apartment in a quiet neighborhood near the metro.
+APP: What is the monthly rent?
+YOU: It is twelve hundred dollars per month including water and internet. Electricity is separate.
+APP: And how much is the security deposit?
+YOU: One month deposit is required before moving in. So you would pay twenty four hundred total to start.
+APP: Can I schedule a visit to see the apartment?
+YOU: Of course. Are you available this Saturday morning? I can show it to you at ten.
+APP: Saturday at ten works perfectly for me.
+YOU: Great. I will send you the address by text. Please bring your ID and proof of income for the visit.
 
-# --- B1 ---
-B1 | Food             | A colleague asks if you know a good place for the team lunch. | There is a really good Peruvian restaurant two blocks from the office. The food is excellent and it is quiet enough for a business conversation.
-B1 | Food             | A barista asks for your size and milk preference. | I will have a large oat milk latte with one extra shot and no sugar. Could you make it a bit hotter than usual?
-B1 | Services         | A colleague asks if you know when the nearby pharmacy closes. | I believe it closes at nine on weekdays. There is also one inside the supermarket on the corner that stays open until midnight.
-B1 | Schedule         | Your manager asks if you can attend the meeting today at the original time. | Something urgent came up this afternoon. I am free tomorrow from ten onwards or Friday morning. Which works better for you?
-B1 | Commute          | A colleague notices you seem stressed and asks if you are okay. | Yes, the traffic was terrible today so I left home extra early and took the subway to make sure I got here on time.
-B1 | Office           | A coworker asks you to keep your voice down while on a call. | I am so sorry. I did not realize how loud I was. I will move to a meeting room for the rest of the call.
-B1 | Food             | A teammate says they are heading out for lunch. | Could you bring me a sandwich if you are passing the bakery? I have back-to-back calls and cannot leave the office right now.
-B1 | Social           | A friend texts asking if you are free for coffee this week. | I would love that. I am fairly flexible this week — any day after five works for me. Just let me know where and I will be there.
-B1 | Schedule         | A colleague asks when you will be back from your appointment. | I have a dentist appointment at noon. I should be done by one at the latest and back in the office after that.
-B1 | Package          | A colleague tells you there is a package waiting at reception. | Thank you for letting me know. Could you sign for it? I am in a meeting until three and cannot step away right now.
-B1 | Food             | A client asks if the restaurant you suggested is good for a business lunch. | It depends on the time. The food is excellent but it can get noisy during peak hours. I would book a table in the back section for a more private conversation.
-B1 | Health           | A friend asks if you are going to renew your gym membership. | I am thinking about it. I want to check if they improved the equipment. Last time the treadmills were always occupied during peak hours.
-B1 | Work             | A colleague asks if you know a quiet place to work nearby for the afternoon. | There is a coworking space on Larco Avenue that is quiet and has good Wi-Fi. It is a bit pricey but worth it for focused deep work.
-B1 | Work             | A teammate asks what happened to you this morning. | The power went out in my apartment at seven. I grabbed my laptop and worked from a café until they restored it around noon.
-B1 | Services         | A friend asks if you know anyone who repairs phones nearby. | There is a repair shop on Benavides Street that does excellent work. He fixed my screen in under two hours and the price was very reasonable.
-B1 | Emergency        | A neighbor asks why you are knocking on their door. | I accidentally locked myself out of my apartment. I need to call a locksmith — do you know a reliable one in this area?
-B1 | Services         | A colleague asks if you know a good document translation service. | For official documents I use a certified translator on Jirón de la Unión. For quick everyday translations DeepL is far more accurate than Google Translate.
-B1 | Banking          | A bank agent asks what documents you brought to open an account. | I brought my passport, proof of address, and my tax identification number. I also have my employment contract if that helps speed up the process.
+# CONV: DAILY_LIFE | At the gym
+APP: Hi there. I am thinking about joining this gym. Can you tell me about the membership options?
+YOU: Sure! We have three options. Monthly, six months, and annual. The annual plan gives you the best price.
+APP: How much is the monthly plan?
+YOU: It is forty five dollars per month. The annual plan is three hundred and sixty dollars which is thirty dollars per month.
+APP: Does the membership include all the classes?
+YOU: Yes all group classes are included. We have yoga, spinning, and HIIT classes every day.
+APP: Are there personal trainers available?
+YOU: Yes we have eight certified trainers. Personal training sessions are extra but you get a free assessment when you join.
+APP: Can I try the gym for one day before I commit?
+YOU: Of course. We offer a free day pass. I just need your name and email to set that up.
 
-# --- B2 ---
-B2 | Services         | A mobile carrier agent asks how they can help you today. | I am considering switching my data plan. I need unlimited data that works reliably across Lima and surrounding provinces. I would like to compare your current options and understand the contract terms before deciding.
-B2 | Legal            | A landlord asks if you have reviewed the lease agreement they sent. | I have, and I have a few questions before signing. I want to clarify the early termination clause and confirm whether the deposit is fully refundable if the property is returned in good condition.
-B2 | Services         | An internet provider agent asks how they can assist you today. | I have been experiencing intermittent outages for two weeks. I reported it three times and each time I was told it was resolved, but the problem persists. I would like to escalate this and understand what compensation I am entitled to.
-B2 | Admin            | A building administrator asks the reason for your meeting request. | I need to discuss the ongoing maintenance issues in my unit formally. The heating has not worked properly for six weeks and repeated verbal requests have not resulted in any action.
-B2 | Review           | A restaurant manager asks if everything is to your satisfaction tonight. | The food and service have been consistently excellent — I always recommend this restaurant to colleagues and clients who are visiting the city for the first time.
-B2 | Finance          | An insurance agent asks if you are familiar with freelancer health plans. | Somewhat. I need help understanding the difference between individual and group plans, what the waiting periods are, and which plans cover specialist consultations without needing a referral first.
-B2 | Finance          | A bank agent asks if there is anything else they can help you with. | Yes. I noticed a charge I do not recognize on my statement from last Tuesday. It shows as a purchase at a store I have never visited. I would like to formally dispute that transaction.
-B2 | Legal            | A landlord says they will get to the repair requests eventually. | I understand you are busy, but the leak has been ongoing for over a month and is now causing visible water damage. I would like to set a specific date for the repair. If it is not resolved within the week, I will need to review my options under the rental agreement.
-B2 | Career           | A friend asks if you are really planning to move to a different city for a job. | Yes, I accepted a fully remote position with a company based in Colombia. I am planning the move for next month. It is a big step but the opportunity and the tech community there are both exceptional.
-B2 | Admin            | A visa officer asks you to describe the purpose of your application. | I am applying for a work visa to join a technology company in Chile. I have my employment offer letter, proof of professional qualifications, and bank statements for the past twelve months ready for review.
+# CONV: SMALL_TALK | Meeting someone new at a party
+APP: Hi there! I do not think we have met before. I am Lisa.
+YOU: Hi Lisa, I am Javier. I am a friend of the host from work. How do you know them?
+APP: We were in college together. Are you originally from here?
+YOU: No I am originally from Peru. I moved here about two years ago for work.
+APP: That is interesting! How are you finding it here? Is it very different from Peru?
+YOU: Yes it is quite different but I love it. The pace of life is faster here. And the weather is definitely colder!
+APP: Ha yes the winters can be rough. Have you tried any winter sports since you moved?
+YOU: Not yet but I want to try skiing this year. Do you have any recommendations for good ski resorts nearby?
+APP: Definitely! There is a great one about two hours from the city. I can send you the details.
+YOU: That would be amazing. Thank you so much. It was great meeting you.
 
+# CONV: SMALL_TALK | Talking about the weather
+APP: Can you believe this weather today? It is so cold for this time of year.
+YOU: I know! I checked the forecast this morning and it said it feels like minus five degrees outside.
+APP: I was not expecting this. I left my house without a proper jacket and I am freezing.
+YOU: Oh no. There is a shop just down the street where you can buy a warm sweater if you need one.
+APP: That is a good idea. I might do that. Do you enjoy cold weather or do you prefer summer?
+YOU: I prefer warm weather. Back in Peru it is always hot. I am still getting used to these winters.
+APP: I can imagine. I grew up here so I am used to it but I still find winter very long.
+YOU: Does it stay cold for many months here?
+APP: Usually from November to March. But spring here is beautiful when it finally arrives.
+YOU: Five months of cold sounds hard. But at least the coffee shops are cozy!
 
-# ╔══════════════════════════════════════════════════════════╗
-# TOPIC: SMALL_TALK | Small Talk | 💬 | Casual conversations
-# ╚══════════════════════════════════════════════════════════╝
+# CONV: SMALL_TALK | Discussing weekend plans
+APP: Hey Javier, do you have any plans for the weekend?
+YOU: Yes I am going to visit the art museum on Saturday. I heard they have a new photography exhibition.
+APP: Oh that sounds nice! Is it free or do you need to buy tickets?
+YOU: It is free on Saturday mornings until eleven. After that you need to pay.
+APP: Good to know. Maybe I will go too. What about Sunday?
+YOU: On Sunday I am going to cook a big lunch and video call my family in Peru. I try to do that every weekend.
+APP: That is sweet. It must be hard being far from family.
+YOU: Sometimes yes. But technology makes it much easier. We can see each other face to face even from far away.
+APP: Absolutely. Enjoy your weekend Javier. The exhibition sounds great.
+YOU: Thank you. You too. Maybe I will see you at the museum Saturday morning!
 
-# --- A2 ---
-A2 | Greeting         | A coworker greets you in the morning and asks how you are. | I am doing well, thanks. A bit tired but happy it is almost Friday.
-A2 | Weekend          | A colleague asks how your weekend was. | It was great. I stayed home and finally caught up on some sleep.
-A2 | Weather          | A neighbor comments on the nice weather today. | Yes, it is beautiful outside. I hope it stays like this all week.
-A2 | Sports           | A coworker asks if you watched the game last night. | I missed it. What happened? Who won in the end?
-A2 | Social           | A colleague asks if you are going to the birthday party. | I am planning to go, yes. Do you know where it is and what time it starts?
-A2 | Food             | A coworker asks if you have tried the new restaurant nearby. | Not yet. Is it good? I have been curious about it for a while now.
-A2 | Tired            | A colleague says you look tired today. | I had a very late night finishing a project. I need coffee urgently right now.
-A2 | Vacation         | A coworker asks about your plans for the long weekend. | I am thinking about taking a short trip. I have not decided where yet.
-A2 | Work             | A new colleague asks how long you have worked there. | I have been here for about eight months now. Time really goes by fast.
-A2 | Remote           | A friend asks if you like working from home. | I do, mostly. The commute is zero and I am more focused. I do miss the social side a bit though.
-A2 | Music            | A friend asks what kind of music you are into. | I mostly listen to lo-fi when I am working and rock when I work out.
-A2 | Pets             | A colleague asks if you have any pets at home. | Yes, I have a cat. She is great company when I am working from home.
-A2 | Movies           | A friend asks if you have seen any good movies lately. | Yes, I watched an excellent documentary last week. It was very thought-provoking.
-A2 | Hobbies          | A colleague asks what you do after work to relax. | I usually go for a run or cook dinner at home. It helps me disconnect from the work day.
-A2 | Coffee           | A coworker asks if you are a coffee person or a tea person. | Definitely coffee. I cannot start the day properly without it.
-A2 | Netflix          | A friend asks if you are watching anything on Netflix these days. | Yes, I just started a crime series. Only two episodes in but I am already completely hooked.
-A2 | Exercise         | A colleague asks if you exercise regularly. | I try to. I go to the gym three times a week when I can manage to fit it in.
-A2 | Origins          | A new colleague asks where you are originally from. | I am from Lima but I grew up in Arequipa. I moved here five years ago for work.
-A2 | Holidays         | A coworker asks if you have big plans for the upcoming holidays. | Nothing too exciting. Family dinner, some rest, and maybe a short trip if the flights are not too expensive.
-A2 | Schedule         | A client asks if you are a morning person for calls. | Not naturally. But I have been waking up earlier lately because I have international calls at seven in the morning.
-A2 | Family           | A colleague asks how the family is doing. | Doing well, thanks for asking. My parents just visited for the week, which was really nice.
-A2 | Career           | A new contact asks how you got into the tech industry. | I was always curious about how things work. I started learning to code at university and I never really stopped.
+# CONV: SMALL_TALK | Talking about favorite movies
+APP: Did you watch anything good recently? I am looking for a movie recommendation.
+YOU: Yes I watched a fantastic thriller last week called The Silent Room. Have you heard of it?
+APP: No I have not. What is it about?
+YOU: It is about a detective who investigates a disappearance in a small mountain town. It is very suspenseful.
+APP: I love thrillers! Is it in English or is it a foreign film?
+YOU: It is in Spanish but it has English subtitles. The acting is really excellent.
+APP: I do not mind subtitles. Where can I watch it?
+YOU: It is on a major streaming platform. I think it is also available for rent online.
+APP: Great I will look for it tonight. What kind of movies do you usually like?
+YOU: I enjoy thrillers and science fiction. I also love documentaries about technology and space.
 
-# --- B1 ---
-B1 | Weekend          | A colleague asks about your weekend and whether you did anything fun. | It was really good. I took a hike outside the city on Saturday — I needed to get away from screens for a bit. Sunday I just relaxed at home.
-B1 | Entertainment    | A client asks if you have been following the tech documentary everyone is talking about. | I started it but have not finished it yet. I am trying to limit screen time in the evenings. Is it worth continuing past the third episode?
-B1 | Weather          | A colleague complains about how unpredictable the weather has been. | I know. I left home in a t-shirt this morning and now I am freezing. I really should have checked the forecast before leaving.
-B1 | Team event       | A friend asks if you are coming to the company event on Friday. | I am planning to. I heard the venue is really nice. Do you know if there is a dress code or is it casual attire?
-B1 | Time             | A friend says the year has gone by incredibly fast. | I know, it is hard to believe. I feel like I had plans for this year that I have barely started. Time management is something I genuinely want to get better at.
-B1 | Career           | A new contact asks how long you have been in software development. | About three years professionally. I switched from a completely different field, so it was a steep learning curve at the start, but I am really glad I made the change.
-B1 | Office           | A colleague comments on the new office layout. | It is growing on me. It was a bit disorienting at first but I like having more natural light. The open plan does get a bit noisy during peak hours though.
-B1 | Coffee           | A teammate asks if you have tried the new coffee machine in the break room. | I have. It is much better than the old one. The espresso is surprisingly decent for an office machine — I use it every morning now.
-B1 | Sports           | A friend asks if you watched the tournament match last night. | I caught the second half. What a finish — I did not expect that result at all. The third goal came completely out of nowhere.
-B1 | Vacation         | A colleague says you look refreshed and asks how your vacation was. | It was exactly what I needed. I completely disconnected — no emails, no Slack, nothing. I came back feeling genuinely energized for the first time in months.
-B1 | Hobbies          | A colleague asks how you usually unwind after a long workday. | I usually go for a thirty-minute run. It clears my head and helps me properly transition out of work mode. On really bad days I just cook something and watch an episode of something light.
-B1 | Local            | A colleague asks if you heard about the new park near the riverside. | Not yet, but I have heard it is beautiful. I want to go this weekend if the weather holds. Do you want to organize a group walk with a few people from the team?
-B1 | Hobbies          | A friend asks how your weekend cooking experiment has been going. | Hit and miss, honestly. The pasta dishes have been great but I attempted a soufflé last weekend that completely collapsed. I laughed about it though — it was impressive how wrong it went.
-B1 | Remote           | A colleague asks how you stay productive when working from home. | I follow a strict routine — same wake-up time, dress as if I am going to the office, and take a real lunch break away from the desk. Without that structure the days just blur together.
-B1 | Learning         | A new contact asks if you have a podcast recommendation for learning English. | I love English Learning for Curious Minds — the topics are interesting and the host speaks very clearly. I also listen to How I Built This for business English in a natural, unscripted context.
-B1 | Career           | A colleague asks if you have ever seriously considered working abroad. | Yes, quite seriously. I would love to work in a city with a strong tech community — Bogotá, Buenos Aires, or eventually somewhere in the US. Remote work has made it feel much more achievable.
-B1 | Events           | A friend asks about any tech conferences you are planning to attend. | I am looking at the Google I/O extended event here in Lima and possibly Droidcon in the US next year if I can swing it. Have you been to any good ones you would recommend?
-B1 | Productivity     | A client asks how you manage your time when juggling multiple projects. | I block dedicated hours for each client in my calendar, turn off notifications during deep work sessions, and do a weekly review every Sunday to plan the upcoming week. It took me a while to find a system that works.
-
-# --- B2 ---
-B2 | Industry         | A senior colleague reflects on how fast the tech industry has evolved. | Absolutely. The shift from imperative to declarative UI in just a few years is a perfect example. I find it exciting, though it does require a genuine commitment to continuous learning to stay relevant.
-B2 | Career           | A mentor asks where you see your career heading over the next few years. | I want to deepen my expertise in Android architecture while building stronger communication and client management skills. In three to five years I would like to lead small teams on international projects.
-B2 | Balance          | A friend asks if remote work has changed how you think about work-life balance. | Significantly. The boundaries are much harder to maintain and you have to be more intentional. I now have clear cut-off times and I am more deliberate about social interaction since the natural workplace socialization disappears.
-B2 | AI               | A colleague asks your opinion on AI coding assistants. | They are genuinely useful for boilerplate and exploration but I would not rely on them for architectural decisions. The risk is that they make it easy to generate code you do not fully understand, which creates hidden technical debt.
-B2 | Skills           | An interviewer asks what makes a developer truly stand out from others. | Honestly, communication. The technical skills are expected at a certain level. What separates the best developers I have worked with is their ability to articulate tradeoffs, align with stakeholders, and raise issues early rather than late.
-B2 | Culture          | A friend asks if you have noticed differences between local and international work culture. | Quite a few. International remote teams value written communication much more and expect proactive updates without being asked. There is also a much stronger culture of async work and explicit documentation.
-B2 | Career           | A friend asks if technical certifications actually matter for career growth in the field. | In my experience they matter more for getting initial attention — especially on LinkedIn and Upwork — but actual work quality and communication skills determine whether clients and employers retain you long term.
-B2 | Observation      | A mentor asks what trait the best engineers you have worked with all shared. | Every strong engineer I have worked with had exceptional communication. They could explain a complex tradeoff in plain language, raise concerns at the right time, and make decisions without requiring constant direction.
-B2 | Networking       | A colleague asks what strategies you have found effective for building a professional network. | I engage genuinely on LinkedIn by sharing things I have actually learned, contribute to open source occasionally, and follow up with people I meet at events. I try to give value before asking for anything.
-B2 | Freelance        | A friend asks if you are thinking about building a personal brand to attract better clients. | Yes, I have been working on it actively. I am documenting my projects with metrics and outcomes, writing occasional technical posts on LinkedIn, and building a public portfolio focused on my specific expertise.
+# CONV: SMALL_TALK | Sharing travel experiences
+APP: Have you done much traveling since you moved here Javier?
+YOU: Yes I have visited a few cities already. My favorite so far was New York. It is incredible.
+APP: I love New York too! What did you enjoy most about it?
+YOU: I loved the energy of the city. Central Park was beautiful and the food was amazing. I ate cuisine from a different country every day.
+APP: Ha that is so true. Did you visit any museums?
+YOU: Yes I went to the Museum of Modern Art. I could have spent the whole day there. The art was breathtaking.
+APP: It is a wonderful museum. Have you been to any other places in the US?
+YOU: Just Miami and Chicago so far. Miami was beautiful because of the beach. Chicago surprised me with its architecture.
+APP: You have great taste in cities. Where do you want to go next?
+YOU: I really want to visit San Francisco. I am a tech person so Silicon Valley is like a dream destination for me.
+APP: You would love it there. The innovation culture is amazing. I hope you get to go soon Javier.
+YOU: Thank you. Maybe next spring. I will start saving now!

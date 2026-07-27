@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.speech.RecognitionListener
@@ -11,6 +13,8 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import android.media.AudioManager
+import android.media.ToneGenerator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -19,44 +23,47 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import com.pe.learnai.data.Phrase
+import com.pe.learnai.data.ConvTurn
 import com.pe.learnai.data.PracticeContent
 import com.pe.learnai.data.Topic
 import com.pe.learnai.ui.theme.AILearnEngTheme
-import android.media.AudioManager
-import android.media.ToneGenerator
-import android.os.Handler
-import android.os.Looper
 import kotlinx.coroutines.launch
 import java.util.Locale
-import kotlin.math.roundToInt
 
 // ── State machine ─────────────────────────────────────────────────────────────
 
-private sealed class PS {
-    object Ready : PS()
-    object Playing : PS()
-    object Recording : PS()
-    data class Result(val score: Float, val recognized: String, val passed: Boolean) : PS()
-    object Done : PS()
+private sealed class CS {
+    object AppSpeaking : CS()
+    object UserReady : CS()
+    object UserRecording : CS()
+    data class UserResult(val score: Float, val recognized: String, val passed: Boolean) : CS()
+    object ConvDone : CS()
 }
+
+// Chat history entry shown as a bubble
+private data class ChatEntry(
+    val isApp: Boolean,
+    val text: String,
+    val recognized: String? = null,
+    val score: Float? = null,
+    val passed: Boolean? = null
+)
 
 // ── Activity ──────────────────────────────────────────────────────────────────
 
@@ -65,22 +72,24 @@ class PracticeActivity : ComponentActivity() {
     private var tts: TextToSpeech? = null
     private var recognizer: SpeechRecognizer? = null
     private val vibrator by lazy { getSystemService(Vibrator::class.java) }
+    private val mainHandler = Handler(Looper.getMainLooper())
     private val toneHandler = Handler(Looper.getMainLooper())
 
-    private val state = mutableStateOf<PS>(PS.Ready)
-    private val clipIndex = mutableStateOf(0)
-    private val attempts = mutableStateOf(0)
+    private val state = mutableStateOf<CS>(CS.AppSpeaking)
+    private val turnIndex = mutableStateOf(0)
+    private val chatHistory = mutableStateListOf<ChatEntry>()
     private val hasMicPerm = mutableStateOf(false)
+    private var recognizerGen = 0
 
     private val topic by lazy {
         val ord = intent.getIntExtra("topic_ordinal", -1)
         if (ord >= 0 && ord < Topic.values().size) Topic.values()[ord] else null
     }
-    private val clips by lazy {
-        topic?.let { PracticeContent.getPhrasesForTopic(it) } ?: PracticeContent.getDailyPhrases(3)
+    private val conversation by lazy {
+        topic?.let { PracticeContent.getConversationForTopic(it) }
     }
-    private val topicLabel by lazy { topic?.let { "${it.emoji}  ${it.label}" } ?: "Daily Practice" }
-    private var recognizerGen = 0
+    private val turns get() = conversation?.turns ?: emptyList()
+    private val topicLabel by lazy { topic?.let { "${it.emoji}  ${it.label}" } ?: "Practice" }
 
     private val micLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -93,18 +102,22 @@ class PracticeActivity : ComponentActivity() {
         initTts()
         setContent {
             AILearnEngTheme {
-                PracticeScreen(
-                    clips = clips,
+                ConversationScreen(
                     topicLabel = topicLabel,
-                    clipIndex = clipIndex.value,
+                    conversationTitle = conversation?.title ?: "",
+                    chatHistory = chatHistory,
                     state = state.value,
+                    turns = turns,
                     hasMicPerm = hasMicPerm.value,
-                    attempts = attempts.value,
-                    onListen = { speakClip(clips[clipIndex.value].prompt) },
                     onRecord = ::startRecording,
-                    onNext = ::advanceClip,
-                    onRetry = { state.value = PS.Ready; attempts.value++ },
-                    onDone = ::finish
+                    onContinue = ::advanceTurn,
+                    onRetry = {
+                        if (chatHistory.isNotEmpty() && !chatHistory.last().isApp) {
+                            chatHistory.removeAt(chatHistory.size - 1)
+                        }
+                        state.value = CS.UserReady
+                    },
+                    onBack = ::finish
                 )
             }
         }
@@ -122,47 +135,79 @@ class PracticeActivity : ComponentActivity() {
             if (status != TextToSpeech.SUCCESS) return@TextToSpeech
             tts?.language = Locale.US
             tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-                override fun onStart(id: String?) { state.value = PS.Playing }
-                override fun onDone(id: String?) { state.value = PS.Ready }
-                @Deprecated("Deprecated") override fun onError(id: String?) { state.value = PS.Ready }
+                override fun onStart(id: String?) {}
+                override fun onDone(id: String?) {
+                    if (id?.startsWith("app_") == true) mainHandler.post { advanceTurn() }
+                }
+                @Deprecated("Deprecated")
+                override fun onError(id: String?) {
+                    if (id?.startsWith("app_") == true) mainHandler.post { advanceTurn() }
+                }
             })
+            mainHandler.post { beginConversation() }
         }
     }
 
-    private fun speakClip(text: String) {
-        tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "clip")
+    private fun beginConversation() {
+        if (turns.isEmpty()) { state.value = CS.ConvDone; return }
+        turnIndex.value = 0
+        chatHistory.clear()
+        processCurrentTurn()
+    }
+
+    private fun processCurrentTurn() {
+        val idx = turnIndex.value
+        if (idx >= turns.size) {
+            state.value = CS.ConvDone
+            vibrateComplete()
+            playCompleteSound()
+            return
+        }
+        val turn = turns[idx]
+        if (turn.isApp) {
+            state.value = CS.AppSpeaking
+            chatHistory.add(ChatEntry(isApp = true, text = turn.text))
+            tts?.speak(turn.text, TextToSpeech.QUEUE_FLUSH, null, "app_$idx")
+        } else {
+            state.value = CS.UserReady
+        }
+    }
+
+    private fun advanceTurn() {
+        turnIndex.value++
+        processCurrentTurn()
     }
 
     private fun startRecording() {
         if (!hasMicPerm.value) { micLauncher.launch(Manifest.permission.RECORD_AUDIO); return }
         tts?.stop()
-        state.value = PS.Recording
+        state.value = CS.UserRecording
 
-        // Reuse the same recognizer instance — destroy+create back-to-back leaves the
-        // speech service in a busy state, causing an immediate onError on the new session.
-        // cancel() clears any in-progress session without releasing the service connection.
-        if (recognizer == null) {
-            recognizer = SpeechRecognizer.createSpeechRecognizer(this)
-        }
+        if (recognizer == null) recognizer = SpeechRecognizer.createSpeechRecognizer(this)
         recognizer!!.cancel()
 
         val gen = ++recognizerGen
+        val expectedText = turns.getOrNull(turnIndex.value)?.text ?: ""
+
         recognizer!!.setRecognitionListener(object : RecognitionListener {
             override fun onResults(results: Bundle?) {
                 if (gen != recognizerGen) return
                 val best = results
                     ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                     ?.firstOrNull() ?: ""
-                val score = similarity(best, clips[clipIndex.value].text)
-                val threshold = if (clips[clipIndex.value].isConversation) 0.30f else 0.55f
-                val passed = score >= threshold
-                state.value = PS.Result(score, best, passed)
+                val score = similarity(best, expectedText)
+                val passed = score >= 0.25f
+                chatHistory.add(ChatEntry(
+                    isApp = false, text = expectedText,
+                    recognized = best, score = score, passed = passed
+                ))
+                state.value = CS.UserResult(score, best, passed)
                 if (passed) { vibrateSuccess(); playSuccessSound() }
                 else { vibrateFail(); playFailSound() }
             }
             override fun onError(error: Int) {
                 if (gen != recognizerGen) return
-                state.value = PS.Result(0f, "", false)
+                state.value = CS.UserReady
             }
             override fun onReadyForSpeech(p: Bundle?) {}
             override fun onBeginningOfSpeech() {}
@@ -177,19 +222,6 @@ class PracticeActivity : ComponentActivity() {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US")
             putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
         })
-    }
-
-    private fun advanceClip() {
-        val next = clipIndex.value + 1
-        if (next >= clips.size) {
-            state.value = PS.Done
-            vibrateComplete()
-            playCompleteSound()
-        } else {
-            clipIndex.value = next
-            state.value = PS.Ready
-            attempts.value = 0
-        }
     }
 
     private fun playSuccessSound() {
@@ -219,16 +251,12 @@ class PracticeActivity : ComponentActivity() {
         vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 60, 60, 60), -1))
 
     private fun vibrateComplete() =
-        vibrator.vibrate(
-            VibrationEffect.createWaveform(
-                longArrayOf(0, 100, 80, 200),
-                intArrayOf(0, 200, 0, 255),
-                -1
-            )
-        )
+        vibrator.vibrate(VibrationEffect.createWaveform(
+            longArrayOf(0, 100, 80, 200), intArrayOf(0, 200, 0, 255), -1))
 
     override fun onDestroy() {
         toneHandler.removeCallbacksAndMessages(null)
+        mainHandler.removeCallbacksAndMessages(null)
         tts?.stop(); tts?.shutdown()
         recognizer?.destroy()
         super.onDestroy()
@@ -245,9 +273,7 @@ class PracticeActivity : ComponentActivity() {
         )
         fun norm(s: String) = s.lowercase(Locale.US)
             .replace(Regex("[^a-z ]"), "")
-            .split(" ")
-            .filter { it.isNotEmpty() && it !in stopWords }
-            .toSet()
+            .split(" ").filter { it.isNotEmpty() && it !in stopWords }.toSet()
         val r = norm(recognized)
         val t = norm(target)
         return if (t.isEmpty()) 1f else r.intersect(t).size.toFloat() / t.size
@@ -257,365 +283,236 @@ class PracticeActivity : ComponentActivity() {
 // ── Composables ───────────────────────────────────────────────────────────────
 
 @Composable
-private fun PracticeScreen(
-    clips: List<Phrase>,
+private fun ConversationScreen(
     topicLabel: String,
-    clipIndex: Int,
-    state: PS,
+    conversationTitle: String,
+    chatHistory: List<ChatEntry>,
+    state: CS,
+    turns: List<ConvTurn>,
     hasMicPerm: Boolean,
-    attempts: Int,
-    onListen: () -> Unit,
     onRecord: () -> Unit,
-    onNext: () -> Unit,
+    onContinue: () -> Unit,
     onRetry: () -> Unit,
-    onDone: () -> Unit
+    onBack: () -> Unit
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    val listState = rememberLazyListState()
     val (sessionsDone, sessionsTarget) = SessionManager.sessionProgressFlow(context)
         .collectAsState(initial = Pair(0, 1)).value
 
+    val userTurnsTotal = turns.count { !it.isApp }
+    val userTurnsDone = chatHistory.count { !it.isApp }
+
+    LaunchedEffect(chatHistory.size) {
+        if (chatHistory.isNotEmpty()) listState.animateScrollToItem(chatHistory.size - 1)
+    }
     LaunchedEffect(state) {
-        if (state is PS.Done) scope.launch { SessionManager.incrementSession(context) }
+        if (state is CS.ConvDone) scope.launch { SessionManager.incrementSession(context) }
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize().background(Color(0xFF0D0D1A)),
-        contentAlignment = Alignment.Center
-    ) {
-        AnimatedContent(
-            targetState = state is PS.Done,
-            transitionSpec = { fadeIn(tween(500)) togetherWith fadeOut(tween(300)) },
-            label = "screen"
-        ) { isDone ->
-            if (isDone) {
-                SessionDoneScreen(
-                    sessionsDone = sessionsDone,
-                    sessionsTarget = sessionsTarget,
-                    onDone = onDone
-                )
-            } else if (clips.isNotEmpty()) {
-                ExerciseContent(
-                    clip = clips[clipIndex],
-                    topicLabel = topicLabel,
-                    clipIndex = clipIndex,
-                    totalClips = clips.size,
-                    state = state,
-                    hasMicPerm = hasMicPerm,
-                    attempts = attempts,
-                    onListen = onListen,
-                    onRecord = onRecord,
-                    onNext = onNext,
-                    onRetry = onRetry
-                )
-            }
-        }
-    }
-}
+    Column(modifier = Modifier.fillMaxSize().background(Color(0xFF0D0D1A))) {
 
-@Composable
-private fun ExerciseContent(
-    clip: Phrase,
-    topicLabel: String,
-    clipIndex: Int,
-    totalClips: Int,
-    state: PS,
-    hasMicPerm: Boolean,
-    attempts: Int,
-    onListen: () -> Unit,
-    onRecord: () -> Unit,
-    onNext: () -> Unit,
-    onRetry: () -> Unit
-) {
-    val progress by animateFloatAsState(
-        targetValue = (clipIndex.toFloat() + if (state is PS.Result && state.passed) 1f else 0f) / totalClips,
-        animationSpec = tween(400),
-        label = "progress"
-    )
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 24.dp, vertical = 32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // ── Header ────────────────────────────────────────────────────
+        // ── Header ────────────────────────────────────────────────────────────
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 48.dp, start = 8.dp, end = 20.dp, bottom = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(topicLabel, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
-            Text("${clipIndex + 1} / $totalClips", fontSize = 14.sp, color = Color(0xFF7B8BB2))
+            TextButton(onClick = onBack, contentPadding = PaddingValues(horizontal = 8.dp)) {
+                Text("←", color = Color(0xFF7B8BB2), fontSize = 18.sp)
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(topicLabel, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                if (conversationTitle.isNotEmpty()) {
+                    Text(conversationTitle, fontSize = 11.sp, color = Color(0xFF7B8BB2))
+                }
+            }
+            Text(
+                "$userTurnsDone/$userTurnsTotal",
+                fontSize = 14.sp, color = Color(0xFF7B8BB2), fontWeight = FontWeight.Medium
+            )
         }
-        Spacer(Modifier.height(8.dp))
+
         LinearProgressIndicator(
-            progress = { progress },
-            modifier = Modifier.fillMaxWidth().height(6.dp),
+            progress = { if (userTurnsTotal > 0) userTurnsDone.toFloat() / userTurnsTotal else 0f },
+            modifier = Modifier.fillMaxWidth().height(3.dp),
             color = Color(0xFF4CAF50),
             trackColor = Color(0xFF2A2A3E)
         )
 
-        Spacer(Modifier.height(32.dp))
-
-        // ── Phrase card ───────────────────────────────────────────────
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = Color(0xFF1A1A2E))
+        // ── Chat area ─────────────────────────────────────────────────────────
+        LazyColumn(
+            state = listState,
+            modifier = Modifier.weight(1f).padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            contentPadding = PaddingValues(vertical = 16.dp)
         ) {
-            Column(
-                modifier = Modifier.padding(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                // Category + level badge
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        clip.category.uppercase(),
-                        fontSize = 11.sp,
-                        letterSpacing = 1.5.sp,
-                        color = Color(0xFF7B8BB2)
-                    )
-                    Spacer(Modifier.width(8.dp))
-                    val lvlColor = when (clip.level) {
-                        "A2" -> Color(0xFF66BB6A)
-                        "B1" -> Color(0xFFFFB74D)
-                        else -> Color(0xFFEF5350)
-                    }
-                    Box(
-                        modifier = Modifier
-                            .background(lvlColor.copy(alpha = 0.18f), RoundedCornerShape(4.dp))
-                            .padding(horizontal = 6.dp, vertical = 2.dp)
-                    ) {
-                        Text(clip.level, fontSize = 10.sp, color = lvlColor, fontWeight = FontWeight.SemiBold)
-                    }
-                }
-                Spacer(Modifier.height(12.dp))
+            items(chatHistory) { entry -> ChatBubble(entry) }
 
-                // Prompt — what the other person says (always visible)
-                if (clip.isConversation) {
-                    Text(
-                        "\"${clip.prompt}\"",
-                        fontSize = 16.sp,
-                        color = Color(0xFFADD8E6),
-                        textAlign = TextAlign.Center,
-                        lineHeight = 24.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Spacer(Modifier.height(14.dp))
-                    Text(
-                        if (state is PS.Result) "Model answer:" else "Your response:",
-                        fontSize = 11.sp,
-                        letterSpacing = 1.sp,
-                        color = Color(0xFF7B8BB2)
-                    )
-                    Spacer(Modifier.height(6.dp))
-                }
-
-                // Model answer — highlighted after result, hidden/shown based on mode
-                AnimatedContent(
-                    targetState = state is PS.Result,
-                    transitionSpec = { fadeIn() togetherWith fadeOut() },
-                    label = "phrase"
-                ) { showHighlight ->
-                    if (showHighlight && state is PS.Result) {
-                        WordHighlight(target = clip.text, recognized = state.recognized)
-                    } else if (!clip.isConversation) {
-                        // Repeat mode: show the phrase to say
-                        Text(
-                            clip.text,
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.White,
-                            textAlign = TextAlign.Center,
-                            lineHeight = 32.sp
-                        )
-                    } else {
-                        // Conversation mode: hide model answer until after recording
-                        Text(
-                            "🎤  Speak your answer",
-                            fontSize = 16.sp,
-                            color = Color(0xFF555577),
-                            textAlign = TextAlign.Center,
-                            fontWeight = FontWeight.Normal
-                        )
-                    }
-                }
+            if (state == CS.AppSpeaking) {
+                item { AppTypingIndicator() }
             }
         }
 
-        Spacer(Modifier.height(24.dp))
-
-        // ── Actions ───────────────────────────────────────────────────
+        // ── Action area ───────────────────────────────────────────────────────
         AnimatedContent(
-            targetState = state is PS.Result,
-            transitionSpec = { (fadeIn() + slideInVertically { it / 2 }) togetherWith fadeOut() },
-            label = "actions"
-        ) { showResult ->
-            if (showResult && state is PS.Result) {
-                ResultSection(
-                    state = state,
-                    isLast = clipIndex == totalClips - 1,
-                    onNext = onNext,
-                    onRetry = onRetry,
-                    onListen = onListen
-                )
-            } else {
-                ActionSection(
-                    state = state,
-                    hasMicPerm = hasMicPerm,
-                    attempts = attempts,
-                    onListen = onListen,
-                    onRecord = onRecord
-                )
+            targetState = state,
+            transitionSpec = { fadeIn(tween(250)) togetherWith fadeOut(tween(150)) },
+            label = "action"
+        ) { s ->
+            when (s) {
+                CS.ConvDone -> ConvDoneSection(sessionsDone, sessionsTarget, onBack)
+                CS.UserReady, CS.UserRecording -> RecordSection(s, hasMicPerm, onRecord)
+                is CS.UserResult -> ResultSection(s, onContinue, onRetry)
+                CS.AppSpeaking -> Spacer(Modifier.height(72.dp))
             }
         }
     }
 }
 
 @Composable
-private fun ActionSection(
-    state: PS,
-    hasMicPerm: Boolean,
-    attempts: Int,
-    onListen: () -> Unit,
-    onRecord: () -> Unit
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Text(
-            text = when (state) {
-                PS.Playing -> "Playing…"
-                PS.Recording -> "Listening to you…"
-                else -> if (attempts == 0) "1. Listen first  →  2. Repeat out loud" else "Listen again or try speaking"
-            },
-            fontSize = 13.sp,
-            color = Color(0xFF7B8BB2),
-            textAlign = TextAlign.Center
-        )
-
-        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Button(
-                onClick = onListen,
-                modifier = Modifier.weight(1f).height(52.dp),
-                enabled = state == PS.Ready,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1565C0),
-                    disabledContainerColor = Color(0xFF2A2A3E)
-                )
+private fun ChatBubble(entry: ChatEntry) {
+    if (entry.isApp) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+            Box(
+                modifier = Modifier
+                    .widthIn(max = 290.dp)
+                    .background(Color(0xFF1A2A3E), RoundedCornerShape(4.dp, 16.dp, 16.dp, 16.dp))
+                    .padding(14.dp, 10.dp)
             ) {
-                Text(
-                    if (state == PS.Playing) "Playing…" else "🔊  Listen",
-                    fontSize = 15.sp
-                )
-            }
-            Button(
-                onClick = onRecord,
-                modifier = Modifier.weight(1f).height(52.dp),
-                enabled = state == PS.Ready && hasMicPerm,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF7B1FA2),
-                    disabledContainerColor = Color(0xFF2A2A3E)
-                )
-            ) {
-                Text(
-                    if (state == PS.Recording) "Listening…" else "🎤  Speak",
-                    fontSize = 15.sp
-                )
+                Text(entry.text, fontSize = 15.sp, color = Color.White, lineHeight = 22.sp)
             }
         }
+    } else {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            val passed = entry.passed ?: true
+            val bgColor = if (passed) Color(0xFF1B3A1B) else Color(0xFF3A1B1B)
+            val textColor = if (passed) Color(0xFF81C784) else Color(0xFFEF9A9A)
+            val scoreColor = if (passed) Color(0xFF66BB6A) else Color(0xFFEF5350)
 
-        AnimatedVisibility(visible = state == PS.Recording) {
+            // What the user said
+            Box(
+                modifier = Modifier
+                    .widthIn(max = 290.dp)
+                    .background(bgColor, RoundedCornerShape(16.dp, 4.dp, 16.dp, 16.dp))
+                    .padding(14.dp, 10.dp)
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    val recognized = entry.recognized ?: ""
+                    Text(
+                        if (recognized.isNotEmpty()) "\"$recognized\"" else "(no speech detected)",
+                        fontSize = 14.sp, color = textColor, lineHeight = 20.sp
+                    )
+                    val pct = ((entry.score ?: 0f) * 100).toInt()
+                    Text(
+                        if (passed) "✓ $pct% match" else "✗ $pct% match",
+                        fontSize = 11.sp, color = scoreColor, fontWeight = FontWeight.SemiBold
+                    )
+                }
+            }
+
+            // Model answer for reference
+            Box(
+                modifier = Modifier
+                    .widthIn(max = 290.dp)
+                    .background(Color(0xFF1A1A2E), RoundedCornerShape(16.dp, 4.dp, 16.dp, 16.dp))
+                    .padding(14.dp, 10.dp)
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                    Text("Model answer:", fontSize = 10.sp, color = Color(0xFF555577),
+                        letterSpacing = 0.5.sp)
+                    Text(entry.text, fontSize = 14.sp, color = Color(0xFFAAAAAA), lineHeight = 20.sp)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun AppTypingIndicator() {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+        Box(
+            modifier = Modifier
+                .background(Color(0xFF1A2A3E), RoundedCornerShape(4.dp, 16.dp, 16.dp, 16.dp))
+                .padding(18.dp, 14.dp)
+        ) {
+            val transition = rememberInfiniteTransition(label = "typing")
+            Row(horizontalArrangement = Arrangement.spacedBy(5.dp),
+                verticalAlignment = Alignment.CenterVertically) {
+                repeat(3) { i ->
+                    val alpha by transition.animateFloat(
+                        initialValue = 0.25f, targetValue = 1f,
+                        animationSpec = infiniteRepeatable(
+                            tween(450), RepeatMode.Reverse, StartOffset(i * 130)
+                        ), label = "dot$i"
+                    )
+                    Box(Modifier.size(7.dp)
+                        .background(Color(0xFF4FC3F7).copy(alpha = alpha), CircleShape))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun RecordSection(state: CS, hasMicPerm: Boolean, onRecord: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(16.dp, 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        if (state == CS.UserRecording) {
             WaveformAnimation()
+        } else {
+            Text("Your turn — respond in English", fontSize = 13.sp, color = Color(0xFF7B8BB2))
+        }
+        Button(
+            onClick = onRecord,
+            modifier = Modifier.fillMaxWidth().height(56.dp),
+            enabled = state == CS.UserReady && hasMicPerm,
+            shape = RoundedCornerShape(14.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF6A1B9A),
+                disabledContainerColor = Color(0xFF2A2A3E)
+            )
+        ) {
+            Text(
+                if (state == CS.UserRecording) "Listening…" else "🎤  Speak",
+                fontSize = 16.sp, fontWeight = FontWeight.SemiBold
+            )
         }
     }
 }
 
 @Composable
-private fun ResultSection(
-    state: PS.Result,
-    isLast: Boolean,
-    onNext: () -> Unit,
-    onRetry: () -> Unit,
-    onListen: () -> Unit
-) {
-    val percent = (state.score * 100).roundToInt()
-    val color = if (state.passed) Color(0xFF4CAF50) else Color(0xFFEF5350)
-
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+private fun ResultSection(state: CS.UserResult, onContinue: () -> Unit, onRetry: () -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(16.dp, 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        // Score ring
-        val animatedScore by animateFloatAsState(
-            targetValue = state.score,
-            animationSpec = tween(700, easing = FastOutSlowInEasing),
-            label = "score"
-        )
-        Box(contentAlignment = Alignment.Center) {
-            CircularProgressIndicator(
-                progress = { animatedScore },
-                modifier = Modifier.size(88.dp),
-                color = color,
-                strokeWidth = 7.dp,
-                trackColor = Color(0xFF2A2A3E)
+        if (!state.passed) {
+            OutlinedButton(
+                onClick = onRetry,
+                modifier = Modifier.weight(1f).height(52.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFF7B8BB2))
+            ) { Text("🎤  Try again") }
+        }
+        Button(
+            onClick = onContinue,
+            modifier = Modifier.weight(if (state.passed) 1f else 1f).height(52.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = if (state.passed) Color(0xFF2E7D32) else Color(0xFF1565C0)
             )
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("$percent%", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
-                Text(if (state.passed) "✓" else "✗", fontSize = 14.sp, color = color)
-            }
-        }
-
-        Text(
-            if (state.passed) "Great job! Keep going." else "Not quite — try again.",
-            fontSize = 15.sp,
-            color = color,
-            fontWeight = FontWeight.Medium
-        )
-
-        if (state.recognized.isNotEmpty()) {
-            Text(
-                "You said: \"${state.recognized}\"",
-                fontSize = 13.sp,
-                color = Color(0xFF7B8BB2),
-                textAlign = TextAlign.Center
-            )
-        }
-
-        Spacer(Modifier.height(4.dp))
-
-        if (state.passed) {
-            Button(
-                onClick = onNext,
-                modifier = Modifier.fillMaxWidth().height(56.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
-            ) {
-                Text(
-                    if (isLast) "Complete Session ✓" else "Next →",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        } else {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                OutlinedButton(
-                    onClick = onListen,
-                    modifier = Modifier.weight(1f).height(52.dp),
-                    colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFF7B8BB2))
-                ) { Text("🔊  Listen again") }
-                Button(
-                    onClick = onRetry,
-                    modifier = Modifier.weight(1f).height(52.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7B1FA2))
-                ) { Text("🎤  Try again") }
-            }
-        }
+        ) { Text(if (state.passed) "Continue  →" else "Skip  →", fontWeight = FontWeight.SemiBold) }
     }
 }
 
@@ -624,126 +521,61 @@ private fun WaveformAnimation() {
     val transition = rememberInfiniteTransition(label = "wave")
     val heights = List(5) { i ->
         transition.animateFloat(
-            initialValue = 0.15f,
-            targetValue = 1f,
+            initialValue = 0.15f, targetValue = 1f,
             animationSpec = infiniteRepeatable(
-                animation = tween(280 + i * 60, easing = FastOutSlowInEasing),
-                repeatMode = RepeatMode.Reverse,
-                initialStartOffset = StartOffset(i * 80)
-            ),
-            label = "bar$i"
+                tween(280 + i * 60, easing = FastOutSlowInEasing),
+                RepeatMode.Reverse, StartOffset(i * 80)
+            ), label = "bar$i"
         ).value
     }
     Row(
-        modifier = Modifier.height(48.dp),
+        modifier = Modifier.height(40.dp),
         horizontalArrangement = Arrangement.spacedBy(5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         heights.forEach { h ->
-            Box(
-                modifier = Modifier
-                    .width(7.dp)
-                    .fillMaxHeight(h)
-                    .background(Color(0xFF9C27B0), RoundedCornerShape(4.dp))
-            )
+            Box(Modifier.width(6.dp).fillMaxHeight(h)
+                .background(Color(0xFF9C27B0), RoundedCornerShape(3.dp)))
         }
     }
 }
 
 @Composable
-private fun WordHighlight(target: String, recognized: String) {
-    fun norm(s: String) = s.lowercase(Locale.US)
-        .replace(Regex("[^a-z ]"), "")
-        .split(" ").filter { it.isNotEmpty() }.toSet()
-
-    val recNorm = norm(recognized)
-    val words = target.split(" ").filter { it.isNotEmpty() }
-
-    val annotated = buildAnnotatedString {
-        words.forEachIndexed { i, word ->
-            val matched = word.lowercase(Locale.US).replace(Regex("[^a-z]"), "") in recNorm
-            withStyle(
-                SpanStyle(
-                    color = if (matched) Color(0xFF81C784) else Color(0xFFEF9A9A),
-                    fontWeight = if (matched) FontWeight.Bold else FontWeight.Normal
-                )
-            ) { append(word) }
-            if (i < words.size - 1) append(" ")
-        }
-    }
-    Text(
-        text = annotated,
-        fontSize = 22.sp,
-        textAlign = TextAlign.Center,
-        lineHeight = 32.sp
-    )
-}
-
-@Composable
-private fun SessionDoneScreen(sessionsDone: Int, sessionsTarget: Int, onDone: () -> Unit) {
-    val scale = remember { Animatable(0f) }
-    LaunchedEffect(Unit) {
-        scale.animateTo(
-            1f,
-            spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessMedium)
-        )
-    }
+private fun ConvDoneScreen(sessionsDone: Int, sessionsTarget: Int, onBack: () -> Unit) {
     val isFullyDone = sessionsDone >= sessionsTarget
-
     Column(
-        modifier = Modifier.fillMaxSize().padding(32.dp),
+        modifier = Modifier.fillMaxWidth().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Box(
-            modifier = Modifier
-                .scale(scale.value)
-                .size(120.dp)
-                .background(Color(0xFF1B3A1B), CircleShape),
-            contentAlignment = Alignment.Center
-        ) {
-            Text("✓", fontSize = 56.sp, color = Color(0xFF81C784))
-        }
-
-        Spacer(Modifier.height(28.dp))
-
         Text(
-            if (isFullyDone) "All Done Today!" else "Session Complete!",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White
+            if (isFullyDone) "🎉  All Done Today!" else "✅  Conversation Complete!",
+            fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White,
+            textAlign = TextAlign.Center
         )
-
-        Spacer(Modifier.height(8.dp))
-
         Text(
             "$sessionsDone / $sessionsTarget sessions",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color(0xFF4CAF50)
+            fontSize = 16.sp, color = Color(0xFF4CAF50), fontWeight = FontWeight.SemiBold
         )
-
-        Spacer(Modifier.height(12.dp))
-
         Text(
             if (isFullyDone)
-                "All blocked apps are now unlocked for today.\nKeep up the great work!"
+                "All blocked apps are now unlocked. Great work!"
             else
-                "Great job! Come back later for your next session.\n${sessionsTarget - sessionsDone} more to unlock your apps.",
-            fontSize = 16.sp,
-            color = Color(0xFFAAAAAA),
-            textAlign = TextAlign.Center,
-            lineHeight = 24.sp
+                "Keep it up — ${sessionsTarget - sessionsDone} more session(s) to unlock your apps.",
+            fontSize = 14.sp, color = Color(0xFFAAAAAA), textAlign = TextAlign.Center,
+            lineHeight = 20.sp
         )
-
-        Spacer(Modifier.height(32.dp))
-
+        Spacer(Modifier.height(4.dp))
         Button(
-            onClick = onDone,
-            modifier = Modifier.fillMaxWidth().height(56.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
-        ) {
-            Text("Go Back", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-        }
+            onClick = onBack,
+            modifier = Modifier.fillMaxWidth().height(52.dp),
+            shape = RoundedCornerShape(14.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2E7D32))
+        ) { Text("Go Back", fontSize = 16.sp, fontWeight = FontWeight.Bold) }
     }
+}
+
+@Composable
+private fun ConvDoneSection(sessionsDone: Int, sessionsTarget: Int, onBack: () -> Unit) {
+    ConvDoneScreen(sessionsDone, sessionsTarget, onBack)
 }

@@ -14,64 +14,62 @@ enum class Topic(val label: String, val emoji: String, val description: String) 
     SMALL_TALK("Small Talk",       "💬", "Casual conversations"),
 }
 
-// prompt = what the app says/asks. text = model answer the user should aim to say.
-// If only 3 fields in content file, prompt == text (classic repeat mode).
-data class Phrase(
-    val prompt: String,
-    val text: String,
-    val category: String,
-    val level: String = "B1"
-) {
-    val isConversation: Boolean get() = prompt != text
-}
+data class ConvTurn(
+    val isApp: Boolean,
+    val text: String
+)
+
+data class Conversation(
+    val title: String,
+    val turns: List<ConvTurn>
+)
 
 object PracticeContent {
 
-    private var phrasesByTopic: Map<Topic, List<Phrase>> = emptyMap()
+    private var convsByTopic: Map<Topic, List<Conversation>> = emptyMap()
 
     fun initialize(context: Context) {
-        val result = mutableMapOf<Topic, MutableList<Phrase>>()
+        val result = mutableMapOf<Topic, MutableList<Conversation>>()
         try {
             context.assets.open("practice_content.txt").bufferedReader().use { reader ->
                 var currentTopic: Topic? = null
+                var currentTitle = ""
+                var currentTurns = mutableListOf<ConvTurn>()
+
+                fun saveConv() {
+                    if (currentTopic != null && currentTurns.isNotEmpty()) {
+                        result.getOrPut(currentTopic!!) { mutableListOf() }
+                            .add(Conversation(currentTitle, currentTurns.toList()))
+                    }
+                }
+
                 reader.forEachLine { raw ->
                     val line = raw.trim()
                     when {
-                        line.startsWith("# TOPIC:") -> {
-                            val topicKey = line.removePrefix("# TOPIC:").split("|")[0].trim()
-                            currentTopic = Topic.values().find { it.name == topicKey }
+                        line.startsWith("# CONV:") -> {
+                            saveConv()
+                            val parts = line.removePrefix("# CONV:").split("|")
+                            currentTopic = Topic.values().find { it.name == parts[0].trim() }
+                            currentTitle = if (parts.size >= 2) parts[1].trim() else ""
+                            currentTurns = mutableListOf()
                         }
-                        line.isEmpty() || line.startsWith("#") -> Unit
-                        else -> {
-                            val parts = line.split("|").map { it.trim() }
-                            if (parts.size >= 3 && currentTopic != null) {
-                                val phrase = if (parts.size >= 4) {
-                                    Phrase(prompt = parts[2], text = parts[3], category = parts[1], level = parts[0])
-                                } else {
-                                    Phrase(prompt = parts[2], text = parts[2], category = parts[1], level = parts[0])
-                                }
-                                result.getOrPut(currentTopic!!) { mutableListOf() }.add(phrase)
-                            }
-                        }
+                        line.startsWith("APP:") ->
+                            currentTurns.add(ConvTurn(isApp = true, text = line.removePrefix("APP:").trim()))
+                        line.startsWith("YOU:") ->
+                            currentTurns.add(ConvTurn(isApp = false, text = line.removePrefix("YOU:").trim()))
                     }
                 }
+                saveConv()
             }
         } catch (e: Exception) {
             Log.e("PracticeContent", "Failed to load practice_content.txt", e)
         }
-        phrasesByTopic = result
+        convsByTopic = result
     }
 
-    fun getPhrasesForTopic(topic: Topic, count: Int = 3): List<Phrase> {
-        val phrases = phrasesByTopic[topic] ?: return emptyList()
-        if (phrases.isEmpty()) return emptyList()
-        val dayOfYear = LocalDate.now().dayOfYear
-        val start = (dayOfYear * count) % phrases.size
-        return (0 until count).map { phrases[(start + it) % phrases.size] }
-    }
-
-    fun getDailyPhrases(count: Int = 3): List<Phrase> {
-        val topic = Topic.values()[LocalDate.now().dayOfYear % Topic.values().size]
-        return getPhrasesForTopic(topic, count)
+    fun getConversationForTopic(topic: Topic): Conversation? {
+        val convs = convsByTopic[topic] ?: return null
+        if (convs.isEmpty()) return null
+        return convs[LocalDate.now().dayOfYear % convs.size]
     }
 }
