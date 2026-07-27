@@ -33,14 +33,18 @@ class BlockOverlayActivity : ComponentActivity() {
         setContent {
             AILearnEngTheme {
                 val context = LocalContext.current
-                val sessionDone by SessionManager.sessionCompleteFlow(context)
+                val isUnlocked by SessionManager.isCurrentlyUnlockedFlow(context)
                     .collectAsState(initial = false)
+                val (sessionsDone, sessionsTarget) = SessionManager.sessionProgressFlow(context)
+                    .collectAsState(initial = Pair(0, 1)).value
 
-                LaunchedEffect(sessionDone) {
-                    if (sessionDone) finish()
+                LaunchedEffect(isUnlocked) {
+                    if (isUnlocked) finish()
                 }
 
                 BlockOverlayScreen(
+                    sessionsDone = sessionsDone,
+                    sessionsTarget = sessionsTarget,
                     onPracticeClick = {
                         startActivity(Intent(this, PracticeActivity::class.java))
                     },
@@ -60,6 +64,8 @@ class BlockOverlayActivity : ComponentActivity() {
 
 @Composable
 private fun BlockOverlayScreen(
+    sessionsDone: Int,
+    sessionsTarget: Int,
     onPracticeClick: () -> Unit,
     onGoHomeClick: () -> Unit
 ) {
@@ -115,7 +121,10 @@ private fun BlockOverlayScreen(
             )
 
             Text(
-                text = "Complete your daily English practice to unlock this app for the rest of the day.",
+                text = if (sessionsTarget - sessionsDone == 1)
+                    "One more session and apps are unlocked for the rest of the day!"
+                else
+                    "Practice to unlock apps for a couple of hours.\n${sessionsDone} / ${sessionsTarget} sessions done today.",
                 fontSize = 16.sp,
                 color = Color(0xFFAAAAAA),
                 textAlign = TextAlign.Center,
@@ -130,7 +139,7 @@ private fun BlockOverlayScreen(
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
             ) {
                 Text(
-                    text = "Do Today's Session",
+                    text = "Practice Now  ($sessionsDone / $sessionsTarget)",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold
                 )
