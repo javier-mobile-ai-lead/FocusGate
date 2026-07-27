@@ -97,7 +97,8 @@ private fun HomeScreen() {
     val sessionComplete by SessionManager.sessionCompleteFlow(context).collectAsState(initial = false)
     val streak by SessionManager.streakFlow(context).collectAsState(initial = 0)
     val history by SessionManager.historyFlow(context).collectAsState(initial = emptySet())
-    val clipsPerSession by SessionManager.clipsPerSessionFlow(context).collectAsState(initial = 3)
+    val (sessionsDone, sessionsTarget) = SessionManager.sessionProgressFlow(context)
+        .collectAsState(initial = Pair(0, 1)).value
     val blockedPkgs by BlocklistManager.blockedPackagesFlow(context)
         .collectAsState(initial = BlocklistManager.defaultPackages)
 
@@ -372,7 +373,7 @@ private fun HomeScreen() {
                             color = Color(0xFFAAAAAA)
                         )
                         Text(
-                            text = if (sessionComplete) "Complete — apps unlocked!" else "Not done — apps locked",
+                            text = if (sessionComplete) "Complete — apps unlocked!" else "$sessionsDone / $sessionsTarget sessions done",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             color = if (sessionComplete) Color(0xFF81C784) else Color(0xFFEF9A9A)
@@ -392,12 +393,12 @@ private fun HomeScreen() {
 
         item {
             GoalCard(
-                clips = clipsPerSession,
+                sessions = sessionsTarget,
                 onDecrement = {
-                    scope.launch { SessionManager.setClipsPerSession(context, clipsPerSession - 1) }
+                    scope.launch { SessionManager.setSessionsTarget(context, sessionsTarget - 1) }
                 },
                 onIncrement = {
-                    scope.launch { SessionManager.setClipsPerSession(context, clipsPerSession + 1) }
+                    scope.launch { SessionManager.setSessionsTarget(context, sessionsTarget + 1) }
                 }
             )
         }
@@ -406,10 +407,7 @@ private fun HomeScreen() {
             item {
                 Button(
                     onClick = {
-                        context.startActivity(
-                            Intent(context, PracticeActivity::class.java)
-                                .putExtra("clips_per_session", clipsPerSession)
-                        )
+                        context.startActivity(Intent(context, PracticeActivity::class.java))
                     },
                     modifier = Modifier.fillMaxWidth().height(56.dp),
                     enabled = setupDone,
@@ -491,7 +489,7 @@ private fun HomeScreen() {
 }
 
 @Composable
-private fun GoalCard(clips: Int, onDecrement: () -> Unit, onIncrement: () -> Unit) {
+private fun GoalCard(sessions: Int, onDecrement: () -> Unit, onIncrement: () -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
@@ -504,20 +502,20 @@ private fun GoalCard(clips: Int, onDecrement: () -> Unit, onIncrement: () -> Uni
         ) {
             Column {
                 Text("Daily Goal", fontSize = 15.sp, color = Color.White, fontWeight = FontWeight.SemiBold)
-                Text("Phrases per session", fontSize = 12.sp, color = Color(0xFF7B8BB2))
+                Text("Sessions per day", fontSize = 12.sp, color = Color(0xFF7B8BB2))
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                IconButton(onClick = onDecrement, enabled = clips > 1, modifier = Modifier.size(36.dp)) {
-                    Text("−", fontSize = 20.sp, color = if (clips > 1) Color.White else Color(0xFF3A3A55), fontWeight = FontWeight.Bold)
+                IconButton(onClick = onDecrement, enabled = sessions > 1, modifier = Modifier.size(36.dp)) {
+                    Text("−", fontSize = 20.sp, color = if (sessions > 1) Color.White else Color(0xFF3A3A55), fontWeight = FontWeight.Bold)
                 }
                 Box(contentAlignment = Alignment.Center, modifier = Modifier.width(36.dp)) {
-                    Text("$clips", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color(0xFF4CAF50))
+                    Text("$sessions", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color(0xFF4CAF50))
                 }
-                IconButton(onClick = onIncrement, enabled = clips < 15, modifier = Modifier.size(36.dp)) {
-                    Text("+", fontSize = 20.sp, color = if (clips < 15) Color.White else Color(0xFF3A3A55), fontWeight = FontWeight.Bold)
+                IconButton(onClick = onIncrement, enabled = sessions < 10, modifier = Modifier.size(36.dp)) {
+                    Text("+", fontSize = 20.sp, color = if (sessions < 10) Color.White else Color(0xFF3A3A55), fontWeight = FontWeight.Bold)
                 }
             }
         }

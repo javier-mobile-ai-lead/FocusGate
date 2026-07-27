@@ -71,8 +71,7 @@ class PracticeActivity : ComponentActivity() {
     private val attempts = mutableStateOf(0)
     private val hasMicPerm = mutableStateOf(false)
 
-    private val clipsPerSession by lazy { intent.getIntExtra("clips_per_session", 3) }
-    private val clips by lazy { PracticeContent.getDailyPhrases(clipsPerSession) }
+    private val clips by lazy { PracticeContent.getDailyPhrases(3) }
     private var recognizerGen = 0
 
     private val micLauncher = registerForActivityResult(
@@ -247,9 +246,11 @@ private fun PracticeScreen(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    val (sessionsDone, sessionsTarget) = SessionManager.sessionProgressFlow(context)
+        .collectAsState(initial = Pair(0, 1)).value
 
     LaunchedEffect(state) {
-        if (state is PS.Done) scope.launch { SessionManager.markComplete(context) }
+        if (state is PS.Done) scope.launch { SessionManager.incrementSession(context) }
     }
 
     Box(
@@ -262,7 +263,11 @@ private fun PracticeScreen(
             label = "screen"
         ) { isDone ->
             if (isDone) {
-                SessionDoneScreen(onDone = onDone)
+                SessionDoneScreen(
+                    sessionsDone = sessionsDone,
+                    sessionsTarget = sessionsTarget,
+                    onDone = onDone
+                )
             } else if (clips.isNotEmpty()) {
                 ExerciseContent(
                     clip = clips[clipIndex],
@@ -596,7 +601,7 @@ private fun WordHighlight(target: String, recognized: String) {
 }
 
 @Composable
-private fun SessionDoneScreen(onDone: () -> Unit) {
+private fun SessionDoneScreen(sessionsDone: Int, sessionsTarget: Int, onDone: () -> Unit) {
     val scale = remember { Animatable(0f) }
     LaunchedEffect(Unit) {
         scale.animateTo(
@@ -604,6 +609,7 @@ private fun SessionDoneScreen(onDone: () -> Unit) {
             spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessMedium)
         )
     }
+    val isFullyDone = sessionsDone >= sessionsTarget
 
     Column(
         modifier = Modifier.fillMaxSize().padding(32.dp),
@@ -623,16 +629,28 @@ private fun SessionDoneScreen(onDone: () -> Unit) {
         Spacer(Modifier.height(28.dp))
 
         Text(
-            "Session Complete!",
+            if (isFullyDone) "All Done Today!" else "Session Complete!",
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
 
+        Spacer(Modifier.height(8.dp))
+
+        Text(
+            "$sessionsDone / $sessionsTarget sessions",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Color(0xFF4CAF50)
+        )
+
         Spacer(Modifier.height(12.dp))
 
         Text(
-            "All blocked apps are now unlocked for today.\nKeep up the great work!",
+            if (isFullyDone)
+                "All blocked apps are now unlocked for today.\nKeep up the great work!"
+            else
+                "Great job! Come back later for your next session.\n${sessionsTarget - sessionsDone} more to unlock your apps.",
             fontSize = 16.sp,
             color = Color(0xFFAAAAAA),
             textAlign = TextAlign.Center,
