@@ -87,6 +87,7 @@ private fun ResourceCard(resource: Resource, cardBg: Color) {
         ResourceType.YOUTUBE -> Color(0xFFEF5350)
         ResourceType.PODCAST -> Color(0xFFAB47BC)
         ResourceType.WEBSITE -> Color(0xFF42A5F5)
+        ResourceType.APP     -> Color(0xFF66BB6A)
     }
     val levelColor = when (resource.level) {
         "A2"  -> Color(0xFF66BB6A)
