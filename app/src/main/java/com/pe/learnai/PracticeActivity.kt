@@ -138,39 +138,44 @@ class PracticeActivity : ComponentActivity() {
         tts?.stop()
         state.value = PS.Recording
 
-        recognizer?.destroy()
-        val gen = ++recognizerGen
-        recognizer = SpeechRecognizer.createSpeechRecognizer(this).apply {
-            setRecognitionListener(object : RecognitionListener {
-                override fun onResults(results: Bundle?) {
-                    if (gen != recognizerGen) return
-                    val best = results
-                        ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-                        ?.firstOrNull() ?: ""
-                    val score = similarity(best, clips[clipIndex.value].text)
-                    val passed = score >= 0.55f
-                    state.value = PS.Result(score, best, passed)
-                    if (passed) { vibrateSuccess(); playSuccessSound() }
-                    else { vibrateFail(); playFailSound() }
-                }
-                override fun onError(error: Int) {
-                    if (gen != recognizerGen) return
-                    state.value = PS.Result(0f, "", false)
-                }
-                override fun onReadyForSpeech(p: Bundle?) {}
-                override fun onBeginningOfSpeech() {}
-                override fun onRmsChanged(rms: Float) {}
-                override fun onBufferReceived(buf: ByteArray?) {}
-                override fun onEndOfSpeech() {}
-                override fun onPartialResults(p: Bundle?) {}
-                override fun onEvent(t: Int, p: Bundle?) {}
-            })
-            startListening(Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-                putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US")
-                putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
-            })
+        // Reuse the same recognizer instance — destroy+create back-to-back leaves the
+        // speech service in a busy state, causing an immediate onError on the new session.
+        // cancel() clears any in-progress session without releasing the service connection.
+        if (recognizer == null) {
+            recognizer = SpeechRecognizer.createSpeechRecognizer(this)
         }
+        recognizer!!.cancel()
+
+        val gen = ++recognizerGen
+        recognizer!!.setRecognitionListener(object : RecognitionListener {
+            override fun onResults(results: Bundle?) {
+                if (gen != recognizerGen) return
+                val best = results
+                    ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                    ?.firstOrNull() ?: ""
+                val score = similarity(best, clips[clipIndex.value].text)
+                val passed = score >= 0.55f
+                state.value = PS.Result(score, best, passed)
+                if (passed) { vibrateSuccess(); playSuccessSound() }
+                else { vibrateFail(); playFailSound() }
+            }
+            override fun onError(error: Int) {
+                if (gen != recognizerGen) return
+                state.value = PS.Result(0f, "", false)
+            }
+            override fun onReadyForSpeech(p: Bundle?) {}
+            override fun onBeginningOfSpeech() {}
+            override fun onRmsChanged(rms: Float) {}
+            override fun onBufferReceived(buf: ByteArray?) {}
+            override fun onEndOfSpeech() {}
+            override fun onPartialResults(p: Bundle?) {}
+            override fun onEvent(t: Int, p: Bundle?) {}
+        })
+        recognizer!!.startListening(Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US")
+            putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
+        })
     }
 
     private fun advanceClip() {
