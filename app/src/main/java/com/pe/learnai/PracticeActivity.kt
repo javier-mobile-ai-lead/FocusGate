@@ -100,7 +100,7 @@ class PracticeActivity : ComponentActivity() {
                     state = state.value,
                     hasMicPerm = hasMicPerm.value,
                     attempts = attempts.value,
-                    onListen = { speakClip(clips[clipIndex.value].text) },
+                    onListen = { speakClip(clips[clipIndex.value].prompt) },
                     onRecord = ::startRecording,
                     onNext = ::advanceClip,
                     onRetry = { state.value = PS.Ready; attempts.value++ },
@@ -154,7 +154,8 @@ class PracticeActivity : ComponentActivity() {
                     ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                     ?.firstOrNull() ?: ""
                 val score = similarity(best, clips[clipIndex.value].text)
-                val passed = score >= 0.55f
+                val threshold = if (clips[clipIndex.value].isConversation) 0.30f else 0.55f
+                val passed = score >= threshold
                 state.value = PS.Result(score, best, passed)
                 if (passed) { vibrateSuccess(); playSuccessSound() }
                 else { vibrateFail(); playFailSound() }
@@ -234,12 +235,22 @@ class PracticeActivity : ComponentActivity() {
     }
 
     private fun similarity(recognized: String, target: String): Float {
+        val stopWords = setOf(
+            "i", "a", "an", "the", "is", "am", "are", "was", "were", "be", "been",
+            "it", "that", "this", "and", "or", "but", "in", "on", "at", "to", "for",
+            "of", "with", "by", "from", "have", "has", "had", "do", "does", "did",
+            "will", "would", "could", "should", "may", "might", "not", "no", "so",
+            "just", "also", "very", "really", "quite", "my", "your", "we", "you",
+            "me", "us", "they", "their", "our", "its", "as", "if", "when", "about"
+        )
         fun norm(s: String) = s.lowercase(Locale.US)
             .replace(Regex("[^a-z ]"), "")
-            .split(" ").filter { it.isNotEmpty() }.toSet()
+            .split(" ")
+            .filter { it.isNotEmpty() && it !in stopWords }
+            .toSet()
         val r = norm(recognized)
         val t = norm(target)
-        return if (t.isEmpty()) 0f else r.intersect(t).size.toFloat() / t.size
+        return if (t.isEmpty()) 1f else r.intersect(t).size.toFloat() / t.size
     }
 }
 
@@ -357,6 +368,7 @@ private fun ExerciseContent(
                 modifier = Modifier.padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                // Category + level badge
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
@@ -383,7 +395,28 @@ private fun ExerciseContent(
                     }
                 }
                 Spacer(Modifier.height(12.dp))
-                // Show word-by-word highlight after result, plain text otherwise
+
+                // Prompt — what the other person says (always visible)
+                if (clip.isConversation) {
+                    Text(
+                        "\"${clip.prompt}\"",
+                        fontSize = 16.sp,
+                        color = Color(0xFFADD8E6),
+                        textAlign = TextAlign.Center,
+                        lineHeight = 24.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Spacer(Modifier.height(14.dp))
+                    Text(
+                        if (state is PS.Result) "Model answer:" else "Your response:",
+                        fontSize = 11.sp,
+                        letterSpacing = 1.sp,
+                        color = Color(0xFF7B8BB2)
+                    )
+                    Spacer(Modifier.height(6.dp))
+                }
+
+                // Model answer — highlighted after result, hidden/shown based on mode
                 AnimatedContent(
                     targetState = state is PS.Result,
                     transitionSpec = { fadeIn() togetherWith fadeOut() },
@@ -391,7 +424,8 @@ private fun ExerciseContent(
                 ) { showHighlight ->
                     if (showHighlight && state is PS.Result) {
                         WordHighlight(target = clip.text, recognized = state.recognized)
-                    } else {
+                    } else if (!clip.isConversation) {
+                        // Repeat mode: show the phrase to say
                         Text(
                             clip.text,
                             fontSize = 22.sp,
@@ -399,6 +433,15 @@ private fun ExerciseContent(
                             color = Color.White,
                             textAlign = TextAlign.Center,
                             lineHeight = 32.sp
+                        )
+                    } else {
+                        // Conversation mode: hide model answer until after recording
+                        Text(
+                            "🎤  Speak your answer",
+                            fontSize = 16.sp,
+                            color = Color(0xFF555577),
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Normal
                         )
                     }
                 }

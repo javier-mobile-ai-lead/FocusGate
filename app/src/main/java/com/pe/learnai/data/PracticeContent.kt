@@ -14,7 +14,16 @@ enum class Topic(val label: String, val emoji: String, val description: String) 
     SMALL_TALK("Small Talk",       "💬", "Casual conversations"),
 }
 
-data class Phrase(val text: String, val category: String, val level: String = "B1")
+// prompt = what the app says/asks. text = model answer the user should aim to say.
+// If only 3 fields in content file, prompt == text (classic repeat mode).
+data class Phrase(
+    val prompt: String,
+    val text: String,
+    val category: String,
+    val level: String = "B1"
+) {
+    val isConversation: Boolean get() = prompt != text
+}
 
 object PracticeContent {
 
@@ -36,11 +45,11 @@ object PracticeContent {
                         else -> {
                             val parts = line.split("|").map { it.trim() }
                             if (parts.size >= 3 && currentTopic != null) {
-                                val phrase = Phrase(
-                                    text = parts[2],
-                                    category = parts[1],
-                                    level = parts[0]
-                                )
+                                val phrase = if (parts.size >= 4) {
+                                    Phrase(prompt = parts[2], text = parts[3], category = parts[1], level = parts[0])
+                                } else {
+                                    Phrase(prompt = parts[2], text = parts[2], category = parts[1], level = parts[0])
+                                }
                                 result.getOrPut(currentTopic!!) { mutableListOf() }.add(phrase)
                             }
                         }
