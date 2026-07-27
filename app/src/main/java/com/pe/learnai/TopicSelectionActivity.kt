@@ -79,7 +79,23 @@ private fun TopicSelectionScreen(onBack: () -> Unit) {
             modifier = Modifier.padding(horizontal = 20.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            topicRows.forEach { row ->
+            val allTopics = Topic.values().toList()
+            val foundation = allTopics.first()
+            val rest = allTopics.drop(1).chunked(2)
+
+            // Foundations — full-width featured card
+            FoundationCard(
+                topic = foundation,
+                onClick = {
+                    context.startActivity(
+                        Intent(context, PracticeActivity::class.java)
+                            .putExtra("topic_ordinal", foundation.ordinal)
+                    )
+                }
+            )
+
+            // Rest — 2-column grid
+            rest.forEach { row ->
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -102,6 +118,65 @@ private fun TopicSelectionScreen(onBack: () -> Unit) {
         }
 
         Spacer(Modifier.height(32.dp))
+    }
+}
+
+@Composable
+private fun FoundationCard(topic: Topic, onClick: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp)
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF1B2A3B))
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Text(topic.emoji, fontSize = 36.sp)
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            topic.label,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                        Box(
+                            modifier = Modifier
+                                .background(Color(0xFF1565C0).copy(alpha = 0.7f), RoundedCornerShape(4.dp))
+                                .padding(horizontal = 6.dp, vertical = 2.dp)
+                        ) {
+                            Text(
+                                "Start Here",
+                                fontSize = 10.sp,
+                                color = Color(0xFF90CAF9),
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+                    Text(
+                        topic.description,
+                        fontSize = 12.sp,
+                        color = Color(0xFF7B8BB2),
+                        lineHeight = 16.sp
+                    )
+                }
+            }
+            Text("→", fontSize = 20.sp, color = Color(0xFF4FC3F7))
+        }
     }
 }
 

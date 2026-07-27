@@ -12,6 +12,69 @@
 # ============================================================
 
 # ╔══════════════════════════════════════════════════════════╗
+# TOPIC: FOUNDATIONS | Foundations | 🗣️ | Conversational essentials
+# ╚══════════════════════════════════════════════════════════╝
+# El pegamento de toda conversación: fillers, clarification, opinions,
+# agreement, buying time. Practica esto PRIMERO — aplica en cualquier contexto.
+
+# --- A2: Frases universales básicas ---
+A2 | Clarification    | Could you repeat that, please?
+A2 | Clarification    | I did not understand. Can you say it again?
+A2 | Clarification    | What does that mean exactly?
+A2 | Clarification    | Can you speak more slowly, please?
+A2 | Clarification    | Sorry, I did not catch that last part.
+A2 | Clarification    | Could you be more specific about that?
+A2 | Clarification    | Can you explain that again in a different way?
+A2 | Agreement        | I agree with you completely.
+A2 | Agreement        | Yes, I think so too.
+A2 | Agreement        | That is a good idea.
+A2 | Agreement        | Yes, exactly. That is what I mean.
+A2 | Agreement        | That sounds good to me.
+A2 | Thinking         | Let me think for a second.
+A2 | Thinking         | I am not sure about that right now.
+A2 | Thinking         | I have a question about that.
+A2 | Understanding    | I understand what you mean.
+A2 | Understanding    | I am not following you. Can you help me?
+A2 | Politeness       | Thank you for explaining that to me.
+
+# --- B1: Frases conversacionales intermedias ---
+B1 | Thinking         | That is a great question — let me think about it for a moment.
+B1 | Clarification    | Could you repeat that? I want to make sure I understand correctly.
+B1 | Clarification    | So if I understand correctly, you are saying that...
+B1 | Clarification    | Could you give me a specific example of what you mean?
+B1 | Clarification    | Could you clarify what you mean by that term?
+B1 | Clarification    | Sorry, I lost you there — could you go back to the part about that?
+B1 | Clarification    | Before I answer, I want to make sure I understand the question.
+B1 | Clarification    | Let me make sure I am answering your question correctly.
+B1 | Opinion          | In my experience, the best approach is usually to focus on the basics first.
+B1 | Opinion          | I am not entirely sure, but I believe that the key factor here is preparation.
+B1 | Opinion          | To be honest, I think the most important thing is consistency over time.
+B1 | Opinion          | I would say the main challenge here is staying motivated long term.
+B1 | Opinion          | What I find most interesting about this is how quickly things change.
+B1 | Agreement        | I completely agree with what you just said about that.
+B1 | Agreement        | That makes a lot of sense — I can see where you are coming from.
+B1 | Agreement        | That is an interesting perspective — I had not thought of it that way.
+B1 | Agreement        | I think we are on the same page here, which is great.
+B1 | Disagreement     | I see your point, but I tend to think that there is another way to look at it.
+B1 | Rephrasing       | Let me rephrase that to make sure I am being clear about what I mean.
+B1 | Rephrasing       | What I mean is that we should probably focus on the most important things first.
+
+# --- B2: Frases avanzadas de gestión conversacional ---
+B2 | Nuance           | That is a nuanced question — there are a few different ways to look at it.
+B2 | Nuance           | I think we need to distinguish between two different aspects of this question.
+B2 | Nuance           | I am inclined to agree, though I would add the caveat that context matters a lot.
+B2 | Nuance           | Before I commit to a position on that, I would want to understand more about the details.
+B2 | Clarity          | I want to make sure I am addressing the core of what you are actually asking.
+B2 | Clarity          | To put it differently, what I am trying to convey is that the approach needs to evolve.
+B2 | Clarity          | If I understand the broader context correctly, then the key issue is alignment.
+B2 | Clarity          | Let me think out loud for a moment — I want to give you a well-considered answer.
+B2 | Engagement       | That resonates with me — particularly the point you made about long-term growth.
+B2 | Engagement       | I appreciate you raising that — it is something I have been reflecting on as well.
+B2 | Engagement       | What strikes me as most significant about this situation is the opportunity it presents.
+B2 | Pushback         | I would push back slightly on that — my experience suggests a different outcome.
+
+
+# ╔══════════════════════════════════════════════════════════╗
 # TOPIC: HR_INTERVIEW | HR Interview | 💼 | Job interviews & career
 # ╚══════════════════════════════════════════════════════════╝
 

@@ -5,6 +5,7 @@ import android.util.Log
 import java.time.LocalDate
 
 enum class Topic(val label: String, val emoji: String, val description: String) {
+    FOUNDATIONS("Foundations",     "🗣️", "Conversational essentials"),
     HR_INTERVIEW("HR Interview",   "💼", "Job interviews & career"),
     DAILY_STANDUP("Daily Standup", "🖥️", "Agile team ceremonies"),
     DIRECTIONS("Directions",       "🗺️", "Asking & giving directions"),
