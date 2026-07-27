@@ -13,6 +13,7 @@ class AppBlockerService : AccessibilityService() {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private var sessionDone = false
+    private var blockedPackages: Set<String> = BlocklistManager.defaultPackages
 
     override fun onServiceConnected() {
         isRunning = true
@@ -21,13 +22,18 @@ class AppBlockerService : AccessibilityService() {
                 sessionDone = it
             }
         }
+        scope.launch {
+            BlocklistManager.blockedPackagesFlow(this@AppBlockerService).collect {
+                blockedPackages = it
+            }
+        }
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         if (event.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
         val pkg = event.packageName?.toString() ?: return
         if (pkg == packageName) return
-        if (BlockedApps.isBlocked(pkg) && !sessionDone) {
+        if (pkg in blockedPackages && !sessionDone) {
             startActivity(
                 Intent(this, BlockOverlayActivity::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)

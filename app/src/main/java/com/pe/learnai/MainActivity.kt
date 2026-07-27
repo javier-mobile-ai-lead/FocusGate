@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -15,6 +16,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -33,6 +35,7 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.pe.learnai.ui.theme.AILearnEngTheme
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
@@ -54,6 +57,11 @@ private fun isAccessibilityEnabled(context: android.content.Context): Boolean {
 
 private fun hasOverlayPermission(context: android.content.Context): Boolean =
     Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(context)
+
+private fun isBatteryOptimized(context: android.content.Context): Boolean {
+    val pm = context.getSystemService(PowerManager::class.java)
+    return !pm.isIgnoringBatteryOptimizations(context.packageName)
+}
 
 private fun scheduleReminder(context: android.content.Context) {
     val now = Calendar.getInstance()
@@ -82,16 +90,20 @@ private fun HomeScreen() {
 
     var accessibilityEnabled by remember { mutableStateOf(false) }
     var overlayEnabled by remember { mutableStateOf(false) }
+    var batteryExempt by remember { mutableStateOf(false) }
     var serviceActive by remember { mutableStateOf(false) }
     var showEmergencyDialog by remember { mutableStateOf(false) }
 
     val sessionComplete by SessionManager.sessionCompleteFlow(context).collectAsState(initial = false)
+    val streak by SessionManager.streakFlow(context).collectAsState(initial = 0)
+    val history by SessionManager.historyFlow(context).collectAsState(initial = emptySet())
+    val blockedPkgs by BlocklistManager.blockedPackagesFlow(context)
+        .collectAsState(initial = BlocklistManager.defaultPackages)
 
     val notifPermLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { /* granted or denied — notifications work if granted */ }
+    ) { /* granted or denied */ }
 
-    // First launch: request notification permission + schedule daily reminder
     LaunchedEffect(Unit) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             notifPermLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
@@ -99,12 +111,12 @@ private fun HomeScreen() {
         scheduleReminder(context)
     }
 
-    // Refresh permissions + service state on every screen resume
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
                 accessibilityEnabled = isAccessibilityEnabled(context)
                 overlayEnabled = hasOverlayPermission(context)
+                batteryExempt = !isBatteryOptimized(context)
                 serviceActive = AppBlockerService.isRunning
             }
         }
@@ -112,9 +124,17 @@ private fun HomeScreen() {
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
-    val setupDone = accessibilityEnabled && overlayEnabled
+    val setupDone = accessibilityEnabled && overlayEnabled && batteryExempt
+    val catalogByPkg = remember { BlockedApps.catalog.associateBy { it.pkg } }
+    val displayList by remember(blockedPkgs) {
+        derivedStateOf {
+            blockedPkgs.map { pkg ->
+                val info = catalogByPkg[pkg]
+                Triple(pkg, info?.name ?: pkg, info?.emoji ?: "📦")
+            }.sortedBy { it.second }
+        }
+    }
 
-    // Emergency unlock dialog
     if (showEmergencyDialog) {
         AlertDialog(
             onDismissRequest = { showEmergencyDialog = false },
@@ -130,9 +150,7 @@ private fun HomeScreen() {
                 TextButton(onClick = {
                     scope.launch { SessionManager.markComplete(context) }
                     showEmergencyDialog = false
-                }) {
-                    Text("Unlock anyway", color = Color(0xFFEF9A9A))
-                }
+                }) { Text("Unlock anyway", color = Color(0xFFEF9A9A)) }
             },
             dismissButton = {
                 TextButton(onClick = { showEmergencyDialog = false }) {
@@ -153,24 +171,25 @@ private fun HomeScreen() {
         verticalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(vertical = 48.dp)
     ) {
+
         // ── Header ────────────────────────────────────────────────────
         item {
             Column {
                 Text(
-                    text = "🔒 FocusGate",
+                    "🔒 FocusGate",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
                 Text(
-                    text = "Master English to unlock your apps",
+                    "Master English to unlock your apps",
                     fontSize = 14.sp,
                     color = Color(0xFF7B8BB2)
                 )
             }
         }
 
-        // ── "All set" banner (when fully ready) ───────────────────────
+        // ── "All set" banner ──────────────────────────────────────────
         if (setupDone && serviceActive) {
             item {
                 Card(
@@ -186,13 +205,13 @@ private fun HomeScreen() {
                         Text("⚡", fontSize = 22.sp)
                         Column {
                             Text(
-                                text = "FocusGate is active",
+                                "FocusGate is active",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 color = Color(0xFF81C784)
                             )
                             Text(
-                                text = "Monitoring foreground apps in real time",
+                                "Monitoring foreground apps in real time",
                                 fontSize = 12.sp,
                                 color = Color(0xFF4CAF50)
                             )
@@ -202,24 +221,18 @@ private fun HomeScreen() {
             }
         }
 
-        // ── Setup section ──────────────────────────────────────────────
+        // ── Setup ─────────────────────────────────────────────────────
         item {
-            Text(
-                text = "Setup",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.White
-            )
+            Text("Setup", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
         }
 
-        // Accessibility service card
         item {
             SetupCard(
                 emoji = "⚙️",
                 title = "Accessibility Service",
                 description = "Lets FocusGate detect when a blocked app opens.",
                 done = accessibilityEnabled,
-                activeBadge = if (accessibilityEnabled) {
+                badge = if (accessibilityEnabled) {
                     if (serviceActive) "Active" else "Enabled – connecting…"
                 } else null,
                 buttonLabel = "Open Accessibility Settings",
@@ -227,14 +240,13 @@ private fun HomeScreen() {
             )
         }
 
-        // Overlay permission card
         item {
             SetupCard(
                 emoji = "🪟",
                 title = "Display Over Other Apps",
                 description = "Required to show the blocking screen on top of apps.",
                 done = overlayEnabled,
-                activeBadge = null,
+                badge = null,
                 buttonLabel = "Grant Overlay Permission",
                 onClick = {
                     context.startActivity(
@@ -247,7 +259,29 @@ private fun HomeScreen() {
             )
         }
 
-        // Android 13+ sideloaded APK note
+        item {
+            SetupCard(
+                emoji = "🔋",
+                title = "Battery Optimization",
+                description = "Prevents Android from killing the blocking service in the background.",
+                done = batteryExempt,
+                badge = null,
+                buttonLabel = "Disable Battery Optimization",
+                onClick = {
+                    try {
+                        context.startActivity(
+                            Intent(
+                                Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                                Uri.parse("package:${context.packageName}")
+                            )
+                        )
+                    } catch (_: Exception) {
+                        context.startActivity(Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS))
+                    }
+                }
+            )
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !accessibilityEnabled) {
             item {
                 Card(
@@ -257,14 +291,14 @@ private fun HomeScreen() {
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            text = "📱  Android 13+ — Sideloaded APK",
+                            "📱  Android 13+ — Sideloaded APK",
                             fontSize = 13.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = Color(0xFFFFCC02)
                         )
                         Spacer(Modifier.height(6.dp))
                         Text(
-                            text = "If you installed this APK manually, Android may block the Accessibility toggle. " +
+                            "If you installed this APK manually, Android may block the Accessibility toggle. " +
                                 "In Accessibility settings, long-press FocusGate and tap \"Allow restricted settings\".",
                             fontSize = 12.sp,
                             color = Color(0xFFCCCCCC),
@@ -278,13 +312,44 @@ private fun HomeScreen() {
         // ── Today's session ────────────────────────────────────────────
         item {
             Text(
-                text = "Today's Session",
+                "Today's Session",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.White
             )
         }
 
+        // 7-day history dots
+        item {
+            val last7 = (6 downTo 0).map { LocalDate.now().minusDays(it.toLong()) }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                last7.forEach { date ->
+                    val done = date.toString() in history
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .aspectRatio(1f)
+                            .background(
+                                if (done) Color(0xFF4CAF50) else Color(0xFF2A2A3E),
+                                CircleShape
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = date.dayOfMonth.toString(),
+                            fontSize = 12.sp,
+                            color = if (done) Color.White else Color(0xFF555577),
+                            fontWeight = if (done) FontWeight.Bold else FontWeight.Normal
+                        )
+                    }
+                }
+            }
+        }
+
+        // Session status card
         item {
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -311,6 +376,14 @@ private fun HomeScreen() {
                             fontWeight = FontWeight.Bold,
                             color = if (sessionComplete) Color(0xFF81C784) else Color(0xFFEF9A9A)
                         )
+                        if (streak > 0) {
+                            Spacer(Modifier.height(4.dp))
+                            Text(
+                                text = "🔥 $streak day${if (streak == 1) "" else "s"} streak",
+                                fontSize = 13.sp,
+                                color = Color(0xFFFFAA00)
+                            )
+                        }
                     }
                 }
             }
@@ -331,44 +404,37 @@ private fun HomeScreen() {
                     )
                 }
             }
-
             item {
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                     TextButton(onClick = { showEmergencyDialog = true }) {
-                        Text(
-                            text = "Emergency unlock",
-                            color = Color(0xFF3A3A55),
-                            fontSize = 12.sp
-                        )
+                        Text("Emergency unlock", color = Color(0xFF3A3A55), fontSize = 12.sp)
                     }
                 }
             }
         }
 
-        // ── Blocked apps list ──────────────────────────────────────────
+        // ── Blocked apps ───────────────────────────────────────────────
         item {
-            Text(
-                text = "Blocked Apps",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.White
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    "Blocked Apps (${blockedPkgs.size})",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
+                TextButton(onClick = {
+                    context.startActivity(Intent(context, BlocklistActivity::class.java))
+                }) {
+                    Text("Edit", color = Color(0xFF4CAF50), fontSize = 14.sp)
+                }
+            }
         }
 
-        val appNames = listOf(
-            Triple("com.zhiliaoapp.musically", "TikTok", "🎵"),
-            Triple("com.ss.android.ugc.trill", "TikTok (Regional)", "🎵"),
-            Triple("com.whatsapp", "WhatsApp", "💬"),
-            Triple("com.instagram.android", "Instagram", "📷"),
-            Triple("com.google.android.youtube", "YouTube", "▶️"),
-            Triple("com.twitter.android", "X / Twitter", "🐦"),
-            Triple("com.facebook.katana", "Facebook", "👥"),
-            Triple("com.snapchat.android", "Snapchat", "👻"),
-            Triple("com.reddit.frontpage", "Reddit", "🤖"),
-            Triple("com.facebook.orca", "Messenger", "💭"),
-        )
-
-        items(appNames) { (pkg, name, emoji) ->
+        items(displayList, key = { it.first }) { (pkg, name, emoji) ->
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
@@ -395,9 +461,9 @@ private fun HomeScreen() {
         }
 
         item {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(Modifier.height(8.dp))
             Text(
-                text = "Practice English daily to keep your apps unlocked.\nEach session resets at midnight.",
+                "Practice English daily to keep your apps unlocked.\nEach session resets at midnight.",
                 fontSize = 12.sp,
                 color = Color(0xFF555577),
                 lineHeight = 18.sp
@@ -412,12 +478,12 @@ private fun SetupCard(
     title: String,
     description: String,
     done: Boolean,
-    activeBadge: String?,
+    badge: String?,
     buttonLabel: String,
     onClick: () -> Unit
 ) {
-    val isFullyActive = done && activeBadge == "Active"
-    val isConnecting = done && activeBadge != null && activeBadge != "Active"
+    val isFullyActive = done && badge == "Active"
+    val isConnecting = done && badge != null && badge != "Active"
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -456,9 +522,9 @@ private fun SetupCard(
                             else -> Color(0xFFFFCC02)
                         }
                     )
-                    if (activeBadge != null) {
+                    if (badge != null) {
                         Text(
-                            text = activeBadge,
+                            text = badge,
                             fontSize = 12.sp,
                             color = if (isFullyActive) Color(0xFF4CAF50) else Color(0xFFAA8800)
                         )
@@ -479,7 +545,7 @@ private fun SetupCard(
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC02)),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(text = buttonLabel, color = Color.Black, fontWeight = FontWeight.SemiBold)
+                    Text(buttonLabel, color = Color.Black, fontWeight = FontWeight.SemiBold)
                 }
             }
         }
