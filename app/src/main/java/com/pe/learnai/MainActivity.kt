@@ -97,6 +97,7 @@ private fun HomeScreen() {
     val sessionComplete by SessionManager.sessionCompleteFlow(context).collectAsState(initial = false)
     val streak by SessionManager.streakFlow(context).collectAsState(initial = 0)
     val history by SessionManager.historyFlow(context).collectAsState(initial = emptySet())
+    val clipsPerSession by SessionManager.clipsPerSessionFlow(context).collectAsState(initial = 3)
     val blockedPkgs by BlocklistManager.blockedPackagesFlow(context)
         .collectAsState(initial = BlocklistManager.defaultPackages)
 
@@ -391,8 +392,24 @@ private fun HomeScreen() {
 
         if (!sessionComplete) {
             item {
+                GoalCard(
+                    clips = clipsPerSession,
+                    onDecrement = {
+                        scope.launch { SessionManager.setClipsPerSession(context, clipsPerSession - 1) }
+                    },
+                    onIncrement = {
+                        scope.launch { SessionManager.setClipsPerSession(context, clipsPerSession + 1) }
+                    }
+                )
+            }
+            item {
                 Button(
-                    onClick = { context.startActivity(Intent(context, PracticeActivity::class.java)) },
+                    onClick = {
+                        context.startActivity(
+                            Intent(context, PracticeActivity::class.java)
+                                .putExtra("clips_per_session", clipsPerSession)
+                        )
+                    },
                     modifier = Modifier.fillMaxWidth().height(56.dp),
                     enabled = setupDone,
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
@@ -468,6 +485,40 @@ private fun HomeScreen() {
                 color = Color(0xFF555577),
                 lineHeight = 18.sp
             )
+        }
+    }
+}
+
+@Composable
+private fun GoalCard(clips: Int, onDecrement: () -> Unit, onIncrement: () -> Unit) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF1A1A2E))
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column {
+                Text("Daily Goal", fontSize = 15.sp, color = Color.White, fontWeight = FontWeight.SemiBold)
+                Text("Phrases per session", fontSize = 12.sp, color = Color(0xFF7B8BB2))
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                IconButton(onClick = onDecrement, enabled = clips > 1, modifier = Modifier.size(36.dp)) {
+                    Text("−", fontSize = 20.sp, color = if (clips > 1) Color.White else Color(0xFF3A3A55), fontWeight = FontWeight.Bold)
+                }
+                Box(contentAlignment = Alignment.Center, modifier = Modifier.width(36.dp)) {
+                    Text("$clips", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color(0xFF4CAF50))
+                }
+                IconButton(onClick = onIncrement, enabled = clips < 15, modifier = Modifier.size(36.dp)) {
+                    Text("+", fontSize = 20.sp, color = if (clips < 15) Color.White else Color(0xFF3A3A55), fontWeight = FontWeight.Bold)
+                }
+            }
         }
     }
 }

@@ -39,6 +39,10 @@ import androidx.core.content.ContextCompat
 import com.pe.learnai.data.Phrase
 import com.pe.learnai.data.PracticeContent
 import com.pe.learnai.ui.theme.AILearnEngTheme
+import android.media.AudioManager
+import android.media.ToneGenerator
+import android.os.Handler
+import android.os.Looper
 import kotlinx.coroutines.launch
 import java.util.Locale
 import kotlin.math.roundToInt
@@ -60,13 +64,15 @@ class PracticeActivity : ComponentActivity() {
     private var tts: TextToSpeech? = null
     private var recognizer: SpeechRecognizer? = null
     private val vibrator by lazy { getSystemService(Vibrator::class.java) }
+    private val toneHandler = Handler(Looper.getMainLooper())
 
     private val state = mutableStateOf<PS>(PS.Ready)
     private val clipIndex = mutableStateOf(0)
     private val attempts = mutableStateOf(0)
     private val hasMicPerm = mutableStateOf(false)
 
-    private val clips by lazy { PracticeContent.getDailyPhrases(3) }
+    private val clipsPerSession by lazy { intent.getIntExtra("clips_per_session", 3) }
+    private val clips by lazy { PracticeContent.getDailyPhrases(clipsPerSession) }
 
     private val micLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -133,7 +139,8 @@ class PracticeActivity : ComponentActivity() {
                     val score = similarity(best, clips[clipIndex.value].text)
                     val passed = score >= 0.55f
                     state.value = PS.Result(score, best, passed)
-                    if (passed) vibrateSuccess() else vibrateFail()
+                    if (passed) { vibrateSuccess(); playSuccessSound() }
+                    else { vibrateFail(); playFailSound() }
                 }
                 override fun onError(error: Int) {
                     state.value = PS.Result(0f, "", false)
@@ -159,11 +166,32 @@ class PracticeActivity : ComponentActivity() {
         if (next >= clips.size) {
             state.value = PS.Done
             vibrateComplete()
+            playCompleteSound()
         } else {
             clipIndex.value = next
             state.value = PS.Ready
             attempts.value = 0
         }
+    }
+
+    private fun playSuccessSound() {
+        val tg = ToneGenerator(AudioManager.STREAM_MUSIC, 70)
+        tg.startTone(ToneGenerator.TONE_PROP_ACK, 200)
+        toneHandler.postDelayed({ tg.release() }, 350)
+    }
+
+    private fun playFailSound() {
+        val tg = ToneGenerator(AudioManager.STREAM_MUSIC, 70)
+        tg.startTone(ToneGenerator.TONE_PROP_NACK, 300)
+        toneHandler.postDelayed({ tg.release() }, 450)
+    }
+
+    private fun playCompleteSound() {
+        val tg = ToneGenerator(AudioManager.STREAM_MUSIC, 80)
+        tg.startTone(ToneGenerator.TONE_PROP_ACK, 150)
+        toneHandler.postDelayed({ tg.startTone(ToneGenerator.TONE_PROP_ACK, 150) }, 220)
+        toneHandler.postDelayed({ tg.startTone(ToneGenerator.TONE_CDMA_ANSWER, 250) }, 440)
+        toneHandler.postDelayed({ tg.release() }, 750)
     }
 
     private fun vibrateSuccess() =
@@ -182,6 +210,7 @@ class PracticeActivity : ComponentActivity() {
         )
 
     override fun onDestroy() {
+        toneHandler.removeCallbacksAndMessages(null)
         tts?.stop(); tts?.shutdown()
         recognizer?.destroy()
         super.onDestroy()

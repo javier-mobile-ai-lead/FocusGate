@@ -18,6 +18,7 @@ object SessionManager {
     private val SESSION_DATE = stringPreferencesKey("session_date")
     private val STREAK_COUNT = intPreferencesKey("streak_count")
     private val COMPLETED_DATES = stringSetPreferencesKey("completed_dates")
+    private val CLIPS_PER_SESSION = intPreferencesKey("clips_per_session")
 
     fun sessionCompleteFlow(context: Context): Flow<Boolean> =
         context.dataStore.data.map { it[SESSION_DATE] == LocalDate.now().toString() }
@@ -27,6 +28,13 @@ object SessionManager {
 
     fun historyFlow(context: Context): Flow<Set<String>> =
         context.dataStore.data.map { it[COMPLETED_DATES] ?: emptySet() }
+
+    fun clipsPerSessionFlow(context: Context): Flow<Int> =
+        context.dataStore.data.map { it[CLIPS_PER_SESSION] ?: 3 }
+
+    suspend fun setClipsPerSession(context: Context, count: Int) {
+        context.dataStore.edit { it[CLIPS_PER_SESSION] = count.coerceIn(1, 15) }
+    }
 
     suspend fun markComplete(context: Context) {
         val today = LocalDate.now()
