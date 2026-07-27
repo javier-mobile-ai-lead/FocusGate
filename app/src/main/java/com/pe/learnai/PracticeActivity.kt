@@ -73,6 +73,7 @@ class PracticeActivity : ComponentActivity() {
 
     private val clipsPerSession by lazy { intent.getIntExtra("clips_per_session", 3) }
     private val clips by lazy { PracticeContent.getDailyPhrases(clipsPerSession) }
+    private var recognizerGen = 0
 
     private val micLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -130,9 +131,11 @@ class PracticeActivity : ComponentActivity() {
         state.value = PS.Recording
 
         recognizer?.destroy()
+        val gen = ++recognizerGen
         recognizer = SpeechRecognizer.createSpeechRecognizer(this).apply {
             setRecognitionListener(object : RecognitionListener {
                 override fun onResults(results: Bundle?) {
+                    if (gen != recognizerGen) return
                     val best = results
                         ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                         ?.firstOrNull() ?: ""
@@ -143,6 +146,7 @@ class PracticeActivity : ComponentActivity() {
                     else { vibrateFail(); playFailSound() }
                 }
                 override fun onError(error: Int) {
+                    if (gen != recognizerGen) return
                     state.value = PS.Result(0f, "", false)
                 }
                 override fun onReadyForSpeech(p: Bundle?) {}
