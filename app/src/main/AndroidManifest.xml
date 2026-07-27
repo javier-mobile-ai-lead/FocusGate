@@ -38,6 +38,13 @@
             android:label="Edit Blocked Apps"
             android:theme="@style/Theme.AILearnEng" />
 
+        <!-- Topic selection before practice -->
+        <activity
+            android:name=".TopicSelectionActivity"
+            android:exported="false"
+            android:label="Choose Topic"
+            android:theme="@style/Theme.AILearnEng" />
+
         <!-- English practice session -->
         <activity
             android:name=".PracticeActivity"

@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.pe.learnai.data.Phrase
 import com.pe.learnai.data.PracticeContent
+import com.pe.learnai.data.Topic
 import com.pe.learnai.ui.theme.AILearnEngTheme
 import android.media.AudioManager
 import android.media.ToneGenerator
@@ -71,7 +72,14 @@ class PracticeActivity : ComponentActivity() {
     private val attempts = mutableStateOf(0)
     private val hasMicPerm = mutableStateOf(false)
 
-    private val clips by lazy { PracticeContent.getDailyPhrases(3) }
+    private val topic by lazy {
+        val ord = intent.getIntExtra("topic_ordinal", -1)
+        if (ord >= 0 && ord < Topic.values().size) Topic.values()[ord] else null
+    }
+    private val clips by lazy {
+        topic?.let { PracticeContent.getPhrasesForTopic(it) } ?: PracticeContent.getDailyPhrases(3)
+    }
+    private val topicLabel by lazy { topic?.let { "${it.emoji}  ${it.label}" } ?: "Daily Practice" }
     private var recognizerGen = 0
 
     private val micLauncher = registerForActivityResult(
@@ -87,6 +95,7 @@ class PracticeActivity : ComponentActivity() {
             AILearnEngTheme {
                 PracticeScreen(
                     clips = clips,
+                    topicLabel = topicLabel,
                     clipIndex = clipIndex.value,
                     state = state.value,
                     hasMicPerm = hasMicPerm.value,
@@ -234,6 +243,7 @@ class PracticeActivity : ComponentActivity() {
 @Composable
 private fun PracticeScreen(
     clips: List<Phrase>,
+    topicLabel: String,
     clipIndex: Int,
     state: PS,
     hasMicPerm: Boolean,
@@ -271,6 +281,7 @@ private fun PracticeScreen(
             } else if (clips.isNotEmpty()) {
                 ExerciseContent(
                     clip = clips[clipIndex],
+                    topicLabel = topicLabel,
                     clipIndex = clipIndex,
                     totalClips = clips.size,
                     state = state,
@@ -289,6 +300,7 @@ private fun PracticeScreen(
 @Composable
 private fun ExerciseContent(
     clip: Phrase,
+    topicLabel: String,
     clipIndex: Int,
     totalClips: Int,
     state: PS,
@@ -317,7 +329,7 @@ private fun ExerciseContent(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Daily Practice", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
+            Text(topicLabel, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
             Text("${clipIndex + 1} / $totalClips", fontSize = 14.sp, color = Color(0xFF7B8BB2))
         }
         Spacer(Modifier.height(8.dp))

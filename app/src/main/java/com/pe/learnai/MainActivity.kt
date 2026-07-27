@@ -407,7 +407,7 @@ private fun HomeScreen() {
             item {
                 Button(
                     onClick = {
-                        context.startActivity(Intent(context, PracticeActivity::class.java))
+                        context.startActivity(Intent(context, TopicSelectionActivity::class.java))
                     },
                     modifier = Modifier.fillMaxWidth().height(56.dp),
                     enabled = setupDone,
