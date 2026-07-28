@@ -6,7 +6,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,6 +41,7 @@ class LearningHubActivity : ComponentActivity() {
 private fun HubScreen(onBack: () -> Unit) {
     val bg = Color(0xFF0D0D1A)
     val cardBg = Color(0xFF1A1A2E)
+    val expandedSet = remember { mutableStateOf(setOf(0)) }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize().background(bg).padding(horizontal = 20.dp),
@@ -61,20 +66,61 @@ private fun HubScreen(onBack: () -> Unit) {
             }
         }
 
-        ResourceContent.categories.forEach { category ->
-            item { CategorySection(category = category, cardBg = cardBg) }
+        ResourceContent.categories.forEachIndexed { index, category ->
+            item {
+                CategorySection(
+                    category = category,
+                    cardBg = cardBg,
+                    expanded = index in expandedSet.value,
+                    onToggle = {
+                        expandedSet.value = if (index in expandedSet.value)
+                            expandedSet.value - index
+                        else
+                            expandedSet.value + index
+                    }
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun CategorySection(category: ResourceCategory, cardBg: Color) {
+private fun CategorySection(
+    category: ResourceCategory,
+    cardBg: Color,
+    expanded: Boolean,
+    onToggle: () -> Unit
+) {
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text(category.title, fontSize = 17.sp, fontWeight = FontWeight.Bold, color = Color.White)
-        Text(category.subtitle, fontSize = 12.sp, color = Color(0xFF7B8BB2), lineHeight = 16.sp)
-        Spacer(Modifier.height(2.dp))
-        category.resources.forEach { resource ->
-            ResourceCard(resource = resource, cardBg = cardBg)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onToggle)
+                .padding(vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(category.title, fontSize = 17.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                Text(category.subtitle, fontSize = 12.sp, color = Color(0xFF7B8BB2), lineHeight = 16.sp)
+            }
+            Text(
+                if (expanded) "▾" else "▸",
+                fontSize = 18.sp,
+                color = Color(0xFF4CAF50),
+                modifier = Modifier.padding(start = 12.dp)
+            )
+        }
+        AnimatedVisibility(
+            visible = expanded,
+            enter = expandVertically(),
+            exit = shrinkVertically()
+        ) {
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                category.resources.forEach { resource ->
+                    ResourceCard(resource = resource, cardBg = cardBg)
+                }
+            }
         }
     }
 }

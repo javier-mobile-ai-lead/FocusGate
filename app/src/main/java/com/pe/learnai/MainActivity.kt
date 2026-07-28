@@ -103,7 +103,7 @@ private fun HomeScreen() {
     val (sessionsDone, sessionsTarget) = SessionManager.sessionProgressFlow(context)
         .collectAsState(initial = Pair(0, 1)).value
     val unlockUntil by SessionManager.unlockUntilFlow(context).collectAsState(initial = 0L)
-    val cooldownHours by SessionManager.cooldownHoursFlow(context).collectAsState(initial = 2)
+    val cooldownHours by SessionManager.cooldownMinutesFlow(context).collectAsState(initial = 120)
     val blockedPkgs by BlocklistManager.blockedPackagesFlow(context)
         .collectAsState(initial = BlocklistManager.defaultPackages)
 
@@ -442,8 +442,8 @@ private fun HomeScreen() {
 
         item {
             CooldownCard(
-                hours = cooldownHours,
-                onChange = { scope.launch { SessionManager.setCooldownHours(context, it) } }
+                minutes = cooldownHours,
+                onChange = { scope.launch { SessionManager.setCooldownMinutes(context, it) } }
             )
         }
 
@@ -573,9 +573,8 @@ private fun formatTime(epochMs: Long): String =
         .format(DateTimeFormatter.ofPattern("h:mm a"))
 
 @Composable
-private fun CooldownCard(hours: Int, onChange: (Int) -> Unit) {
-    var sliderValue by remember(hours) { mutableStateOf(hours.toFloat()) }
-    val scope = rememberCoroutineScope()
+private fun CooldownCard(minutes: Int, onChange: (Int) -> Unit) {
+    var sliderValue by remember(minutes) { mutableStateOf(minutes.toFloat()) }
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -593,8 +592,8 @@ private fun CooldownCard(hours: Int, onChange: (Int) -> Unit) {
                     Text("Apps stay unlocked this long after each session", fontSize = 12.sp, color = Color(0xFF7B8BB2), lineHeight = 16.sp)
                 }
                 Text(
-                    "${sliderValue.toInt()}h",
-                    fontSize = 22.sp,
+                    "${sliderValue.toInt()} min",
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF4CAF50)
                 )
@@ -604,8 +603,8 @@ private fun CooldownCard(hours: Int, onChange: (Int) -> Unit) {
                 value = sliderValue,
                 onValueChange = { sliderValue = it },
                 onValueChangeFinished = { onChange(sliderValue.toInt()) },
-                valueRange = 1f..8f,
-                steps = 6,
+                valueRange = 0f..120f,
+                steps = 23,
                 colors = SliderDefaults.colors(
                     thumbColor = Color(0xFF4CAF50),
                     activeTrackColor = Color(0xFF4CAF50),
@@ -617,8 +616,8 @@ private fun CooldownCard(hours: Int, onChange: (Int) -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text("1h", fontSize = 11.sp, color = Color(0xFF555577))
-                Text("8h", fontSize = 11.sp, color = Color(0xFF555577))
+                Text("0 min", fontSize = 11.sp, color = Color(0xFF555577))
+                Text("120 min", fontSize = 11.sp, color = Color(0xFF555577))
             }
         }
     }

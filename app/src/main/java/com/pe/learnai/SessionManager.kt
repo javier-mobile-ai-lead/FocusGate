@@ -67,8 +67,8 @@ object SessionManager {
     fun sessionsTargetFlow(context: Context): Flow<Int> =
         context.dataStore.data.map { it[SESSIONS_TARGET] ?: 1 }
 
-    fun cooldownHoursFlow(context: Context): Flow<Int> =
-        context.dataStore.data.map { it[COOLDOWN_HOURS] ?: 2 }
+    fun cooldownMinutesFlow(context: Context): Flow<Int> =
+        context.dataStore.data.map { it[COOLDOWN_HOURS] ?: 120 }
 
     fun clipsPerSessionFlow(context: Context): Flow<Int> =
         context.dataStore.data.map { it[CLIPS_PER_SESSION] ?: 3 }
@@ -77,8 +77,8 @@ object SessionManager {
         context.dataStore.edit { it[SESSIONS_TARGET] = target.coerceIn(1, 10) }
     }
 
-    suspend fun setCooldownHours(context: Context, hours: Int) {
-        context.dataStore.edit { it[COOLDOWN_HOURS] = hours.coerceIn(1, 8) }
+    suspend fun setCooldownMinutes(context: Context, minutes: Int) {
+        context.dataStore.edit { it[COOLDOWN_HOURS] = minutes.coerceIn(0, 120) }
     }
 
     suspend fun setClipsPerSession(context: Context, count: Int) {
@@ -95,7 +95,7 @@ object SessionManager {
             val currentDate = prefs[SESSIONS_DATE]
             val sessionsToday = if (currentDate == todayStr) prefs[SESSIONS_TODAY] ?: 0 else 0
             val target = prefs[SESSIONS_TARGET] ?: 1
-            val cooldownMs = ((prefs[COOLDOWN_HOURS] ?: 2) * 3_600_000L)
+            val cooldownMs = ((prefs[COOLDOWN_HOURS] ?: 120) * 60_000L)
             val newSessions = sessionsToday + 1
 
             prefs[SESSIONS_DATE] = todayStr
