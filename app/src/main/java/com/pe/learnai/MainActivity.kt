@@ -35,7 +35,10 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.pe.learnai.ui.theme.AILearnEngTheme
 import kotlinx.coroutines.launch
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
@@ -99,6 +102,8 @@ private fun HomeScreen() {
     val history by SessionManager.historyFlow(context).collectAsState(initial = emptySet())
     val (sessionsDone, sessionsTarget) = SessionManager.sessionProgressFlow(context)
         .collectAsState(initial = Pair(0, 1)).value
+    val unlockUntil by SessionManager.unlockUntilFlow(context).collectAsState(initial = 0L)
+    val cooldownHours by SessionManager.cooldownHoursFlow(context).collectAsState(initial = 2)
     val blockedPkgs by BlocklistManager.blockedPackagesFlow(context)
         .collectAsState(initial = BlocklistManager.defaultPackages)
 
@@ -390,6 +395,26 @@ private fun HomeScreen() {
                             fontWeight = FontWeight.Bold,
                             color = if (sessionComplete) Color(0xFF81C784) else Color(0xFFEF9A9A)
                         )
+                        val now = System.currentTimeMillis()
+                        when {
+                            !sessionComplete && unlockUntil > now -> {
+                                Spacer(Modifier.height(4.dp))
+                                Text(
+                                    "🔓 Apps free until ${formatTime(unlockUntil)} — next session after that",
+                                    fontSize = 12.sp,
+                                    color = Color(0xFF4FC3F7),
+                                    lineHeight = 17.sp
+                                )
+                            }
+                            !sessionComplete && unlockUntil in 1L until now -> {
+                                Spacer(Modifier.height(4.dp))
+                                Text(
+                                    "🔒 Apps locked — practice now!",
+                                    fontSize = 12.sp,
+                                    color = Color(0xFFEF9A9A)
+                                )
+                            }
+                        }
                         if (streak > 0) {
                             Spacer(Modifier.height(4.dp))
                             Text(
@@ -412,6 +437,13 @@ private fun HomeScreen() {
                 onIncrement = {
                     scope.launch { SessionManager.setSessionsTarget(context, sessionsTarget + 1) }
                 }
+            )
+        }
+
+        item {
+            CooldownCard(
+                hours = cooldownHours,
+                onChange = { scope.launch { SessionManager.setCooldownHours(context, it) } }
             )
         }
 
@@ -529,6 +561,64 @@ private fun GoalCard(sessions: Int, onDecrement: () -> Unit, onIncrement: () -> 
                 IconButton(onClick = onIncrement, enabled = sessions < 10, modifier = Modifier.size(36.dp)) {
                     Text("+", fontSize = 20.sp, color = if (sessions < 10) Color.White else Color(0xFF3A3A55), fontWeight = FontWeight.Bold)
                 }
+            }
+        }
+    }
+}
+
+private fun formatTime(epochMs: Long): String =
+    Instant.ofEpochMilli(epochMs)
+        .atZone(ZoneId.systemDefault())
+        .toLocalTime()
+        .format(DateTimeFormatter.ofPattern("h:mm a"))
+
+@Composable
+private fun CooldownCard(hours: Int, onChange: (Int) -> Unit) {
+    var sliderValue by remember(hours) { mutableStateOf(hours.toFloat()) }
+    val scope = rememberCoroutineScope()
+
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF1A1A2E))
+    ) {
+        Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column {
+                    Text("Cooldown Between Sessions", fontSize = 15.sp, color = Color.White, fontWeight = FontWeight.SemiBold)
+                    Text("Apps stay unlocked this long after each session", fontSize = 12.sp, color = Color(0xFF7B8BB2), lineHeight = 16.sp)
+                }
+                Text(
+                    "${sliderValue.toInt()}h",
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF4CAF50)
+                )
+            }
+            Spacer(Modifier.height(4.dp))
+            Slider(
+                value = sliderValue,
+                onValueChange = { sliderValue = it },
+                onValueChangeFinished = { onChange(sliderValue.toInt()) },
+                valueRange = 1f..8f,
+                steps = 6,
+                colors = SliderDefaults.colors(
+                    thumbColor = Color(0xFF4CAF50),
+                    activeTrackColor = Color(0xFF4CAF50),
+                    inactiveTrackColor = Color(0xFF2A2A3E)
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text("1h", fontSize = 11.sp, color = Color(0xFF555577))
+                Text("8h", fontSize = 11.sp, color = Color(0xFF555577))
             }
         }
     }
