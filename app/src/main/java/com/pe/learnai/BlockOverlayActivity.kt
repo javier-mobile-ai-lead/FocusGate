@@ -46,7 +46,7 @@ class BlockOverlayActivity : ComponentActivity() {
                     sessionsDone = sessionsDone,
                     sessionsTarget = sessionsTarget,
                     onPracticeClick = {
-                        startActivity(Intent(this, PracticeActivity::class.java))
+                        startActivity(Intent(this, TopicSelectionActivity::class.java))
                     },
                     onGoHomeClick = { goHome() }
                 )

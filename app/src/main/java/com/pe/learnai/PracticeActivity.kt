@@ -150,7 +150,7 @@ class PracticeActivity : ComponentActivity() {
     }
 
     private fun beginConversation() {
-        if (turns.isEmpty()) { state.value = CS.ConvDone; return }
+        if (turns.isEmpty()) { finish(); return }
         turnIndex.value = 0
         chatHistory.clear()
         processCurrentTurn()
