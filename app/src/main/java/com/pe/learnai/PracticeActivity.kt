@@ -108,6 +108,7 @@ class PracticeActivity : ComponentActivity() {
                     chatHistory = chatHistory,
                     state = state.value,
                     turns = turns,
+                    turnIndex = turnIndex.value,
                     hasMicPerm = hasMicPerm.value,
                     onRecord = ::startRecording,
                     onContinue = ::advanceTurn,
@@ -289,6 +290,7 @@ private fun ConversationScreen(
     chatHistory: List<ChatEntry>,
     state: CS,
     turns: List<ConvTurn>,
+    turnIndex: Int,
     hasMicPerm: Boolean,
     onRecord: () -> Unit,
     onContinue: () -> Unit,
@@ -304,8 +306,12 @@ private fun ConversationScreen(
     val userTurnsTotal = turns.count { !it.isApp }
     val userTurnsDone = chatHistory.count { !it.isApp }
 
-    LaunchedEffect(chatHistory.size) {
-        if (chatHistory.isNotEmpty()) listState.animateScrollToItem(chatHistory.size - 1)
+    val showPrompt = state == CS.UserReady || state == CS.UserRecording
+    val promptText = if (showPrompt) turns.getOrNull(turnIndex)?.text else null
+
+    val listItemCount = chatHistory.size + (if (state == CS.AppSpeaking) 1 else 0) + (if (promptText != null) 1 else 0)
+    LaunchedEffect(listItemCount) {
+        if (listItemCount > 0) listState.animateScrollToItem(listItemCount - 1)
     }
     LaunchedEffect(state) {
         if (state is CS.ConvDone) scope.launch { SessionManager.incrementSession(context) }
@@ -354,6 +360,10 @@ private fun ConversationScreen(
 
             if (state == CS.AppSpeaking) {
                 item { AppTypingIndicator() }
+            }
+
+            if (promptText != null) {
+                item { UserPromptBubble(promptText, isRecording = state == CS.UserRecording) }
             }
         }
 
@@ -456,6 +466,52 @@ private fun AppTypingIndicator() {
                     Box(Modifier.size(7.dp)
                         .background(Color(0xFF4FC3F7).copy(alpha = alpha), CircleShape))
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun UserPromptBubble(text: String, isRecording: Boolean) {
+    val transition = rememberInfiniteTransition(label = "pulse")
+    val borderAlpha by transition.animateFloat(
+        initialValue = 0.4f, targetValue = 1f,
+        animationSpec = infiniteRepeatable(tween(700), RepeatMode.Reverse),
+        label = "border"
+    )
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+        Column(
+            modifier = Modifier.widthIn(max = 290.dp),
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Text(
+                if (isRecording) "🎤  Recording…" else "Say this:",
+                fontSize = 11.sp,
+                color = if (isRecording) Color(0xFF9C27B0) else Color(0xFF7B8BB2),
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 0.3.sp
+            )
+            Box(
+                modifier = Modifier
+                    .background(
+                        Color(0xFF1E1E3E),
+                        RoundedCornerShape(16.dp, 4.dp, 16.dp, 16.dp)
+                    )
+                    .then(
+                        if (isRecording) Modifier.background(
+                            Color(0xFF6A1B9A).copy(alpha = borderAlpha * 0.15f),
+                            RoundedCornerShape(16.dp, 4.dp, 16.dp, 16.dp)
+                        ) else Modifier
+                    )
+                    .padding(14.dp, 10.dp)
+            ) {
+                Text(
+                    text,
+                    fontSize = 15.sp,
+                    color = if (isRecording) Color(0xFFCE93D8) else Color(0xFFDDDDFF),
+                    lineHeight = 22.sp
+                )
             }
         }
     }
