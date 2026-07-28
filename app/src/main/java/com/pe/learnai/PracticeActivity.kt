@@ -43,6 +43,7 @@ import com.pe.learnai.data.ConvTurn
 import com.pe.learnai.data.PracticeContent
 import com.pe.learnai.data.Topic
 import com.pe.learnai.ui.theme.AILearnEngTheme
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -80,6 +81,7 @@ class PracticeActivity : ComponentActivity() {
     private val chatHistory = mutableStateListOf<ChatEntry>()
     private val hasMicPerm = mutableStateOf(false)
     private var recognizerGen = 0
+    private var sessionCredited = false
 
     private val topic by lazy {
         val ord = intent.getIntExtra("topic_ordinal", -1)
@@ -162,6 +164,10 @@ class PracticeActivity : ComponentActivity() {
             state.value = CS.ConvDone
             vibrateComplete()
             playCompleteSound()
+            if (!sessionCredited) {
+                sessionCredited = true
+                lifecycleScope.launch { SessionManager.incrementSession(this@PracticeActivity) }
+            }
             return
         }
         val turn = turns[idx]
@@ -298,7 +304,6 @@ private fun ConversationScreen(
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
-    val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
     val (sessionsDone, sessionsTarget) = SessionManager.sessionProgressFlow(context)
         .collectAsState(initial = Pair(0, 1)).value
@@ -312,9 +317,6 @@ private fun ConversationScreen(
     val listItemCount = chatHistory.size + (if (state == CS.AppSpeaking) 1 else 0) + (if (promptText != null) 1 else 0)
     LaunchedEffect(listItemCount) {
         if (listItemCount > 0) listState.animateScrollToItem(listItemCount - 1)
-    }
-    LaunchedEffect(state) {
-        if (state is CS.ConvDone) scope.launch { SessionManager.incrementSession(context) }
     }
 
     Column(modifier = Modifier.fillMaxSize().background(Color(0xFF0D0D1A))) {

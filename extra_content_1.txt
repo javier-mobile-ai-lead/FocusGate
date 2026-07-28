@@ -1,0 +1,383 @@
+# CONV: FOUNDATIONS | Ordering coffee at a café
+APP: Good morning! What can I get for you today?
+YOU: Good morning. I would like a black coffee, please.
+APP: Sure. Do you want a small, medium, or large?
+YOU: A medium, please. How much is it?
+APP: It is three dollars and fifty cents.
+YOU: Here you go. Thank you very much.
+
+# CONV: FOUNDATIONS | Asking for directions to the office
+APP: Excuse me, can I help you find something?
+YOU: Yes, please. I am looking for the main office building.
+APP: Go straight down this street and turn left at the traffic light.
+YOU: Is it far from here?
+APP: No, it is about five minutes on foot.
+YOU: Thank you very much. I appreciate your help.
+
+# CONV: FOUNDATIONS | Introducing yourself at a team meeting
+APP: Hello everyone. We have a new team member today. Would you like to introduce yourself?
+YOU: Yes, of course. My name is Javier. I am an Android developer from Peru.
+APP: Welcome, Javier. How long have you worked as a developer?
+YOU: I have worked as a developer for about four years.
+APP: That is great. We are happy to have you on the team.
+YOU: Thank you. I am happy to be here and I look forward to working with all of you.
+
+# CONV: FOUNDATIONS | Asking about a company policy
+APP: Hi Javier, do you have any questions about the company?
+YOU: Yes, I have a question. How many vacation days do employees get per year?
+APP: All full-time employees get fifteen days of paid vacation per year.
+YOU: That is good. Can I use them at any time?
+APP: Yes, but please let your manager know at least two weeks in advance.
+YOU: I understand. Thank you for explaining that to me.
+
+# CONV: FOUNDATIONS | Talking about your commute
+APP: Good morning, Javier. How was your trip to work today?
+YOU: Good morning. It was a little long. I took the bus and it took about forty minutes.
+APP: That is quite a commute. Do you have another option?
+YOU: I can take the subway but it is usually very crowded.
+APP: Many people feel the same way. Maybe working from home some days would help.
+YOU: Yes, I think that would be a good idea. I will talk to my manager about it.
+
+# CONV: FOUNDATIONS | Asking a colleague about a document
+APP: Hi Javier, did you get the report I sent you this morning?
+YOU: Hello. Yes, I received it. But I have a small question about page three.
+APP: Of course. What is your question?
+YOU: The numbers in the table do not add up. I think there is a mistake.
+APP: You are right. I am sorry about that. I will send you a corrected version.
+YOU: Thank you. I will wait for the new file before I continue.
+
+# CONV: FOUNDATIONS | Talking about the weather
+APP: Good afternoon, Javier. What do you think of the weather today?
+YOU: Good afternoon. It is very cold today. I did not expect it to be this cold.
+APP: Yes, the temperature dropped a lot since yesterday. Do you have a jacket?
+YOU: I have a light jacket but it is not enough. I need a warmer one.
+APP: There is a good clothing store near here if you need to buy one.
+YOU: That is helpful. Maybe I will go after work. Thank you.
+
+# CONV: FOUNDATIONS | Talking about weekend plans
+APP: Hey Javier, do you have any plans for the weekend?
+YOU: Yes, I plan to visit a museum on Saturday and rest on Sunday.
+APP: That sounds nice. Which museum are you going to?
+YOU: I am going to the natural history museum. I have never been there.
+APP: Oh, it is very interesting. I think you will enjoy it.
+YOU: I hope so. Do you have plans for the weekend too?
+
+# CONV: FOUNDATIONS | Asking to borrow something
+APP: Hi Javier, is everything okay?
+YOU: Hi. Yes, but I forgot my charger at home. Can I borrow yours for a moment?
+APP: Of course. Here you go. My laptop uses the same one.
+YOU: Thank you so much. I will give it back in about thirty minutes.
+APP: No problem. Just leave it on my desk when you are done.
+YOU: I will. Thank you for helping me out.
+
+# CONV: FOUNDATIONS | Talking about a recent movie
+APP: Javier, did you watch anything interesting recently?
+YOU: Yes, I watched a science fiction movie last weekend. It was very good.
+APP: What was it called?
+YOU: It was called "The Arrival". Have you seen it?
+APP: No, I have not. Is it a new movie?
+YOU: I think it came out a few years ago but I watched it for the first time. I recommend it.
+
+# CONV: FOUNDATIONS | Scheduling a meeting
+APP: Hi Javier, I need to schedule a meeting with you this week. Are you free?
+YOU: Hello. Yes, I am available on Wednesday afternoon.
+APP: How about two o'clock on Wednesday?
+YOU: That works for me. Where will the meeting be?
+APP: We will use the small conference room on the second floor.
+YOU: Perfect. I will add it to my calendar. Thank you.
+
+# CONV: FOUNDATIONS | Reporting a technical problem
+APP: Hello Javier, how can I help you today?
+YOU: Hello. I am having a problem with my work computer. It is very slow.
+APP: I see. When did the problem start?
+YOU: It started this morning. It takes a long time to open any program.
+APP: We can look at it today. Can you bring it to the IT room at noon?
+YOU: Yes, I can do that. Thank you for the quick response.
+
+# CONV: FOUNDATIONS | Giving a compliment to a colleague
+APP: Hi Javier. Did you see the presentation Carlos gave this morning?
+YOU: Yes, I did. It was very clear and well organized.
+APP: I agree. He worked on it all week.
+YOU: It showed. The charts were easy to understand and the data was very useful.
+APP: I will tell him you said that. He will be happy to hear it.
+YOU: Please do. Good work should be recognized.
+
+# CONV: FOUNDATIONS | Talking about food preferences
+APP: Javier, we are going to order lunch. What kind of food do you like?
+YOU: I like many types of food. I enjoy pasta and I also like grilled chicken.
+APP: Good. There is an Italian restaurant nearby. Does that sound okay?
+YOU: That sounds great. I would also like a salad if possible.
+APP: Of course. I will add a salad to the order. Any allergies we should know about?
+YOU: No, I do not have any allergies. Thank you for asking.
+
+# CONV: FOUNDATIONS | Calling to confirm an appointment
+APP: Hello, you have reached City Health Clinic. How can I help you?
+YOU: Hello. I have an appointment tomorrow at ten in the morning. I want to confirm it.
+APP: Can I have your full name, please?
+YOU: Yes. My name is Javier Enriquez.
+APP: Thank you, Javier. Your appointment is confirmed for tomorrow at ten a.m.
+YOU: Perfect. Thank you. See you tomorrow.
+
+# CONV: FOUNDATIONS | Asking about a company benefit
+APP: Hi Javier, do you have any questions about your employee benefits?
+YOU: Yes, I do. Does the company cover health insurance?
+APP: Yes, the company pays for basic health insurance for all employees.
+YOU: That is good. Does it also cover dental care?
+APP: Dental coverage is optional. You can add it for a small monthly fee.
+YOU: I see. I would like to add it. Can you send me the information to sign up?
+
+# CONV: FOUNDATIONS | Talking about your hometown
+APP: Javier, where are you from originally?
+YOU: I am from Lima, Peru. It is the capital city.
+APP: I have heard it is a very large city. What is it like?
+YOU: It is a big and busy city. The food there is very good and the people are very friendly.
+APP: That sounds wonderful. Do you miss it?
+YOU: Yes, sometimes. But I talk to my family every week and that helps a lot.
+
+# CONV: FOUNDATIONS | Asking for feedback on your work
+APP: Hi Javier. Do you have a moment? I wanted to talk about your latest report.
+YOU: Of course. Please tell me what you think. I want to improve.
+APP: Overall it is good. The analysis is solid. But the conclusion could be a bit longer.
+YOU: I understand. Should I add more detail about the recommendations?
+APP: Yes, exactly. A few more sentences would make it much stronger.
+YOU: Thank you for the feedback. I will update it today and send it to you again.
+
+# CONV: FOUNDATIONS | Returning something to a store
+APP: Hello, welcome. How can I help you today?
+YOU: Hello. I bought this keyboard last week but it does not work. I want to return it.
+APP: I am sorry to hear that. Do you have the receipt?
+YOU: Yes, I have it here. I also have the original box.
+APP: Perfect. We can give you a full refund or exchange it for a new one.
+YOU: I would prefer a new one, please. The same model if you have it.
+
+# CONV: FOUNDATIONS | Asking about public transport
+APP: Excuse me, do you know how to get to Central Station from here?
+YOU: Yes. You can take Bus number twelve. It stops right in front of the station.
+APP: How often does that bus come?
+YOU: It comes every ten minutes during the day.
+APP: And how long is the ride?
+YOU: About twenty minutes if there is no traffic. It is not far.
+
+# CONV: FOUNDATIONS | Discussing a project deadline
+APP: Javier, I need an update on the login feature. Is everything on track?
+YOU: Yes, I think so. I finished the design part yesterday.
+APP: Good. When do you think the coding will be done?
+YOU: I plan to finish the coding by Friday. Then I need one day to test it.
+APP: So you expect to deliver it on Monday?
+YOU: Yes, that is my plan. But I will let you know right away if anything changes.
+
+# CONV: FOUNDATIONS | Talking about exercise and health
+APP: Javier, do you do any exercise to stay healthy?
+YOU: Yes, I try to go for a run three times a week in the morning.
+APP: That is great. How long do you run?
+YOU: About thirty minutes each time. I also do some stretching before I start.
+APP: Very good habits. Do you follow any special diet?
+YOU: Not a strict one. I try to eat less sugar and drink more water every day.
+
+# CONV: FOUNDATIONS | Joining a new online platform
+APP: Welcome to the platform. Let me help you set up your account. What is your name?
+YOU: Thank you. My name is Javier Enriquez.
+APP: Great. And what is your main skill or area of work?
+YOU: I am an Android developer. I work with Kotlin and Jetpack Compose.
+APP: Perfect. I will add those to your profile. Do you want to add a short bio?
+YOU: Yes. I am a developer from Peru. I am looking for international remote work opportunities.
+
+# CONV: FOUNDATIONS | Talking about a book you read
+APP: Javier, do you enjoy reading? What was the last book you read?
+YOU: Yes, I like to read. The last book I read was about personal finance.
+APP: That sounds useful. What was the main idea of the book?
+YOU: The main idea was to save money regularly and invest a small amount every month.
+APP: Did you find it helpful?
+YOU: Yes, very much. I already started to save ten percent of my income each month.
+
+# CONV: FOUNDATIONS | Asking about dress code
+APP: Hello Javier. Before you start on Monday, I want to mention the dress code.
+YOU: Oh, thank you. What is the dress code at this company?
+APP: We are a business casual office. No jeans or T-shirts on client meeting days.
+YOU: I understand. What should I wear on regular days?
+APP: Clean trousers and a button-up shirt are fine. Suits are not required.
+YOU: That is clear. Thank you for letting me know before I start.
+
+# CONV: HR_INTERVIEW | Talking about your technical skills
+APP: Javier, can you tell me about your main technical skills?
+YOU: Yes. I work mainly with Kotlin and I have good experience with Jetpack Compose.
+APP: How long have you been working with Jetpack Compose?
+YOU: About two years. I used it to build the user interface of three production apps.
+APP: Very good. Are you comfortable with REST APIs and JSON data?
+YOU: Yes, I am. I have integrated many APIs in my projects using Retrofit and Gson.
+
+# CONV: HR_INTERVIEW | Describing a project you are proud of
+APP: Can you tell me about a project you are proud of?
+YOU: Yes. I built an Android app that helps students track their study habits.
+APP: That sounds interesting. What was your role in the project?
+YOU: I was the only developer. I designed the database, built the UI, and published it to the Play Store.
+APP: What was the biggest challenge you faced?
+YOU: The biggest challenge was making the app fast on older phones. I optimized the database queries and it worked well.
+
+# CONV: HR_INTERVIEW | Explaining your work style
+APP: How would you describe your work style?
+YOU: I am organized and I like to plan my tasks before I start coding.
+APP: Can you give me an example?
+YOU: Yes. Every Monday I write a list of tasks for the week. I estimate time for each one and track my progress daily.
+APP: That sounds very structured. How do you handle unexpected tasks?
+YOU: I add them to my list and adjust my priorities. I communicate with my team if a deadline needs to change.
+
+# CONV: HR_INTERVIEW | Asking about the team structure
+APP: Do you have any questions about the team you would be joining?
+YOU: Yes, I do. How many developers are on the team?
+APP: There are six developers on the mobile team. Two for iOS and four for Android.
+YOU: I see. Does the team use Agile or Scrum methodology?
+APP: We use Scrum. We have two-week sprints and daily standups.
+YOU: That is familiar to me. I have worked with Scrum for the past two years.
+
+# CONV: HR_INTERVIEW | Discussing your availability
+APP: Javier, when would you be available to start if we made you an offer?
+YOU: I am available to start in two weeks. I need to finish my current project first.
+APP: That is fine. We can wait two weeks. Would full-time remote work suit you?
+YOU: Yes, absolutely. I have a home office with a good computer and a stable internet connection.
+APP: Great. Our core hours are nine to five Eastern Time. Is that a problem for you?
+YOU: No, that is not a problem. I can adjust my schedule to match those hours.
+
+# CONV: HR_INTERVIEW | Talking about how you handle feedback
+APP: How do you respond when you receive critical feedback from a manager or colleague?
+YOU: I try to listen carefully and not take it personally. I see feedback as a way to improve.
+APP: Can you give an example of a time when you received difficult feedback?
+YOU: Yes. A senior developer told me my code was hard to read. I felt a little bad at first.
+APP: And what did you do after that?
+YOU: I asked him to explain what I should change. Then I studied clean code practices and my code quality improved a lot.
+
+# CONV: HR_INTERVIEW | Explaining your learning habits
+APP: How do you keep your technical skills up to date?
+YOU: I try to learn something new every week. I watch video courses and read technical articles.
+APP: Do you follow any specific resources for Android development?
+YOU: Yes. I follow the official Android documentation and I watch channels on YouTube about Kotlin and Compose.
+APP: Have you taken any online certifications?
+YOU: Yes, I completed the Associate Android Developer certification from Google last year.
+
+# CONV: HR_INTERVIEW | Talking about working across time zones
+APP: This role involves working with a team in the United States. How do you feel about time zone differences?
+YOU: I am comfortable with it. I have worked with clients in different time zones before.
+APP: How did you manage the communication?
+YOU: I used tools like Slack and I made sure to respond to messages within a few hours. I also attended meetings early in the morning.
+APP: That is a good approach. Do you have any concerns about working across time zones?
+YOU: Not really. I think clear communication and good planning can solve most of the challenges.
+
+# CONV: HR_INTERVIEW | Discussing your long-term career goals
+APP: Where do you see yourself in three to five years?
+YOU: I want to become a senior Android developer. I also want to lead a small mobile development team.
+APP: Why do you want to move into a leadership role?
+YOU: I enjoy helping other developers and I want to have more impact on the products I work on.
+APP: That is a good goal. Are you taking any steps now to develop leadership skills?
+YOU: Yes. I am mentoring a junior developer at my current company and I lead our weekly code review sessions.
+
+# CONV: HR_INTERVIEW | Handling a question about a gap in your resume
+APP: I noticed there is a six-month gap in your work history. Can you explain that?
+YOU: Yes. I left my previous job to take care of a family member who was sick.
+APP: I understand. Were you doing any professional work during that time?
+YOU: Yes. I worked on two personal Android projects and completed an online course on software architecture.
+APP: That shows good initiative. We appreciate that you stayed active during that period.
+YOU: Thank you. It was important to me to keep learning even during a difficult time.
+
+# CONV: HR_INTERVIEW | Explaining why you enjoy mobile development
+APP: Why did you choose to specialize in Android development?
+YOU: I chose Android because I enjoy building things that people use every day on their phones.
+APP: Is there a specific type of app that you enjoy building most?
+YOU: I enjoy building productivity and utility apps. I like to solve real problems with simple and clean interfaces.
+APP: Have you published any apps to the Google Play Store?
+YOU: Yes, I have published two personal apps and contributed to three professional apps that are live on the Play Store.
+
+# CONV: HR_INTERVIEW | Discussing experience with version control
+APP: How comfortable are you with Git and version control?
+YOU: I am very comfortable with Git. I use it every day in my current job.
+APP: Do you use Git with a team or mostly alone?
+YOU: I use it with a team. We follow the Git Flow strategy with feature branches and pull requests.
+APP: How do you handle merge conflicts?
+YOU: I try to communicate with the other developer first. Then I resolve the conflict carefully and test the code before merging.
+
+# CONV: HR_INTERVIEW | Talking about your communication style
+APP: How would you describe your communication style in a team?
+YOU: I try to be clear and direct. I prefer to write things down so there is no confusion.
+APP: Do you prefer written or verbal communication?
+YOU: I prefer written communication for task details. But I think voice or video calls are better for complex problems.
+APP: How do you make sure your message is understood?
+YOU: I ask the other person to summarize what I said. That helps me confirm they understood.
+
+# CONV: HR_INTERVIEW | Asking about growth opportunities at the company
+APP: Do you have any questions for us about the role or the company?
+YOU: Yes. Are there opportunities to learn new technologies within this role?
+APP: Yes. We encourage all developers to spend some time each week on learning and experimentation.
+YOU: That is great to hear. Do you have a budget for courses or certifications?
+APP: Yes, we have an annual learning budget of one thousand dollars per employee.
+YOU: That is very generous. Thank you. I think this company is a great fit for my goals.
+
+# CONV: HR_INTERVIEW | Discussing experience with testing
+APP: How do you approach testing in your Android projects?
+YOU: I write unit tests for the business logic and integration tests for the data layer.
+APP: Do you use any specific testing frameworks?
+YOU: Yes, I use JUnit for unit tests and Espresso for UI tests. I also use MockK for mocking dependencies.
+APP: What percentage of your code do you usually test?
+YOU: I try to keep test coverage above seventy percent for the core features. Testing is very important to me.
+
+# CONV: HR_INTERVIEW | Explaining how you prioritize tasks
+APP: How do you decide which tasks to work on first when you have many things to do?
+YOU: I start with tasks that block other developers or that affect the user experience the most.
+APP: Can you give me an example?
+YOU: Yes. If a crash bug and a new feature are both on my list, I fix the crash first because it affects users right now.
+APP: That makes sense. Do you use any tools to manage your tasks?
+YOU: Yes, I use Jira for work tasks. For personal projects I use a simple notebook.
+
+# CONV: HR_INTERVIEW | Discussing experience with design patterns
+APP: Are you familiar with any architectural patterns for Android?
+YOU: Yes. I have experience with MVVM and I have also worked with Clean Architecture.
+APP: Can you explain why you prefer MVVM?
+YOU: MVVM makes the code easier to test because the business logic is separated from the UI.
+APP: Have you used any dependency injection frameworks?
+YOU: Yes, I use Hilt in most of my projects. It makes managing dependencies much simpler.
+
+# CONV: HR_INTERVIEW | Talking about a time you helped a teammate
+APP: Can you describe a time when you helped a colleague solve a problem?
+YOU: Yes. A junior developer on my team was struggling with a RecyclerView performance issue.
+APP: What did you do to help?
+YOU: I sat with them and we analyzed the code together. I explained how to use DiffUtil to update only the changed items.
+APP: Did that solve the problem?
+YOU: Yes. The list scroll became smooth and the developer told me they learned a lot from that session. It was a good experience for both of us.
+
+# CONV: HR_INTERVIEW | Handling a question about failure
+APP: Can you tell me about a time when a project did not go well?
+YOU: Yes. In one project I underestimated how long the backend integration would take.
+APP: What happened as a result?
+YOU: We missed the original deadline by one week. I had to tell my manager early when I saw the problem.
+APP: And what did you learn from that experience?
+YOU: I learned to add extra time to my estimates for parts I have not done before. Now I always add a buffer for unexpected problems.
+
+# CONV: HR_INTERVIEW | Talking about working independently
+APP: This role requires a lot of independent work. Are you comfortable with that?
+YOU: Yes, I am. I have worked as a freelancer for one year, so I am used to managing my own time.
+APP: How do you stay motivated when you work alone?
+YOU: I set small daily goals and check them off. I also take short breaks to stay focused. And I talk to other developers in online communities.
+APP: That sounds like a healthy approach. Do you have a dedicated workspace at home?
+YOU: Yes. I have a separate room with a desk and two monitors. It is quiet and I can concentrate well there.
+
+# CONV: HR_INTERVIEW | Discussing your experience with Agile
+APP: Have you worked in an Agile environment before?
+YOU: Yes. My last two jobs used Agile with two-week sprints.
+APP: What Agile ceremonies are you familiar with?
+YOU: I have participated in daily standups, sprint planning, sprint reviews, and retrospectives.
+APP: How do you feel about daily standups?
+YOU: I think they are very useful. They help the team stay aligned and catch problems early. I keep my updates short and to the point.
+
+# CONV: HR_INTERVIEW | Explaining your interest in the company
+APP: Why are you interested in working for our company specifically?
+YOU: I read about your products and I like the focus on user experience and performance.
+APP: Is there a specific product of ours that caught your attention?
+YOU: Yes. Your main mobile app has very good reviews. Users say it is fast and easy to use. That is the kind of quality I want to work on.
+APP: We appreciate that. Our team works hard to maintain that standard.
+YOU: That is exactly the environment I am looking for. I want to work with people who care about quality.
+
+# CONV: HR_INTERVIEW | Asking about the onboarding process
+APP: Do you have any other questions before we finish today?
+YOU: Yes. If I am selected, what does the onboarding process look like?
+APP: The first week is mostly learning about our systems and meeting the team. The second week you will start on small tasks.
+YOU: That sounds manageable. Is there documentation I can read before I start?
+APP: Yes. We will send you a welcome package with technical documentation and access to our internal wiki.
+YOU: That is very helpful. I like to prepare in advance so I can contribute quickly.
