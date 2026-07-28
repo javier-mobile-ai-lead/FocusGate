@@ -370,6 +370,7 @@ private fun ConversationScreen(
         // ── Action area ───────────────────────────────────────────────────────
         AnimatedContent(
             targetState = state,
+            modifier = Modifier.navigationBarsPadding(),
             transitionSpec = { fadeIn(tween(250)) togetherWith fadeOut(tween(150)) },
             label = "action"
         ) { s ->
