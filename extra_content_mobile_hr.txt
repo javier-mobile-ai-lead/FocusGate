@@ -1,0 +1,269 @@
+# CONV: MOBILE_DEV | Doing a code review
+APP: Javier, can you review my pull request? I finished the login screen yesterday.
+YOU: Sure, I will look at it now. Can you give me a quick summary of the changes?
+APP: I added a new login form with email and password fields. I also added input validation.
+YOU: OK I see it. The validation logic looks good. But I think we should move it to the ViewModel.
+APP: That makes sense. The UI should not have business logic. I will refactor it.
+YOU: Yes exactly. Also the error messages need to be in the strings file, not hardcoded.
+APP: Good catch. I will fix both issues and push an update today.
+YOU: Great. Once you fix those things I will approve the PR.
+
+# CONV: MOBILE_DEV | Sprint planning meeting
+APP: OK team, let us plan the sprint. Javier, what can you commit to this week?
+YOU: I can finish the user profile screen and start the notifications feature.
+APP: How many story points is that for you?
+YOU: The profile screen is about five points and notifications is eight. So thirteen total.
+APP: That is a good amount. Do you need any dependencies from the backend team?
+YOU: Yes I need the notifications API endpoint. I will ask Carlos to prioritize it.
+APP: OK I will add that as a dependency in Jira. Anything else you need?
+YOU: No, that is everything. I will have the profile screen done by Wednesday.
+
+# CONV: MOBILE_DEV | Migrating to Jetpack Compose
+APP: Javier, have you started the Compose migration for the settings screen?
+YOU: Yes I started yesterday. I converted the main settings list to a LazyColumn.
+APP: How is it going? Is it faster or slower than the XML version?
+YOU: It is going well. The code is much cleaner. But I am still learning some Compose concepts.
+APP: Which part is giving you trouble?
+YOU: I am trying to understand state hoisting. It is a bit different from the View system.
+APP: I can help you with that. Let us do a quick pair session this afternoon.
+YOU: That would be great. I will ping you after lunch.
+
+# CONV: MOBILE_DEV | Improving app performance
+APP: The QA team reported that the app is slow on older devices. Can you investigate?
+YOU: Yes I saw that report. I will use the Android Profiler to check for bottlenecks.
+APP: Good idea. What do you think is causing the slowness?
+YOU: My first guess is that we are doing too much work on the main thread.
+APP: How can we fix that?
+YOU: We can move the heavy operations to background threads using coroutines.
+APP: How long do you think it will take to fix?
+YOU: I need two days to profile the app and implement the fixes. I will update you by Friday.
+
+# CONV: MOBILE_DEV | Writing unit tests
+APP: Javier, the coverage report shows the ViewModel has only thirty percent test coverage.
+YOU: I know, I need to add more tests. I will focus on that this week.
+APP: Which parts are missing tests?
+YOU: The data transformation logic and the error handling flows do not have tests yet.
+APP: Those are important. Can you add them before the next release?
+YOU: Yes I can. I will use MockK to mock the repository and test all the edge cases.
+APP: Great. Aim for at least eighty percent coverage for the ViewModel.
+YOU: Understood. I will send you the coverage report when I am done.
+
+# CONV: MOBILE_DEV | Setting up CI/CD
+APP: We need to set up automatic builds for the Android app. Can you handle that?
+YOU: Yes I have experience with GitHub Actions. I can set it up this week.
+APP: What will the pipeline do exactly?
+YOU: It will run the unit tests, check code style, and build a debug APK on every pull request.
+APP: Can it also upload the build to Firebase App Distribution?
+YOU: Yes I can add that step. QA will get an automatic notification when a new build is ready.
+APP: That sounds perfect. How long will it take to set up?
+YOU: About half a day to configure the workflow file and test it. I can start today.
+
+# CONV: MOBILE_DEV | Reviewing a pull request with issues
+APP: Javier, I left some comments on your PR. Can you take a look?
+YOU: Yes I just saw them. You are right about the memory leak. I missed that.
+APP: It is easy to miss. The issue is that you are not removing the observer when the fragment is destroyed.
+YOU: I understand now. I will use viewLifecycleOwner instead of this when setting up the observer.
+APP: Exactly. Also, can you add a loading state while the data is fetching?
+YOU: Good point. The user needs to see a spinner while waiting. I will add that now.
+APP: Also consider adding an error state in case the API call fails.
+YOU: Right. I will handle both loading and error states and push the changes today.
+
+# CONV: MOBILE_DEV | Figma handoff with the designer
+APP: Hi Javier, I sent you the Figma designs for the new dashboard. Did you get them?
+YOU: Yes I received them. The designs look great. I have some questions about the animations.
+APP: Sure, what do you want to know?
+YOU: The cards have a fade in animation. What is the duration and easing you want to use?
+APP: Use three hundred milliseconds with an ease in out curve. It should feel smooth.
+YOU: OK and the chart, is it a custom component or should I use a library?
+APP: You can use MPAndroidChart for the chart. I will send you the specific colors to match the design.
+YOU: Perfect. I will start implementing the dashboard next week after I finish the current sprint.
+
+# CONV: MOBILE_DEV | Onboarding a junior developer
+APP: Javier, can you help me set up my development environment? I just joined the team.
+YOU: Of course. First let me give you access to the GitHub repository.
+APP: Thank you. What tools do I need to install?
+YOU: You need Android Studio, the JDK, and the Android SDK. I will send you the setup guide.
+APP: Do I need any special configuration for the project?
+YOU: Yes you need to add the google-services.json file to the app folder. I will share it with you.
+APP: OK. And where do I find the project architecture documentation?
+YOU: It is in the docs folder in the repository. Read the README first, it explains everything.
+
+# CONV: MOBILE_DEV | Discussing technical debt
+APP: We have been moving fast but the codebase is getting messy. Should we do some cleanup?
+YOU: I agree. There are several areas that need refactoring. The network layer is the worst.
+APP: What is the problem with the network layer?
+YOU: We have duplicated code in five different files. We need to create a shared base class.
+APP: How much time would the cleanup take?
+YOU: I estimate about one week to refactor the network layer and write the tests.
+APP: Let us plan a dedicated refactoring sprint next month. Can you create a list of what needs to be done?
+YOU: Yes I will write a technical debt document with priorities and estimates by Thursday.
+
+# CONV: MOBILE_DEV | Explaining Kotlin coroutines to the team
+APP: Javier, can you explain how we should use coroutines in the project?
+YOU: Sure. Coroutines let us run code in the background without blocking the main thread.
+APP: When should we use viewModelScope versus lifecycleScope?
+YOU: Use viewModelScope in ViewModels for data operations. Use lifecycleScope in activities and fragments for UI-related work.
+APP: What about withContext and Dispatchers?
+YOU: Use Dispatchers.IO for network and database calls. Use Dispatchers.Main to update the UI.
+APP: And how do we handle errors in coroutines?
+YOU: Use try-catch blocks inside the coroutine or use a CoroutineExceptionHandler for global error handling.
+
+# CONV: MOBILE_DEV | Adding accessibility support
+APP: The accessibility audit found some issues with the app. Can you fix them?
+YOU: Yes I saw the report. The main issue is that some buttons do not have content descriptions.
+APP: That is right. Screen readers cannot understand what those buttons do.
+YOU: I will add contentDescription to all interactive elements in the XML and Compose code.
+APP: Also the text contrast ratio is too low in some places.
+YOU: I will check all text colors against the background and update them to meet the WCAG AA standard.
+APP: Good. When can you have this done?
+YOU: I can finish the accessibility fixes by end of next week. I will test with TalkBack as well.
+
+# CONV: MOBILE_DEV | Implementing dark mode
+APP: The users are requesting a dark mode option. How difficult is it to implement?
+YOU: If we use Material3 properly it is not too difficult. Most of the work is in defining the color scheme.
+APP: Do we need to change all the hardcoded colors in the layouts?
+YOU: Yes that is the main work. We need to replace all hardcoded colors with theme attributes.
+APP: How many files are affected?
+YOU: I did a quick search and there are about forty files with hardcoded colors. It will take a few days.
+APP: Let us prioritize the main screens first. Which screens do users use most?
+YOU: The home screen, the feed, and the profile screen. I will start with those three.
+
+# CONV: MOBILE_DEV | Setting up push notifications
+APP: We need to add push notifications to tell users about new messages. Can you implement that?
+YOU: Yes I have done this before with Firebase Cloud Messaging. I will start the setup today.
+APP: What do we need from the backend team?
+YOU: They need to integrate the Firebase Admin SDK to send notifications from the server.
+APP: What will you handle on the Android side?
+YOU: I will register the device token, handle the incoming notifications, and show them in the system tray.
+APP: Can we customize the notification icon and sound?
+YOU: Yes we can use a custom icon and a custom sound. I will match them to the app design.
+
+# CONV: MOBILE_DEV | Working with deep links
+APP: We want to add deep links so users can share specific screens of the app. Can you do that?
+YOU: Yes I have implemented deep links before. We need to define the URL scheme in the manifest.
+APP: What URL format should we use?
+YOU: Something like focusgate://screen/profile or we can use https with App Links.
+APP: What is the difference?
+YOU: App Links use regular https URLs and are more reliable. They also work when the app is not installed.
+APP: Let us go with App Links then. What else do we need to set up?
+YOU: We need to host a file called assetlinks.json on our domain to verify that we own the app.
+
+# CONV: MOBILE_DEV | Managing build flavors
+APP: We need a separate version of the app for our enterprise clients. How do we set that up?
+YOU: We can use product flavors in Gradle. I can create a free flavor and an enterprise flavor.
+APP: What can be different between the two flavors?
+YOU: The app ID, the icon, the colors, some feature flags, and the server endpoints can all be different.
+APP: Can they share most of the code?
+YOU: Yes they share all the common code. Only the flavor-specific folders have the different resources.
+APP: How long will it take to set this up?
+YOU: About one day to configure the Gradle files and move the resources to the right folders.
+
+# CONV: MOBILE_DEV | Adding localization support
+APP: We want to launch the app in Spanish and Portuguese. Can you add localization?
+YOU: Yes that is straightforward in Android. All the strings need to go into the strings.xml file.
+APP: Some strings are currently hardcoded in the code. Is that a problem?
+YOU: Yes I need to find all of them and move them to strings.xml. There are probably about a hundred.
+APP: Do we need a translation service or can the team translate them?
+YOU: For professional quality I recommend using a translation service. I can export the strings file for them.
+APP: OK. Set up the English strings first and we will send them for translation next week.
+YOU: I will have the strings file ready by tomorrow with all the English text properly organized.
+
+# CONV: MOBILE_DEV | Handling in-app purchases
+APP: We want to add a premium subscription to the app. Have you worked with Google Play billing before?
+YOU: Yes I have integrated the Play Billing Library once before. It is a bit complex but manageable.
+APP: What are the main steps?
+YOU: First we connect to the Play Store, then we query the available products, and then we handle the purchase flow.
+APP: How do we verify the purchase on the server?
+YOU: The app sends the purchase token to our backend and the backend verifies it with the Google Play API.
+APP: What about restoring purchases when users reinstall the app?
+YOU: The Play Billing Library handles that automatically. We just need to query existing purchases on launch.
+
+# CONV: MOBILE_DEV | Investigating a crash with Crashlytics
+APP: Javier, Crashlytics is showing a new crash that affects five percent of users. Can you look at it?
+YOU: Yes I see it in the dashboard. It is a NullPointerException in the UserProfileViewModel.
+APP: What is causing it?
+YOU: The user object is null when the screen loads. It is probably a race condition with the data loading.
+APP: How can we fix it?
+YOU: I will add a null check and show a loading state while we wait for the user data.
+APP: Good. Can you also add more logging so we can understand the issue better?
+YOU: Yes I will add Firebase Analytics events to track when this happens and what the user was doing before.
+
+# CONV: MOBILE_DEV | Fixing a memory leak
+APP: The profiler shows memory usage keeps increasing when users navigate between screens. Can you investigate?
+YOU: Yes that is a memory leak. I will use the Memory Profiler to find the source.
+APP: Where do memory leaks usually come from in Android apps?
+YOU: Common causes are listeners that are not removed, static references to contexts, or bitmaps not recycled.
+APP: How long will the investigation take?
+YOU: I can find and fix most memory leaks in one to two days if I use the profiler systematically.
+APP: Please document what you find so we can avoid the same issues in the future.
+YOU: Good idea. I will write a short guide about memory leak prevention for the team wiki.
+
+# CONV: MOBILE_DEV | Upgrading the Android SDK target version
+APP: Google Play requires us to target SDK 34 by August. Are we ready?
+YOU: Not yet. I checked and we have some deprecated APIs that we need to update.
+APP: Which APIs need to change?
+YOU: We are using the old way to request permissions and the old PendingIntent flags. Both need updating.
+APP: Are there any breaking changes that could affect users?
+YOU: The notification permission is now explicit on Android 13 and above. We need to ask for it at runtime.
+APP: OK. Can you make a list of all the changes needed and estimate the work?
+YOU: Yes I will do an audit of the codebase today and have a list ready by tomorrow afternoon.
+
+# CONV: MOBILE_DEV | Pair programming session
+APP: Javier, can we do a pair programming session? I am stuck on the RecyclerView diffing logic.
+YOU: Sure. Share your screen and let me see what you have so far.
+APP: Here it is. The list updates but the animations are not working correctly.
+YOU: I see the issue. You are using notifyDataSetChanged instead of submitting a new list to the ListAdapter.
+APP: Oh I see. How does DiffUtil know which items changed?
+YOU: You define the areItemsTheSame and areContentsTheSame methods. DiffUtil compares items using those.
+APP: Let me try that. Should I use the same item ID from the database?
+YOU: Yes use the database ID in areItemsTheSame and compare all the display fields in areContentsTheSame.
+
+# CONV: MOBILE_DEV | Planning a release
+APP: The new version is almost ready. What is left before we can release?
+YOU: We need to update the version code and version name in the build file, and write the release notes.
+APP: Is the release build tested on multiple devices?
+YOU: Yes QA tested it on five devices. There was one small bug but I fixed it this morning.
+APP: Do we need to update the Play Store screenshots?
+YOU: Yes the new onboarding screens changed the look. I will take new screenshots today.
+APP: What about the privacy policy? Did anything change?
+YOU: No the privacy policy is the same. I will upload the release to Play Console this afternoon.
+
+# CONV: MOBILE_DEV | Deploying a hotfix
+APP: There is a critical bug in production. Users cannot log in. We need a hotfix immediately.
+YOU: I am on it. What is the error in the logs?
+APP: It looks like the authentication token is expired and the refresh logic is not working.
+YOU: I found the issue. There is a typo in the refresh token endpoint URL. One letter is wrong.
+APP: That is a one-line fix. Can you get it out today?
+YOU: Yes I will fix it, test it locally, and fast-track it through QA. We can release within two hours.
+APP: Perfect. Keep me updated every thirty minutes until the fix is live.
+YOU: Will do. I will message you as soon as QA gives the green light.
+
+# CONV: MOBILE_DEV | Integrating Firebase services
+APP: We want to add Firebase Analytics and Remote Config to the app. Have you set those up before?
+YOU: Yes both are straightforward to add. I will start with the google-services.json file setup.
+APP: What can we do with Remote Config?
+YOU: We can change app behavior without publishing a new release. For example, we can turn features on or off.
+APP: That is very useful. Can we use it to do A/B testing?
+YOU: Yes Firebase has built-in A/B testing. We can test different UI versions with a percentage of users.
+APP: Let us start with Analytics and Remote Config for now. How long will the integration take?
+YOU: About one day to integrate both and write the first set of analytics events and config parameters.
+
+# CONV: HR_INTERVIEW | Discussing your remote work setup
+APP: Can you tell me about your home office setup for remote work?
+YOU: Yes I have a dedicated workspace with a good desk, a second monitor, and a fast internet connection.
+APP: How do you stay focused when you work from home?
+YOU: I follow a fixed schedule. I start at nine, take a lunch break at one, and finish at six.
+APP: Have you worked across multiple time zones before?
+YOU: Yes I worked with a team in the US. I attended morning standups at their time, which was evening for me.
+APP: How did you handle the time difference in terms of communication?
+YOU: I learned to communicate clearly in writing so my teammates could read my updates asynchronously.
+
+# CONV: HR_INTERVIEW | Describing your problem-solving process
+APP: Can you walk me through how you approach a technical problem you have never seen before?
+YOU: First I read the error message and logs carefully to understand what is happening.
+APP: And if the logs do not give enough information?
+YOU: I add more logging and reproduce the issue in a simple test case. That helps me isolate the problem.
+APP: Do you search for solutions online?
+YOU: Yes I check the official documentation first, then Stack Overflow and GitHub issues for similar problems.
+APP: What do you do if you still cannot find the answer after searching?
+YOU: I ask a teammate or post a detailed question in the team Slack channel with everything I already tried.

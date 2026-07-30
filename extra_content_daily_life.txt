@@ -1,0 +1,272 @@
+# CONV: DAILY_LIFE | Ordering at a restaurant
+APP: Good evening. Welcome. Do you have a reservation?
+YOU: No I do not have a reservation. Do you have a table for one person?
+APP: Yes we have a table available. Please follow me. Here is the menu.
+YOU: Thank you. What do you recommend tonight?
+APP: The grilled salmon is very popular. It comes with rice and vegetables.
+YOU: That sounds good. I will have the salmon please. And a glass of water.
+APP: Of course. Would you like anything else to drink?
+YOU: No just water for now. Thank you.
+
+# CONV: DAILY_LIFE | Buying a bus ticket
+APP: Hello, how can I help you?
+YOU: Hi, I need a ticket to downtown please. How much does it cost?
+APP: A one-way ticket to downtown is two dollars and fifty cents.
+YOU: Can I pay with a card?
+APP: Yes we accept credit and debit cards. Just tap your card here.
+YOU: OK here you go. What time does the next bus leave?
+APP: The next bus leaves in ten minutes from platform three.
+YOU: Thank you. Is there a stop near the central library?
+APP: Yes the bus stops right in front of the library. It is the fourth stop.
+
+# CONV: DAILY_LIFE | Checking into a hotel
+APP: Good afternoon. Welcome to Hotel Central. Do you have a reservation?
+YOU: Yes I do. The reservation is under the name Javier Enriquez.
+APP: Let me find that. Yes I see it. You have a standard room for two nights.
+YOU: That is correct. Is breakfast included?
+APP: Yes breakfast is included and is served from seven to ten in the morning.
+YOU: Great. And what is the WiFi password?
+APP: The WiFi name is HotelCentral and the password is on this card. Here you go.
+YOU: Thank you. What time is check-out?
+APP: Check-out is at noon. Enjoy your stay.
+
+# CONV: DAILY_LIFE | Asking for directions on foot
+APP: Excuse me, can you help me? I am looking for the train station.
+YOU: Yes of course. Go straight down this street for two blocks.
+APP: OK two blocks straight. And then?
+YOU: Then turn left at the traffic lights. The station is on your right after one more block.
+APP: Is it far from here?
+YOU: No it is about a five minute walk. You cannot miss it, it is a big building.
+APP: Thank you so much. One more question, is there a supermarket on the way?
+YOU: Yes there is one on the corner when you turn left. It is called Super Fresh.
+
+# CONV: DAILY_LIFE | At the pharmacy
+APP: Hello, how can I help you today?
+YOU: Hi, I have a headache and a sore throat. Do you have something for that?
+APP: Yes I can recommend an over-the-counter medicine. Do you have any allergies?
+YOU: No I do not have any allergies.
+APP: I recommend this medicine. Take one tablet every eight hours with water.
+YOU: How many days should I take it?
+APP: Take it for three days. If you do not feel better, please see a doctor.
+YOU: OK thank you. How much does it cost?
+APP: It is eight dollars. Would you like a bag?
+
+# CONV: DAILY_LIFE | Ordering at a coffee shop
+APP: Hi, welcome to Coffee Corner. What can I get you?
+YOU: Hello. Can I have a medium cappuccino please?
+APP: Of course. Would you like whole milk, oat milk, or almond milk?
+YOU: Oat milk please. And can you make it extra hot?
+APP: Sure. Would you like to add anything to eat?
+YOU: Yes I will take one of those chocolate muffins please.
+APP: Great. Your name for the order?
+YOU: Javier. How long will it take?
+APP: About five minutes. We will call your name when it is ready.
+
+# CONV: DAILY_LIFE | Buying clothes
+APP: Hi, welcome. Can I help you find something?
+YOU: Yes I am looking for a dark blue polo shirt. Do you have any in medium?
+APP: Yes we have several options. Let me show you what we have in that size.
+YOU: I like this one. Can I try it on?
+APP: Of course. The fitting rooms are at the back on the right.
+YOU: Thank you. It fits well. How much is it?
+APP: That shirt is thirty-five dollars. Today all shirts are ten percent off.
+YOU: Great, I will take it. Can I pay by card?
+APP: Yes we accept all cards. I will take you to the register.
+
+# CONV: DAILY_LIFE | At the post office
+APP: Next please. How can I help you?
+YOU: Hi, I want to send this package to Peru. How much does it cost?
+APP: Let me weigh it first. It is five hundred grams. Standard international shipping is twenty dollars.
+YOU: How long does standard shipping take?
+APP: About ten to fifteen business days. Express shipping is forty dollars and takes five days.
+YOU: I will take standard shipping. Can I track the package?
+APP: Yes I will give you a tracking number. You can check the status online.
+YOU: Great. And can I add insurance to the package?
+APP: Yes insurance is an additional five dollars. Would you like to add it?
+
+# CONV: DAILY_LIFE | At an electronics store
+APP: Welcome. Are you looking for something specific today?
+YOU: Yes I am looking for wireless headphones. I need good quality for work calls.
+APP: We have several options. Do you have a budget in mind?
+YOU: I want to spend around one hundred dollars.
+APP: These Sony headphones are ninety-five dollars and have great microphone quality for calls.
+YOU: Do they connect to the computer by Bluetooth?
+APP: Yes they have Bluetooth five point zero. The battery lasts thirty hours on one charge.
+YOU: That sounds perfect. Does it come with a warranty?
+APP: Yes it has a one-year manufacturer warranty. We also offer an extended two-year warranty.
+
+# CONV: DAILY_LIFE | Reporting a lost item
+APP: Hello, how can I help you?
+YOU: Hi, I think I left my jacket on the bus this morning. Can you help me?
+APP: I am sorry to hear that. What color was the jacket?
+YOU: It is a dark gray jacket with a zipper. It has my company ID in the pocket.
+APP: What route number was the bus and approximately what time?
+YOU: It was route forty-two, around eight thirty in the morning.
+APP: OK let me check our lost and found system. Can I have your name and phone number?
+YOU: Yes, my name is Javier Enriquez and my number is five five five, one two three four.
+APP: We will call you if we find it. You can also check the lost and found website.
+
+# CONV: DAILY_LIFE | At a gas station
+APP: Hi there. How can I help you?
+YOU: Hi, I need to fill the tank with regular gasoline please.
+APP: Do you want me to fill it up completely?
+YOU: Yes please fill it up. How much is regular per gallon today?
+APP: Regular gasoline is three dollars and forty cents per gallon today.
+YOU: OK. Can I also check the tire pressure?
+APP: The air pump is on the side of the building. It is free to use.
+YOU: Great. And can I pay inside with a card?
+APP: Yes come inside to pay when the pump is done.
+
+# CONV: DAILY_LIFE | Booking a taxi
+APP: Hello, City Cab, how can I help you?
+YOU: Hi, I need a taxi to the airport. Can you pick me up at eight in the morning?
+APP: Of course. What is your pickup address?
+YOU: It is twenty-three Main Street, apartment five B.
+APP: And which airport are you going to?
+YOU: The international airport, terminal two.
+APP: The estimated cost is about thirty-five dollars. Is that OK?
+YOU: Yes that is fine. How long will the journey take?
+APP: About forty minutes at that time of morning. The driver will message you when they arrive.
+
+# CONV: DAILY_LIFE | At a library
+APP: Hello, welcome to the city library. Is this your first time here?
+YOU: Yes it is. I would like to get a library card. How do I do that?
+APP: You need to fill out this form and show me a photo ID and proof of address.
+YOU: I have my passport and a utility bill. Are those OK?
+APP: Yes perfect. I will process your card right now. It will take about five minutes.
+YOU: Great. And can I access the internet here?
+APP: Yes we have free WiFi and computer stations. You can use them for two hours per day.
+YOU: Perfect. I also want to borrow some English learning books. Where are those?
+APP: The language section is on the second floor. The signs will guide you there.
+
+# CONV: DAILY_LIFE | Airport check-in
+APP: Hello, can I see your passport and booking confirmation please?
+YOU: Yes here is my passport and I have the confirmation on my phone.
+APP: Thank you. How many bags are you checking in today?
+YOU: Just one suitcase. I also have a carry-on bag.
+APP: The suitcase is twenty-three kilograms, which is within the limit. Do you have a seat preference?
+YOU: Yes I prefer a window seat please, near the front if possible.
+APP: I can give you seat twelve A. Here are your boarding passes. Your gate is B fourteen.
+YOU: Thank you. What time does boarding start?
+APP: Boarding starts at ten thirty. Please arrive at the gate by then.
+
+# CONV: DAILY_LIFE | Going through customs
+APP: Good afternoon. Can I see your passport and customs declaration form please?
+YOU: Yes here they are. I am visiting for tourism and I will stay for two weeks.
+APP: Where will you be staying during your visit?
+YOU: I will be at Hotel Central in the city center.
+APP: Are you bringing any food, plants, or large amounts of cash?
+YOU: No I do not have any of those. I only have my personal belongings.
+APP: Did you buy anything abroad that you need to declare?
+YOU: I bought some gifts for my family worth about two hundred dollars total.
+APP: That is within the limit. Welcome, enjoy your stay.
+
+# CONV: DAILY_LIFE | At a hair salon
+APP: Hello, do you have an appointment?
+YOU: No I do not. Do you have any available slots this afternoon?
+APP: We have a slot at three o'clock. What would you like done?
+YOU: Just a regular haircut please. Not too short on the sides.
+APP: OK. Would you like a wash and blow dry as well?
+YOU: Yes please include the wash but I do not need the blow dry.
+APP: It will take about thirty minutes. The price is twenty-five dollars.
+YOU: That is fine. I will wait here until three.
+APP: Perfect. Please have a seat. We will call you when we are ready.
+
+# CONV: DAILY_LIFE | Returning a product
+APP: Hello, welcome. How can I help you today?
+YOU: Hi, I want to return this phone charger. It stopped working after three days.
+APP: I am sorry to hear that. Do you have the receipt?
+YOU: Yes here is the receipt. I bought it five days ago.
+APP: Thank you. Would you like a replacement or a refund?
+YOU: I would prefer a refund please.
+APP: Of course. I will process the refund to your card. It should appear in three to five business days.
+YOU: OK thank you. Can I ask why the charger failed so quickly?
+APP: It may have been a manufacturing defect. Our quality team will check it.
+
+# CONV: DAILY_LIFE | Paying a utility bill
+APP: Hello, how can I help you today?
+YOU: Hi, I want to pay my electricity bill. I have the account number here.
+APP: Sure, can you read me the account number please?
+YOU: It is four, seven, two, one, eight, nine, zero, three.
+APP: I see the account. The current amount due is eighty-five dollars and twenty cents.
+YOU: OK. Can I pay by card?
+APP: Yes of course. Just tap or insert your card here.
+YOU: Done. Can I get a receipt?
+APP: I will print one for you. Here you go. Your payment is confirmed.
+
+# CONV: DAILY_LIFE | At a laundromat
+APP: Hi, have you used this laundromat before?
+YOU: No this is my first time. How do the machines work?
+APP: You put your clothes in, add detergent from the dispenser, and then pay with coins or a card.
+YOU: OK. How long does a regular wash cycle take?
+APP: A standard wash takes about thirty-five minutes and a dry cycle takes forty-five minutes.
+APP: The detergent dispenser is next to the machines. One portion costs fifty cents.
+YOU: Thank you. And are there any machines available right now?
+APP: Yes machine number four is free. It is at the end of the row on the left.
+YOU: Great. I will use that one.
+
+# CONV: DAILY_LIFE | At a hardware store
+APP: Hello, can I help you find something?
+YOU: Yes I am looking for a power drill. I need it for some home repairs.
+APP: Are you looking for a cordless or a corded drill?
+YOU: Cordless is better. I will use it in different rooms.
+APP: We have drills at different price points. This one is seventy-five dollars and is good for home use.
+YOU: Does it come with drill bits?
+APP: Yes it comes with a set of ten bits. There is also a carrying case.
+YOU: Perfect. I will take that one. Is there a warranty?
+APP: Yes it has a two-year warranty against manufacturing defects.
+
+# CONV: DAILY_LIFE | At a car rental
+APP: Good morning, welcome to QuickRent. Do you have a reservation?
+YOU: Yes I made a reservation online. The name is Javier Enriquez.
+APP: Let me pull that up. You reserved a compact car for three days. Is that correct?
+YOU: Yes that is right. Does it include unlimited kilometers?
+APP: The first three hundred kilometers are included. After that it is ten cents per kilometer.
+YOU: OK. And does the car have automatic transmission?
+APP: Yes all our cars have automatic transmission. I also need to see your driver's license and credit card.
+YOU: Here you go. And do I return it to this same location?
+APP: Yes please return it here by noon on Friday with a full tank of fuel.
+
+# CONV: DAILY_LIFE | At a movie theater
+APP: Hello, welcome. What can I get you?
+YOU: Hi, I would like one ticket for the seven thirty showing of Space Mission please.
+APP: That showing is in our large screen room. Would you like standard or premium seating?
+YOU: What is the difference?
+APP: Premium seats are larger and have more leg room. They cost three dollars more.
+YOU: I will take a standard seat please. A seat near the middle of the theater would be great.
+APP: I have a good seat in row G, number twelve. The ticket is fourteen dollars.
+YOU: Great. Can I also get a medium popcorn?
+APP: Of course. The popcorn counter is right over there. Enjoy the film.
+
+# CONV: DAILY_LIFE | Making a dinner reservation
+APP: Good evening, La Bella restaurant. How can I help you?
+YOU: Hi, I would like to make a reservation for dinner for two people on Saturday.
+APP: What time would you like?
+YOU: Seven thirty in the evening if possible.
+APP: We have availability at seven thirty. Can I have a name for the reservation?
+YOU: Yes, under Javier Enriquez please.
+APP: Is there anything special for the occasion? An anniversary or birthday perhaps?
+YOU: Yes it is my partner's birthday. Can you arrange a small cake?
+APP: We would be happy to do that. We will have a birthday cake ready for you.
+
+# CONV: DAILY_LIFE | At a language school
+APP: Hello, welcome to English First School. Are you interested in our courses?
+YOU: Yes I am. I want to improve my English for work. My level is around A2.
+APP: We have a great course for your level. It is three times a week for two months.
+YOU: What time are the classes?
+APP: We offer morning classes at nine and evening classes at seven. Which works better for you?
+YOU: Evening classes would work better because I work during the day.
+APP: Perfect. The next group starts on the fifteenth. The cost is three hundred dollars for the course.
+YOU: Does the price include the course books?
+APP: Yes all materials are included in the price. Would you like to register today?
+
+# CONV: DAILY_LIFE | At a bank making a transfer
+APP: Hello, how can I help you today?
+YOU: Hi, I want to send money to a family member in another city. How do I do that?
+APP: You can do a wire transfer. Do you have their bank account number?
+YOU: Yes I have the account number and the bank name here.
+APP: Perfect. Please fill out this transfer form with the details.
+YOU: Done. How long will the transfer take?
+APP: Transfers to the same bank are instant. To other banks it takes one business day.
+YOU: And is there a fee for this transaction?
+APP: There is a small fee of two dollars for the transfer. Is that OK?

@@ -1,0 +1,249 @@
+# CONV: SMALL_TALK | Talking about music
+APP: Hey, what kind of music do you like to listen to?
+YOU: I really like electronic music and lo-fi. I listen to it while I code.
+APP: That is cool. Do you have a favorite artist?
+YOU: I like Bonobo a lot. His music helps me focus. What about you?
+APP: I am a big fan of jazz. It is very relaxing after a long day.
+YOU: I have never listened to much jazz. Can you recommend a good album to start with?
+APP: Try Kind of Blue by Miles Davis. It is one of the best jazz albums ever made.
+YOU: Great, I will listen to it this weekend.
+
+# CONV: SMALL_TALK | Talking about sports
+APP: Did you watch the football match last night?
+YOU: Yes I watched it. It was a great game. The last goal was incredible.
+APP: I know! Do you play any sports yourself?
+YOU: I used to play football with friends on weekends but now I mostly just watch.
+APP: I have been going to the gym lately. I really enjoy it.
+YOU: I want to start exercising more. Do you have any advice for a beginner?
+APP: Start small. Three days a week is enough at the beginning. Consistency is more important than intensity.
+YOU: That is good advice. Maybe I will try that next month.
+
+# CONV: SMALL_TALK | Talking about food and cooking
+APP: Do you enjoy cooking at home or do you prefer eating out?
+YOU: I like cooking at home. It is cheaper and I can control what I eat.
+APP: What is your favorite dish to cook?
+YOU: I make a good Peruvian ceviche. It is not difficult and it tastes amazing.
+APP: Oh I love ceviche. What is the key ingredient?
+YOU: Fresh fish and lime juice are the most important. The lime actually cooks the fish.
+APP: Interesting. I had no idea lime juice could do that. I would love to try your recipe someday.
+YOU: Of course. I will make it for you next time you visit.
+
+# CONV: SMALL_TALK | Asking about hobbies
+APP: What do you like to do in your free time outside of work?
+YOU: I like reading, playing video games, and watching YouTube about technology.
+APP: What kind of books do you read?
+YOU: Mostly non-fiction. I like books about productivity and technology.
+APP: Have you read any good ones recently?
+YOU: Yes I just finished Deep Work by Cal Newport. It really changed how I organize my day.
+APP: I have heard of that book. Is it worth reading?
+YOU: Definitely. It teaches you how to focus and do your best work. I highly recommend it.
+
+# CONV: SMALL_TALK | Discussing a TV show
+APP: Have you been watching anything good on Netflix lately?
+YOU: Yes I am watching a series called Dark. It is a German show with English subtitles.
+APP: Oh I have heard of that. Is it good?
+YOU: It is excellent but very complex. It is about time travel and has many characters.
+APP: I like complex stories. What genre is it?
+YOU: It is science fiction and mystery. Very dark atmosphere. I watch one episode per night.
+APP: That sounds interesting. I will add it to my list. What season are you on?
+YOU: I just started season two. It is even more mind-bending than the first season.
+
+# CONV: SMALL_TALK | Talking about fitness
+APP: You look like you have been working out. Are you going to the gym?
+YOU: Yes I started three months ago. I go four times a week before work.
+APP: That is impressive. What is your routine like?
+YOU: I do cardio on Mondays and Fridays, and weight training on Tuesdays and Thursdays.
+APP: Have you noticed results?
+YOU: Yes I feel much more energetic during the day. My focus at work is also better.
+APP: That motivates me to start. Do you go in the morning or evening?
+YOU: Early morning, around six thirty. It is less crowded and I feel great for the rest of the day.
+
+# CONV: SMALL_TALK | Asking about someone's hometown
+APP: Where are you from originally?
+YOU: I am from Lima, Peru. Have you ever been to South America?
+APP: No I have not. What is Lima like?
+YOU: It is a very big and busy city. The food is amazing and the people are very warm.
+APP: What is the best thing about Lima?
+YOU: Definitely the food. Peruvian cuisine is considered one of the best in the world.
+APP: What dishes should I try if I visit?
+YOU: You must try ceviche, lomo saltado, and aji de gallina. Each one is unique and delicious.
+
+# CONV: SMALL_TALK | Talking about learning English
+APP: Your English is very good. How long have you been learning?
+YOU: Thank you. I have been studying seriously for about two years now.
+APP: What methods do you use to practice?
+YOU: I watch YouTube in English, listen to podcasts, and use apps to practice speaking every day.
+APP: Do you find it difficult to speak compared to reading or writing?
+YOU: Yes speaking is the hardest part. I can read and write well but I get nervous when I speak.
+APP: That is normal. The more you practice speaking, the more confident you will become.
+YOU: I know. That is why I am practicing as much as possible. Consistency is the key.
+
+# CONV: SMALL_TALK | Discussing technology trends
+APP: What technology trend do you find most exciting right now?
+YOU: I think AI is the most interesting. It is changing how we write code and build apps.
+APP: Are you worried that AI will replace developers?
+YOU: Not really. I think AI will change our job but not replace it. We will work with AI as a tool.
+APP: How do you use AI in your daily work?
+YOU: I use it to generate code snippets, write documentation, and debug problems faster.
+APP: That sounds very useful. Do you think it makes you more productive?
+YOU: Definitely. It handles the repetitive parts so I can focus on more creative problems.
+
+# CONV: SMALL_TALK | Sharing a funny story
+APP: You seem happy today. Did something good happen?
+YOU: Yes, something funny happened this morning. I will tell you about it.
+APP: Please do. I could use a laugh.
+YOU: I was in a video call with my team and my cat jumped on my keyboard and sent a random message to everyone.
+APP: What did the message say?
+YOU: It was just random letters like "asdfghkl" followed by three hundred exclamation marks.
+APP: That is hilarious. How did your team react?
+YOU: They all thought it was very funny. My manager wrote back and said "Great point Javier."
+
+# CONV: SMALL_TALK | Talking about pets
+APP: Do you have any pets?
+YOU: Yes I have a cat named Pixel. He is three years old and very playful.
+APP: That is a great name for a developer's cat. Why did you choose that name?
+YOU: Because he likes to sit in front of my monitor and I always see his face in pixels on the screen.
+APP: That is clever and cute. Do you find having a pet helpful for your mental health?
+YOU: Definitely. When I am stressed from work, just petting him makes me feel much calmer.
+APP: I am thinking about getting a dog. Do you think it is difficult to take care of a pet?
+YOU: It takes time and commitment but the company and love you get back is worth it.
+
+# CONV: SMALL_TALK | Discussing public holidays
+APP: There is a long weekend coming up. Are you doing anything special?
+YOU: Yes I am going to visit my family in another city. I have not seen them in two months.
+APP: That sounds nice. How far away do they live?
+YOU: About three hours by bus. I always look forward to my mom's home cooking.
+APP: What is your favorite dish that she makes?
+YOU: She makes an amazing chicken soup. Nothing tastes better than that on a cold day.
+APP: Family meals are so special. I feel the same way about my grandmother's cooking.
+YOU: Yes food really connects you to your roots. I feel more relaxed every time I visit.
+
+# CONV: SMALL_TALK | Talking about seasonal activities
+APP: It is getting colder. Do you like winter or do you prefer summer?
+YOU: I prefer summer. I love going to the beach and spending time outdoors.
+APP: What do you usually do in summer?
+YOU: I try to go to the coast for a week. I love surfing and eating fresh seafood by the water.
+APP: That sounds like a dream. Have you learned to surf?
+YOU: I know the basics. I can stand on the board and ride small waves. Big waves still scare me.
+APP: What about winter? How do you spend it?
+YOU: In winter I stay home more. I read a lot, play video games, and work on personal projects.
+
+# CONV: SMALL_TALK | Asking for restaurant recommendations
+APP: I am new to this neighborhood. Can you recommend a good restaurant nearby?
+YOU: Yes there is a great Japanese place two blocks from here. The food is excellent and the price is reasonable.
+APP: I love Japanese food. What do you recommend ordering there?
+YOU: The ramen is their specialty. They have a spicy miso ramen that is incredible.
+APP: Is it a good place for a dinner date?
+YOU: Yes the atmosphere is very cozy and the service is great. I go there often.
+APP: Do I need a reservation or can I just walk in?
+YOU: On weekdays you can walk in. On weekends I recommend making a reservation, especially for evenings.
+
+# CONV: SMALL_TALK | Talking about social media
+APP: Do you spend a lot of time on social media?
+YOU: I try to limit it. I use it mostly for professional networking on LinkedIn.
+APP: Do you avoid other platforms like Instagram or Twitter?
+YOU: I use Instagram sometimes but I deleted it from my phone so I only check it on the weekend.
+APP: That is a good habit. How did you start limiting your social media use?
+YOU: I realized it was taking two hours a day without giving me much in return. So I set a thirty-minute limit.
+APP: Did it affect you when you first reduced the time?
+YOU: A little bit at first. But after a week I felt more focused and had more time for things I enjoyed.
+
+# CONV: SMALL_TALK | Talking about morning routines
+APP: Are you a morning person or do you prefer to work at night?
+YOU: I am definitely a morning person. I am most productive in the first three hours after I wake up.
+APP: What time do you usually wake up?
+YOU: I wake up at six every day, even on weekends. I find it hard to change the routine.
+APP: What do you do in the morning before work?
+YOU: I exercise for thirty minutes, eat breakfast, and read for about twenty minutes before opening my computer.
+APP: That sounds very disciplined. Do you drink coffee in the morning?
+YOU: Yes one cup of coffee. I try not to have more than two cups per day to avoid the afternoon crash.
+
+# CONV: SMALL_TALK | Talking about goals for the year
+APP: We are already halfway through the year. Are you achieving your goals?
+YOU: Mostly yes. I wanted to get better at English and I feel I have improved a lot.
+APP: What other goals did you set at the beginning of the year?
+YOU: I also wanted to get my first freelance client on Upwork. That is still in progress.
+APP: How is the job search going?
+YOU: I have applied to several positions. I got one interview but I did not get the job.
+APP: Do not be discouraged. Each interview is good practice. What did you learn from it?
+YOU: I need to practice speaking English under pressure. I got nervous and forgot some vocabulary.
+
+# CONV: SMALL_TALK | Comparing life in different cities
+APP: Have you ever lived in a different city or country?
+YOU: No I have always lived in Lima. But I dream of living abroad for a year to improve my English.
+APP: Which country would you choose if you could go anywhere?
+YOU: I would love to live in Canada or Germany. Both have a good quality of life and tech jobs.
+APP: What would be the biggest challenge of living in a new country?
+YOU: Definitely the language and the culture. Things work differently in every country.
+APP: What do you think you would miss most about Peru?
+YOU: The food and my family. Those are the two things that always keep me connected to home.
+
+# CONV: SMALL_TALK | Coffee versus tea
+APP: Do you prefer coffee or tea?
+YOU: I am definitely a coffee person. I need at least one cup to start the day.
+APP: I switched from coffee to tea recently. It gives me energy without making me anxious.
+YOU: Really? What kind of tea do you drink?
+APP: Mostly green tea in the morning and chamomile at night to help me sleep.
+YOU: I tried green tea once but I did not like the taste. Maybe I need to try different types.
+APP: There are many varieties. Matcha is quite popular and has a stronger flavor.
+YOU: I will try matcha next time I am at a coffee shop. Thanks for the suggestion.
+
+# CONV: SMALL_TALK | Discussing a local event
+APP: Did you go to the technology fair in the city last weekend?
+YOU: Yes I went on Saturday. It was very interesting. I saw many new gadgets.
+APP: What was the most impressive thing you saw?
+YOU: There was a demo of an AI that could generate realistic images from text descriptions. It was amazing.
+APP: That does sound impressive. Was it crowded?
+YOU: Very crowded in the afternoon. I recommend going in the morning if they do it again next year.
+APP: Did you meet anyone interesting there?
+YOU: Yes I talked to a startup founder who is building a language learning app. We exchanged contacts.
+
+# CONV: SMALL_TALK | Talking about favorite apps
+APP: What apps do you use every day besides work tools?
+YOU: I use Duolingo for English practice, Notion for notes, and Spotify for music.
+APP: I have heard Notion is very powerful. How do you use it?
+YOU: I use it to organize my goals, track my learning progress, and store project ideas.
+APP: Do you think Duolingo is effective for learning a language?
+YOU: It is good for building a daily habit but it is not enough by itself. You also need to speak and listen.
+APP: That makes sense. What app do you wish existed that does not exist yet?
+YOU: An app that gives me real-time feedback when I speak English so I can correct my accent.
+
+# CONV: SMALL_TALK | Sharing opinions on remote work
+APP: Do you prefer working from home or going to an office?
+YOU: I prefer working from home most of the time. I am more productive and save commute time.
+APP: Do you not miss the social interaction with colleagues?
+YOU: Yes sometimes I miss seeing people in person. That is the main downside of remote work.
+APP: How do you stay connected with your team when working remotely?
+YOU: We have daily standups on video call and we use Slack for everything else. It works well.
+APP: Would you ever consider going back to an office full time?
+YOU: Maybe one or two days a week for collaboration. But I would not want to go back full time.
+
+# CONV: SMALL_TALK | Talking about a recent trip
+APP: You mentioned you traveled recently. Where did you go?
+YOU: I went to Cusco for five days. It is one of the most beautiful places in Peru.
+APP: Did you visit Machu Picchu?
+YOU: Yes that was the highlight. I woke up at four in the morning to see the sunrise there.
+APP: Was it as impressive as the photos?
+YOU: Even more impressive. The photos cannot capture the scale and the feeling of being there.
+APP: How was the altitude? I heard it can make you feel sick.
+YOU: The first day was difficult. I had a headache and felt tired. But by the second day I was fine.
+
+# CONV: SMALL_TALK | Talking about personal projects
+APP: Do you work on any personal projects outside of your regular job?
+YOU: Yes I am building a small Android app to help people practice English speaking.
+APP: That sounds very useful. What stage is it at?
+YOU: It is almost ready. I am adding more content and fixing some bugs before I publish it.
+APP: Will you put it on the Play Store?
+YOU: Yes that is the plan. I want to launch it next month if everything goes well.
+APP: That is very cool. It must feel great to build something that helps people.
+YOU: It does. It is also great practice for my portfolio when I apply for freelance work.
+
+# CONV: SMALL_TALK | Discussing work-life balance
+APP: Do you think it is easy to have a good balance between work and personal life?
+YOU: It can be difficult, especially when you work from home. The boundaries get blurry.
+APP: How do you separate work time from personal time?
+YOU: I have a fixed end time. At six I close my laptop and do not check work messages until the next day.
+APP: That is very disciplined. Do you sometimes work on weekends?
+YOU: Only if there is an urgent deadline. But I try to protect my weekends as much as possible.
+APP: What do you do when you feel burned out?
+YOU: I take a short break, go for a walk, or do something creative that has nothing to do with technology.
